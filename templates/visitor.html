@@ -1,0 +1,2643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complimentary Invites - GULFOOD 2026</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/css/select2-bootstrap-5-theme.min.css" rel="stylesheet">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    
+    <!-- Custom CSS -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        :root {
+            --primary-color: #490e5e;
+            --secondary-color: #2c3e50;
+            --sidebar-bg: #1c0627;
+            --success-color: #198754;
+            --info-color: #0dcaf0;
+            --warning-color: #ffc107;
+            --box-shadow: 1px 15px 18px rgb(0 0 0 / 6%);
+        }
+
+        body {
+             font-family: "Poppins", sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        body.modal-open .top-header {
+            padding-right: 8px;
+        }
+
+        /* Fix modal body scroll/shift issue */
+
+
+        /* Header */
+        .top-header {
+            background: linear-gradient(45deg, #3f0e60, #891487);
+            padding: 15px 0;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .top-header .search-wrapper {
+            position: relative;
+        }
+
+        .top-header .search-input {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding-left: 35px;
+            height: 32px;
+        }
+
+        .top-header .search-input::placeholder {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .top-header .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Layout */
+        .app-wrapper {
+            display: flex;
+            margin-top: 60px;
+            min-height: calc(100vh - 48px);
+        }
+
+        /* Sidebar - FIXED */
+        .sidebar {
+            width: 220px;
+            background: var(--sidebar-bg);
+            transition: all 0.3s;
+            position: fixed;
+            left: 0;
+            top: 60px;
+            bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 999;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 10px;
+            z-index: 1040;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 6px 10px;
+            font-size: 14px;
+        }
+
+        .countdown-section {
+            padding: 12px 15px;
+            background: rgba(231, 76, 60, 0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--sidebar-bg);
+        }
+
+        .countdown-title {
+            color: #999;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .countdown-display {
+            display: flex;
+            justify-content: space-around;
+            color: #ff856d;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select:focus{
+            box-shadow: none !important;
+            outline: none;
+        }
+
+        .countdown-display span {
+            text-align: center;
+        }
+
+        .countdown-display small {
+            display: block;
+            font-size: 8px;
+            color: #999;
+            font-weight: normal;
+            margin-top: 2px;
+        }
+
+        .nav-menu {
+            padding: 10px 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-item.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: white;
+        }
+
+        .nav-item i {
+            width: 18px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        /* Submenu Styles */
+        .nav-parent {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            color: #d0d0d0;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+            font-size: 13px;
+            justify-content: space-between;
+        }
+
+        .nav-parent:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        .nav-parent .nav-parent-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-parent .nav-parent-left i {
+            width: 18px;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .nav-parent .nav-arrow {
+            font-size: 10px;
+            transition: transform 0.3s;
+        }
+
+        .nav-parent.open .nav-arrow {
+            transform: rotate(90deg);
+        }
+
+        .nav-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .nav-submenu.open {
+            max-height: 300px;
+        }
+
+        .nav-submenu .nav-item {
+            padding-left: 44px;
+            font-size: 12px;
+        }
+
+        .nav-submenu .nav-item i {
+            font-size: 12px;
+        }
+
+        .sidebar.collapsed .nav-item span {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-item {
+            justify-content: center;
+            padding: 10px 8px;
+        }
+
+        .sidebar.collapsed .nav-item i {
+            margin-right: 0;
+        }
+
+        .sidebar.collapsed .nav-parent span,
+        .sidebar.collapsed .nav-arrow {
+            display: none;
+        }
+
+        .sidebar.collapsed .nav-parent {
+            justify-content: center;
+            padding: 10px 8px;
+        }
+
+        .sidebar.collapsed .nav-parent .nav-parent-left i {
+            margin-right: 0;
+        }
+
+        .sidebar.collapsed .nav-submenu {
+            display: none;
+        }
+
+        .sidebar.collapsed .countdown-section {
+            display: none;
+        }
+
+        /* Main Content - ADJUSTED */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 220px;
+            /* overflow-x: hidden; */
+            background-color: #ffffff;
+            min-height: calc(100vh - 48px);
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar.collapsed ~ .main-content {
+            margin-left: 60px;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 20px;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+
+        .page-description {
+            color: #ffffff;
+            line-height: 1.5;
+            font-size: 13px;
+            font-weight: 300 !important;
+        }
+
+      
+
+        .active>.page-link, .page-link.active{
+           background: #e74c3c;
+            color: #ffffff;
+            border: none;
+        }
+
+        .page-link{
+            color: #1e1e1e;
+        }
+
+        /* Action Cards */
+        .action-card {
+            /* background: linear-gradient(45deg, #f0f0f0, #ffffff); */
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow:var(--box-shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            /* border: 1px solid #e9ecef; */
+            height: 100%;
+        }
+
+        .action-card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+            border-color: var(--primary-color);
+        }
+
+        .action-card-icon {
+            font-size: 28px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            min-width: 40px;
+        }
+
+        .action-card h5 {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .action-card p {
+            font-size: 13px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .action-card .btn {
+            font-size: 13px;
+            padding: 6px 16px;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .stat-icon.primary {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-icon.success {
+            background: rgba(25, 135, 84, 0.1);
+            color: var(--success-color);
+        }
+
+        .stat-icon.info {
+            background: rgba(13, 202, 240, 0.1);
+            color: var(--info-color);
+        }
+
+        .stat-icon.warning {
+            background: rgba(255, 193, 7, 0.1);
+            color: var(--warning-color);
+        }
+
+        .stat-content {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .filter-section .form-label {
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+
+        .filter-section .form-control,
+        .filter-section .form-select {
+            font-size: 13px;
+            padding: 6px 10px;
+            height: 34px;
+        }
+
+        .form-control:focus{
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .select:focus{
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .filter-section .btn {
+            font-size: 13px;
+            padding: 6px 14px;
+            height: 34px;
+        }
+
+        /* Enhanced Table */
+        .table-wrapper {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .table-actions {
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table-actions h5 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .action-btn-group .btn {
+            margin-left: 5px;
+            padding: 4px 8px;
+            font-size: 12px;
+        }
+
+        /* Bulk Actions Bar */
+        .bulk-actions-bar {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .bulk-actions-bar.show {
+            display: flex;
+        }
+
+        .bulk-actions-info {
+            font-size: 14px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .bulk-actions-info span {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .bulk-actions-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .bulk-actions-buttons .btn {
+            font-size: 13px;
+            padding: 5px 12px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Compact Table */
+        .table {
+            font-size: 13px;
+        }
+
+        .table thead th {
+            font-size: 12px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .table tbody td {
+            padding: 8px;
+            vertical-align: middle;
+        }
+
+        /* Checkbox Styling */
+        .table-checkbox {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .table tbody tr.selected {
+            background-color: #e7f3ff !important;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr.selected:hover {
+            background-color: #d1e7fd !important;
+        }
+
+        /* Custom Select2 Styling */
+        .select2-container--bootstrap-5 .select2-selection {
+            border-color: #dee2e6;
+        }
+
+        /* Form controls in table */
+        .table .form-control,
+        .table .form-select {
+            border: 1px solid #dee2e6 !important;
+            border-radius: 4px;
+            background-color: white;
+        }
+
+        .table .form-control:focus,
+        .table .form-select:focus {
+            border-color: #86b7fe !important;
+            outline: 0;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Specific styling for ticket type and status dropdowns */
+        .ticket-type-select {
+            border: 1px solid #ced4da !important;
+            min-height: 30px;
+        }
+
+        /* Ensure filter dropdowns also have borders */
+        #filterStatus,
+        #filterType {
+            border: 1px solid #dee2e6 !important;
+        }
+
+        /* Select2 dropdown styling fix */
+        .select2-container--bootstrap-5 .select2-selection--single {
+            border: 1px solid #dee2e6 !important;
+            min-height: 34px;
+            height: 34px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+            line-height: 32px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .select2-container--bootstrap-5 .select2-selection--single .select2-selection__arrow {
+            height: 32px;
+        }
+
+        .select2-container--bootstrap-5.select2-container--focus .select2-selection--single {
+            border-color: #86b7fe !important;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+        }
+
+        /* Status Badges */
+        .badge-status {
+            padding: 3px 8px;
+            font-weight: 500;
+            font-size: 11px;
+        }
+
+        /* Action Buttons in Table */
+        .btn-action {
+            padding: 2px 6px;
+            font-size: 11px;
+            margin: 0 1px;
+        }
+
+        /* DataTable Customization */
+        .dataTables_wrapper {
+            font-size: 13px;
+        }
+
+        .dataTables_wrapper .dataTables_length {
+            margin-bottom: 15px;
+        }
+
+        .dataTables_length label {
+            font-size: 13px;
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dataTables_length select {
+            font-size: 13px;
+            padding: 4px 8px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background-color: white;
+            min-width: 60px;
+            height: 32px;
+            display: inline-block;
+            width: auto !important;
+        }
+
+        .dataTables_filter {
+            margin-bottom: 15px;
+            float: right;
+        }
+
+        .dataTables_filter label {
+            font-size: 13px;
+            font-weight: normal;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dataTables_filter input {
+            font-size: 13px;
+            padding: 4px 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            width: 220px !important;
+            height: 32px;
+            display: inline-block;
+        }
+
+        .dataTables_filter input:focus {
+            outline: none;
+            border-color: #0078d4;
+            box-shadow: 0 0 0 1px #0078d4;
+        }
+
+        .dataTables_info {
+            font-size: 13px;
+            color: #6c757d;
+            padding-top: 12px;
+        }
+
+        /* Modern Pagination Styles */
+        .dataTables_paginate {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 4px;
+        }
+
+        .dataTables_paginate .paginate_button {
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 14px;
+            margin: 0;
+            border: none;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #495057;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dataTables_paginate .paginate_button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.1) 0%, rgba(231, 76, 60, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .dataTables_paginate .paginate_button:hover {
+            background: #e9ecef;
+            color: #333;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dataTables_paginate .paginate_button:hover::before {
+            opacity: 1;
+        }
+
+        .dataTables_paginate .paginate_button.current {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+            font-weight: 600;
+        }
+
+        .dataTables_paginate .paginate_button.current:hover {
+            background: linear-gradient(135deg, #c0392b 0%, #a93226 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(231, 76, 60, 0.4);
+        }
+
+        .dataTables_paginate .paginate_button.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #f1f3f4;
+            color: #adb5bd;
+        }
+
+        .dataTables_paginate .paginate_button.disabled:hover {
+            background: #f1f3f4;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .dataTables_paginate .paginate_button.previous,
+        .dataTables_paginate .paginate_button.next {
+            padding: 8px 16px;
+            font-weight: 500;
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+
+        .dataTables_paginate .paginate_button.previous:hover:not(.disabled),
+        .dataTables_paginate .paginate_button.next:hover:not(.disabled) {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+        }
+
+        .dataTables_paginate .paginate_button.first,
+        .dataTables_paginate .paginate_button.last {
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #dee2e6;
+        }
+
+        .dataTables_paginate .paginate_button.first:hover:not(.disabled),
+        .dataTables_paginate .paginate_button.last:hover:not(.disabled) {
+            background: #e74c3c;
+            border-color: #e74c3c;
+            color: white;
+        }
+
+        .dataTables_paginate .ellipsis {
+            padding: 8px 10px;
+            color: #6c757d;
+        }
+
+        /* Pagination wrapper bottom bar */
+        .dataTables_wrapper .row:last-child {
+            padding-top: 15px;
+            border-top: 1px solid #e9ecef;
+            margin-top: 10px;
+        }
+
+        /* Fix for Select2 in DataTables area */
+        .dataTables_wrapper .select2-container {
+            font-size: 13px;
+        }
+
+        /* Animations */
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading Spinner */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading-overlay.show {
+            display: flex;
+        }
+
+        .modal-body{
+            overflow-y: scroll;
+            max-height: 70vh;
+        }
+
+        
+
+        /* .modal-open {
+            padding-right: 15px !important;
+        }
+
+        body.modal-open {
+            padding-right: 15px !important;
+        } */
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                left: -220px;
+            }
+
+            .sidebar.show {
+                left: 0;
+            }
+
+            .sidebar-toggle {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar.collapsed ~ .main-content {
+                margin-left: 0;
+            }
+
+            .stat-card {
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .countdown-display {
+                font-size: 14px;
+            }
+
+            .stat-value {
+                font-size: 20px;
+            }
+
+            .page-title {
+                font-size: 20px;
+            }
+
+            .action-card {
+                padding: 12px;
+            }
+
+            .action-card-icon {
+                font-size: 24px;
+            }
+
+            .filter-section .row {
+                margin-bottom: 8px;
+            }
+
+            .table-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .bulk-actions-bar {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .bulk-actions-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Sidebar Scrollbar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .form-select option{
+            color: #000;
+        }
+        .select2-search--dropdown .select2-search__field:focus-visible{
+            outline: none !important;
+            border: 1px solid #1e1e1e;
+            box-shadow: none !important;
+        }
+
+        .btn_violet{
+            background: blueviolet;
+            border: none;
+        }
+
+        .form-control{
+            border: 1px solid #ddd;
+            padding: 10px 12px;
+        }
+
+        .note_div{
+            background: #fff0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            width: fit-content;
+            font-size: 12px;
+        }
+
+        .dash_boxes{
+            /* background: #faf3ff; */
+            background-image: url(img/banner.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* background-color: #00000092;
+            background-blend-mode: overlay; */
+
+            border-radius: 10px;
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            border: 1px solid #f583ff;
+        }
+
+        .page-description strong{
+            color: #ffffff !important;
+        }
+
+        .btn-primary{
+            background: #76127d !important;
+            border: none;
+        }
+
+          .btn-primary.copy-link{
+            background: #e9ddff !important;
+            border: none;
+            color: #310089 !important;
+        }
+
+        .modal-header{
+            background: linear-gradient(45deg, #3f0e60, #891487);    
+        }
+
+        .modal-title{
+            color: #fff;
+            display: flex;
+        }
+
+        .modal-title i{
+            background: #ffffff;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            color: #d60c4d !important;
+            padding: 5px;
+        }
+
+        .btn-close{
+            filter: invert(1);
+            opacity: 1;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 5px;   /* scrollbar width */
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #999; 
+            border-radius: 10px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        .custom_select2 .select2-container--bootstrap-5 .select2-selection--single{
+
+        }
+
+
+
+        .ticket-type-dropdown .select2-container--bootstrap-5 .select2-selection--single {
+            height: 50px;
+            border-radius: 6px;
+        }
+        .ticket-type-dropdown .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered {
+            line-height: 50px;
+        }
+        .ticket-type-dropdown .select2-container--bootstrap-5.select2-container--focus .select2-selection--single{
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="container-fluid px-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" class="form-control search-input form-control-sm" placeholder="Search...">
+                        </div>
+                        <select class="form-select form-select-sm" style="width: 200px; background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: white; height: 32px;">
+                            <option>GITEX Universe Stand</option>
+                            <option>Tech Summit 2025</option>
+                            <option>Innovation Expo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6 text-end d-flex align-items-center justify-content-end">
+                    <span class="me-3">Welcome, {{ request.user.username }}</span>
+                    <button
+                        class="btn btn-sm btn-outline-light"
+                        style="height: 32px;"
+                        onclick="logout()"
+                    >
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function logout() {
+
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+
+    window.location.href = "/exhibitor-login-page/";
+}
+</script>
+
+
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="countdown-section">
+                <div class="countdown-title">Time Remaining</div>
+                <div class="countdown-display" id="countdown">
+                    <span>16<small>Days</small></span>
+                    <span>17<small>Hours</small></span>
+                    <span>45<small>Mins</small></span>
+                    <span>19<small>Secs</small></span>
+                </div>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#" class="nav-item">
+                    <i class="fas fa-home"></i>
+                    <span>HOME</span>
+                </a>
+                <div class="nav-parent" id="badgesMenu">
+                    <div class="nav-parent-left">
+                        <i class="fas fa-id-badge"></i>
+                        <span>BADGES</span>
+                    </div>
+                    <i class="fas fa-chevron-right nav-arrow"></i>
+                </div>
+                <div class="nav-submenu" id="badgesSubmenu">
+                    <a href="{% url 'exhibitor-dashboard' %}" class="nav-item"  onclick="window.location.href='/exhibitor/'">
+                        <i class="fas fa-user-tie"></i>
+                        <span>EXHIBITOR BADGE</span>
+                    </a>
+     
+                    <a href="{% url 'visitor' %}" class="nav-item active"  onclick="window.location.href='/visitor/'">
+                        <i class="fas fa-user-plus"></i>
+                        <span>VISITOR</span>
+                    </a>
+                </div>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-trophy"></i>
+                    <span>VIP NOMINATION</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>MANUALS & GUIDES</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <div class="page-header animate-fade-in">
+                
+                <div class="dash_boxes">
+                    <h1 class="page-title" style="font-size: 20px; font-weight: 600; text-transform: uppercase; margin-bottom: 0;">COMPLIMENTARY INVITES</h1>
+                    <h2 style="font-size: 20px; font-weight: 400; color: #ffffff; margin-bottom: 10px;">TO YOUR NETWORK WITH COMPLIMENTARY ACCESS TO GULFOOD 2026</h2>
+                <p class="page-description" style="margin-bottom: 5px;">
+                    As an exhibitor at Gulfood 2026, you can now easily invite your clients, partners, and wider network to attend the event <strong>free of charge</strong>.<br>
+                    Simply send personalised invitations by entering your guest's name and email or generate a unique invitation link to share broadly across your channels.<br>
+                    Once your guests register through your invitation, they'll automatically receive their visitor badge granting complimentary access to both event venues — Dubai World Trade Centre and Dubai Exhibition Centre (Expo City), with a single ticket.
+                </p>
+                </div>
+                <p class="note_div" style="color: #dc3545; font-weight: 600; margin-top: 15px; margin-bottom: 20px;">
+                    <span>NOTE: All invitation links must be used before 30 December 2025, any unused links will no longer be valid after this date</span>
+                </p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row mb-4 animate-fade-in">
+                <div class="col-lg-3 col-md-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="allocatedInvitations" >0</div>
+                            <div class="stat-label">Allocated Invitations</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: rgb(239 255 188); color: #5c7218;">
+                            <i class="fas fa-share"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="generatedInvitations">0</div>
+                            <div class="stat-label">Generated Invitations</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value"  id="remainingInvitations" >0</div>
+                            <div class="stat-label">Remaining Invitations</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-2">
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value" id="registeredVisitors">0</div>
+                            <div class="stat-label">Registered Visitors</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<script>
+
+    async function loadVisitorStatistics() {
+
+    try {
+
+        const response = await axios.get(
+            "http://127.0.0.1:8000/dashboard/"
+        );
+
+        const data = response.data;
+
+        $("#allocatedInvitations").text(data.allocated_badges);
+
+        $("#generatedInvitations").text(data.total_invited_count);
+
+        $("#remainingInvitations").text(data.available_badge_balance);
+
+        $("#registeredVisitors").text(data.confirmed_count);
+
+    } catch (error) {
+
+        console.error("Visitor Statistics:", error);
+
+    }
+
+}
+</script>
+
+            <!-- Action Cards -->
+            <div class="row mb-3 animate-fade-in">
+                <div class="col-md-4 mb-2">
+                    <div class="action-card" data-bs-toggle="modal" data-bs-target="#personalizedModal" style="height: 100%;">
+                        <div class="d-flex align-items-start">
+                            <div class="action-card-icon me-3" style="color: #dc3545;">
+                                <i class="fas fa-envelope-open-text" style="font-size: 32px;"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 style="font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">SEND PERSONALISED INVITES TO YOUR NETWORK</h5>
+                                <p class="text-muted mb-3" style="font-size: 13px; line-height: 1.5;">Send a personalised invite by entering your guest's name and email. They'll receive a link to register for free and get instant access to Gulfood 2026.</p>
+                                <button class="btn btn-sm btn-primary btn_violet">
+                                    <i class="fas fa-paper-plane me-1"></i>Send
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <div class="action-card" data-bs-toggle="modal" data-bs-target="#bulkPersonalizedModal" style="height: 100%;">
+                        <div class="d-flex align-items-start">
+                            <div class="action-card-icon me-3" style="color: #dc3545;">
+                                <i class="fas fa-users" style="font-size: 32px;"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 style="font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">SEND BULK PERSONALISED INVITES</h5>
+                                <p class="text-muted mb-3" style="font-size: 13px; line-height: 1.5;">Upload a CSV file to invite multiple guests at once. Simply download the template, fill in each guest's first name, last name, and email, then upload it back here, and we'll take care of the rest!</p>
+                                <button class="btn btn-sm btn-success">
+                                    <i class="fas fa-file-upload me-1"></i>Upload
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-2">
+                    <div class="action-card" data-bs-toggle="modal" data-bs-target="#generateLinkModal" style="height: 100%;">
+                        <div class="d-flex align-items-start">
+                            <div class="action-card-icon me-3" style="color: #ffc107;">
+                                <i class="fas fa-link" style="font-size: 32px;"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 style="font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 10px;">CREATE GENERIC INVITES FOR YOUR NETWORK</h5>
+                                <p class="text-muted mb-3" style="font-size: 13px; line-height: 1.5;">Create a single generic invite to share with multiple guests. Anyone who receives the invite can register instantly and attend Gulfood 2026 for free, without requiring you to provide their email addresses.</p>
+                                <button class="btn btn-sm btn-primary">
+                                    <i class="fas fa-cogs me-1"></i>Generate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section animate-fade-in">
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <label class="form-label small text-muted">Keyword</label>
+                        <input type="text" class="form-control form-control-sm" placeholder="Search..." id="searchKeyword">
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">Status</label>
+                        <select class="form-select form-select-sm select2" id="filterStatus" style="border: 1px solid #dee2e6;">
+                            <option value="">All</option>
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                            <option value="deactivated">Deactivated</option>
+                            <option value="expired">Expired</option>
+                            <option value="consumed">Consumed</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">Type</label>
+                        <select class="form-select form-select-sm select2" id="filterType" style="border: 1px solid #dee2e6;">
+                            <option value="">All</option>
+                            <option value="generic">Generic Link</option>
+                            <option value="personalized">Personalized Invitation</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label small text-muted">Expiry</label>
+                        <input type="date" class="form-control form-control-sm" id="filterDate">
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end gap-1">
+                        <button class="btn btn-sm btn-primary" id="searchBtn">
+                            <i class="fas fa-search"></i> Search
+                        </button>
+                        <button class="btn btn-sm btn-secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i>
+                        </button>
+                        <button class="btn btn-sm btn-success ms-auto" id="exportBtn">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-wrapper animate-fade-in">
+                <div class="table-actions">
+                    <h5 class="mb-0">Invitation List</h5>
+                    <div class="action-btn-group">
+                        <button class="btn btn-sm btn-outline-primary" id="refreshTable">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-secondary" id="columnToggle">
+                            <i class="fas fa-columns"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Bulk Actions Bar -->
+                <div class="bulk-actions-bar" id="bulkActionsBar">
+                    <div class="bulk-actions-info">
+                        <i class="fas fa-check-circle text-primary me-2"></i>
+                        <span id="selectedCount">0</span> items selected
+                    </div>
+                    <div class="bulk-actions-buttons">
+                        <button class="btn btn-sm btn-primary" id="bulkSendBtn">
+                            <i class="fas fa-paper-plane me-1"></i>Send Invites
+                        </button>
+                        <button class="btn btn-sm btn-success" id="bulkActivateBtn">
+                            <i class="fas fa-check me-1"></i>Activate
+                        </button>
+                        <button class="btn btn-sm btn-warning" id="bulkDeactivateBtn">
+                            <i class="fas fa-pause me-1"></i>Deactivate
+                        </button>
+                        <button class="btn btn-sm btn-info" id="bulkExportBtn">
+                            <i class="fas fa-download me-1"></i>Export Selected
+                        </button>
+                        <button class="btn btn-sm btn-danger" id="bulkDeleteBtn">
+                            <i class="fas fa-trash me-1"></i>Delete
+                        </button>
+                        <button class="btn btn-sm btn-secondary" id="clearSelectionBtn">
+                            <i class="fas fa-times me-1"></i>Clear
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table table-hover" id="invitationTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 40px;">
+                                    <input type="checkbox" class="table-checkbox" id="selectAll">
+                                </th>
+                                <th>Link Title / Full Name</th>
+                                <th>Email Address</th>
+                                <th>Invite Type</th>
+                                <th>Expiry Date</th>
+                                <th>Link Limit</th>
+                                <th>Registered</th>
+                                <th>Invitation Link</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table rows will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Generate Link Modal -->
+    <div class="modal fade" id="generateLinkModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-bottom">
+                    <h5 class="modal-title" style="font-size: 16px; font-weight: 600;">
+                        <i class="fas fa-link text-primary me-2"></i>CREATE GENERAL INVITES FOR YOUR NETWORK
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" style="padding: 25px;">
+                    <form id="generateLinkForm">
+                        <div class="mb-4">
+                            <label class="form-label" style="font-weight: 500;">Company Name / Invitee Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="linkTitle" required style="border: 2px solid #4a90d9; border-radius: 4px; padding: 10px 12px;">
+                            <small class="text-muted" style="font-size: 12px;">Give your invitation link a descriptive title</small>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" style="font-weight: 500;">How many invites would you like to send to the company/person you're inviting? <span class="text-danger">*</span></label>
+                            <p class="text-muted mb-2" style="font-size: 13px; margin-top: -5px;">Do you want to send one invitation or multiple invitations to this network? Enter the number of invites you need, and we'll generate that many invitation links.</p>
+                            <input type="number" class="form-control" id="linkCount" min="1" max="1000" required style="border: 1px solid #ced4da; border-radius: 4px; padding: 10px 12px;">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label" style="font-weight: 500;">How many times can this invitation link be used? <span class="text-danger">*</span></label>
+                            <p class="text-muted mb-2" style="font-size: 13px; margin-top: -5px;">Do you want this invite link to be used multiple times or just once? If it's multiple times, please specify the number.</p>
+                            <input type="number" class="form-control" id="linkLimit" min="1" max="100" value="1" required style="border: 1px solid #ced4da; border-radius: 4px; padding: 10px 12px;">
+                        </div>
+
+
+
+
+                        <div class="mb-3">
+                            <label class="form-label" style="font-weight: 500;">Ticket Type <span class="text-danger">*</span></label>
+                            <select class="form-select " id="linkTicketType" required style="border: 1px solid #ced4da; border-radius: 4px; padding: 10px 12px;">
+                                <option value="">Select Ticket Type</option>
+                                <option value="visitor">Visitor Pass</option>
+                                <option value="vip">VIP Pass</option>
+                                <option value="gold">Gold Pass</option>
+                                <option value="platinum">Platinum Pass</option>
+                                <option value="exhibitor">Exhibitor Pass</option>
+                            </select>
+                        </div>
+
+
+
+                    </form>
+                </div>
+                <div class="modal-footer border-top" style="padding: 15px 25px;">
+                    <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal" style="text-transform: uppercase; font-weight: 500;">Cancel</button>
+                    <button type="button" class="btn btn-primary px-4" id="submitLinkBtn" style="text-transform: uppercase; font-weight: 500;">
+                        <i class="fas fa-check me-2"></i>Create Invite Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalized Invitation Modal -->
+    <div class="modal fade" id="personalizedModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-envelope text-primary me-2"></i>Send Personalized Invitation
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="personalizedForm">
+                        <div class="mb-3">
+                            <label class="form-label">Guest Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="guestName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Guest Email Address <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="guestEmail" required>
+                        </div>
+                        <div class="mb-3 ticket-type-dropdown">
+                            <label class="form-label">Ticket Type <span class="text-danger">*</span></label>
+                            <select class="form-select select2-modal custom_select2" id="ticketType" required>
+                                <option value="">Select Ticket Type</option>
+                                <option value="visitor">Visitor Pass</option>
+                                <option value="vip">VIP Pass</option>
+                                <option value="gold">Gold Pass</option>
+                                <option value="platinum">Platinum Pass</option>
+                                <option value="exhibitor">Exhibitor Pass</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="companyName">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Personal Message</label>
+                            <textarea class="form-control" id="personalMessage" rows="3"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Expire Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="personalExpireDate" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="sendInviteBtn">
+                        <i class="fas fa-paper-plane me-2"></i>Send Invitation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bulk Personalized Invitation Modal -->
+    <div class="modal fade" id="bulkPersonalizedModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-users text-success me-2"></i>Send Bulk Personalized Invitations
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="bulkPersonalizedForm">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Instructions:</strong> Upload a CSV file with columns: Full Name, Email, Ticket Type, Company Name (optional), Personal Message (optional)
+                            <br><small class="mt-1 d-block">Ticket Type options: visitor, vip, gold, platinum, exhibitor</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Upload CSV File <span class="text-danger">*</span></label>
+                            <input type="file" class="form-control" id="bulkCsvFile" accept=".csv" required>
+                            <small class="text-muted">Maximum file size: 5MB</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Default Personal Message</label>
+                            <textarea class="form-control" id="bulkPersonalMessage" rows="3" placeholder="This message will be added to all invitations..."></textarea>
+                            <small class="text-muted">Optional: Add a message that applies to all recipients</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Expire Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="bulkExpireDate" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-sm btn-outline-primary" id="downloadTemplateBtn">
+                                <i class="fas fa-download me-1"></i>Download CSV Template
+                            </button>
+                        </div>
+
+                        <!-- Preview Section -->
+                        <div id="csvPreviewSection" style="display: none;">
+                            <hr>
+                            <h6 class="mb-3">
+                                <i class="fas fa-eye me-2"></i>CSV Preview
+                                <div class="float-end">
+                                    <button type="button" class="btn btn-sm btn-success me-2" id="addManualRowBtn">
+                                        <i class="fas fa-plus me-1"></i>Add Row
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" id="clearPreviewBtn">
+                                        <i class="fas fa-trash me-1"></i>Clear All
+                                    </button>
+                                </div>
+                            </h6>
+                            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                                <table class="table table-sm table-bordered" id="csvPreviewTable">
+                                    <thead class="table-light sticky-top">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Full Name</th>
+                                            <th>Email</th>
+                                            <th>Ticket Type</th>
+                                            <th>Company</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="csvPreviewBody">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mt-2">
+                                <span class="badge bg-success" id="validRowsCount">0 Valid</span>
+                                <span class="badge bg-danger" id="invalidRowsCount">0 Invalid</span>
+                                <span class="badge bg-info" id="totalRowsCount">0 Total</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" id="sendBulkInviteBtn" disabled>
+                        <i class="fas fa-paper-plane me-2"></i>Send Bulk Invitations
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Send Email Confirmation Modal -->
+    <div class="modal fade" id="sendEmailModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
+                <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); padding: 25px 25px 20px;">
+                    <div class="w-100 text-center">
+                        <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                            <i class="fas fa-envelope" style="font-size: 32px; color: white;"></i>
+                        </div>
+                        <h5 class="modal-title text-white mb-0" style="font-size: 20px; font-weight: 600;">Send Email</h5>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white position-absolute" style="top: 15px; right: 15px;" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center" style="padding: 30px 25px;">
+                    <p style="font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 500;">Are you sure you want to send email?</p>
+                    <p style="font-size: 14px; color: #777; margin-bottom: 0;">An invitation email will be sent to the recipient.</p>
+                    <input type="hidden" id="emailRowId">
+                </div>
+                <div class="modal-footer border-0 justify-content-center" style="padding: 0 25px 25px; gap: 12px;">
+                    <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal" style="border-radius: 8px; min-width: 120px; font-weight: 500;">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary px-4 py-2" id="confirmSendEmailBtn" style="border-radius: 8px; min-width: 120px; font-weight: 500; background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
+                        <i class="fas fa-paper-plane me-2"></i>Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+
+
+
+<script>
+async function loadInvitations() {
+
+    try {
+
+        const response = await axios.get(
+            "http://127.0.0.1:8000/invitations/"
+        );
+
+        console.log(response.data);
+
+        const table = $('#invitationTable').DataTable();
+
+        table.clear();
+
+        table.rows.add(response.data);
+
+        table.draw();
+
+    }
+
+    catch(error){
+
+        console.log("Status:", error.response?.status);
+        console.log("Response:", error.response?.data);
+        console.error(error);
+
+    }
+
+}
+
+$(document).ready(function(){
+
+    loadInvitations();
+    loadVisitorStatistics();
+});
+
+$(document).on("click", ".copy-link", function(){
+
+    navigator.clipboard.writeText(
+        $(this).data("link")
+    );
+
+    alert("Invitation link copied!");
+
+});
+</script>
+
+</body>
+    <!-- Custom JavaScript -->
+    <script>
+        $(document).ready(function() {
+            // Initialize Select2
+            $('.select2').select2({
+                theme: 'bootstrap-5',
+                width: '100%'
+            });
+
+            // Initialize Select2 for modal (delayed to ensure modal is rendered)
+            $('#personalizedModal, #generateLinkModal, #bulkPersonalizedModal').on('shown.bs.modal', function () {
+                $('.select2-modal').select2({
+                    theme: 'bootstrap-5',
+                    width: '100%',
+                    dropdownParent: $(this)
+                });
+            });
+
+            // Clear bulk modal on close
+            $('#bulkPersonalizedModal').on('hidden.bs.modal', function () {
+                $('#bulkPersonalizedForm')[0].reset();
+                $('#csvPreviewSection').hide();
+                $('#csvPreviewBody').empty();
+                csvData = [];
+                $('#sendBulkInviteBtn').prop('disabled', true);
+                $('#bulkCsvFile').val('');
+            });
+
+            // CSV File Upload Handler
+            let csvData = [];
+            $('#bulkCsvFile').on('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 5 * 1024 * 1024) {
+                        Swal.fire('Error', 'File size exceeds 5MB limit', 'error');
+                        $(this).val('');
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const text = e.target.result;
+                        parseCSV(text);
+                    };
+                    reader.readAsText(file);
+                }
+            });
+
+            // Parse CSV and show preview
+            function parseCSV(text) {
+                const lines = text.split('\n');
+                const headers = lines[0].split(',').map(h => h.trim());
+                csvData = [];
+                
+                const validTicketTypes = ['visitor', 'vip', 'gold', 'platinum', 'exhibitor'];
+                let validCount = 0;
+                let invalidCount = 0;
+
+                $('#csvPreviewBody').empty();
+
+                for (let i = 1; i < lines.length; i++) {
+                    if (!lines[i].trim()) continue;
+
+                    const values = lines[i].split(',').map(v => v.trim());
+                    const row = {
+                        index: i,
+                        name: values[0] || '',
+                        email: values[1] || '',
+                        ticketType: values[2] ? values[2].toLowerCase() : '',
+                        company: values[3] || '',
+                        message: values[4] || ''
+                    };
+
+                    csvData.push(row);
+                    addPreviewRow(row, validTicketTypes);
+                }
+
+                updateValidationCounts();
+            }
+
+            // Add preview row with editable ticket type and delete button
+            function addPreviewRow(row, validTicketTypes) {
+                const hasValidTicketType = validTicketTypes.includes(row.ticketType);
+                const hasValidEmail = row.email && validateEmail(row.email);
+                const isValid = row.name && hasValidEmail && hasValidTicketType;
+
+                const statusBadge = isValid 
+                    ? '<span class="badge bg-success">Valid</span>' 
+                    : '<span class="badge bg-danger">Invalid</span>';
+
+                const ticketTypeSelect = `
+                    <select class="form-select form-select-sm ticket-type-select" data-index="${row.index}" style="font-size: 11px; border: 1px solid #ced4da; padding: 4px 8px; background-color: white;">
+                        <option value="">Select Type</option>
+                        <option value="visitor" ${row.ticketType === 'visitor' ? 'selected' : ''}>Visitor</option>
+                        <option value="vip" ${row.ticketType === 'vip' ? 'selected' : ''}>VIP</option>
+                        <option value="gold" ${row.ticketType === 'gold' ? 'selected' : ''}>Gold</option>
+                        <option value="platinum" ${row.ticketType === 'platinum' ? 'selected' : ''}>Platinum</option>
+                        <option value="exhibitor" ${row.ticketType === 'exhibitor' ? 'selected' : ''}>Exhibitor</option>
+                    </select>
+                `;
+
+                const nameInput = `<input type="text" class="form-control form-control-sm editable-field" data-index="${row.index}" data-field="name" value="${row.name}" style="font-size: 11px; border: 1px solid #ced4da; padding: 4px 8px;">`;
+                const emailInput = `<input type="email" class="form-control form-control-sm editable-field" data-index="${row.index}" data-field="email" value="${row.email}" style="font-size: 11px; border: 1px solid #ced4da; padding: 4px 8px;">`;
+                const companyInput = `<input type="text" class="form-control form-control-sm editable-field" data-index="${row.index}" data-field="company" value="${row.company}" style="font-size: 11px; border: 1px solid #ced4da; padding: 4px 8px;">`;
+
+                const deleteBtn = `
+                    <button class="btn btn-sm btn-danger delete-row-btn" data-index="${row.index}" style="font-size: 10px; padding: 2px 6px;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+
+                $('#csvPreviewBody').append(`
+                    <tr data-index="${row.index}" class="${isValid ? '' : 'table-danger'}">
+                        <td>${row.index}</td>
+                        <td>${nameInput}</td>
+                        <td>${emailInput}</td>
+                        <td>${ticketTypeSelect}</td>
+                        <td>${companyInput}</td>
+                        <td>${statusBadge}</td>
+                        <td class="text-center">${deleteBtn}</td>
+                    </tr>
+                `);
+            }
+
+            // Update validation counts
+            function updateValidationCounts() {
+                const validTicketTypes = ['visitor', 'vip', 'gold', 'platinum', 'exhibitor'];
+                let validCount = 0;
+                let invalidCount = 0;
+
+                csvData.forEach(row => {
+                    const hasValidTicketType = validTicketTypes.includes(row.ticketType);
+                    const hasValidEmail = row.email && validateEmail(row.email);
+                    const isValid = row.name && hasValidEmail && hasValidTicketType;
+                    
+                    if (isValid) validCount++;
+                    else invalidCount++;
+                });
+
+                $('#csvPreviewSection').show();
+                $('#validRowsCount').text(`${validCount} Valid`);
+                $('#invalidRowsCount').text(`${invalidCount} Invalid`);
+                $('#totalRowsCount').text(`${csvData.length} Total`);
+
+                if (validCount > 0) {
+                    $('#sendBulkInviteBtn').prop('disabled', false);
+                } else {
+                    $('#sendBulkInviteBtn').prop('disabled', true);
+                }
+            }
+
+            // Handle ticket type change
+            $(document).on('change', '.ticket-type-select', function() {
+                const index = $(this).data('index');
+                const newTicketType = $(this).val();
+                
+                // Update csvData
+                const rowData = csvData.find(r => r.index === index);
+                if (rowData) {
+                    rowData.ticketType = newTicketType;
+                }
+
+                validateAndUpdateRow(index);
+            });
+
+            // Handle editable field changes
+            $(document).on('blur', '.editable-field', function() {
+                const index = $(this).data('index');
+                const field = $(this).data('field');
+                const value = $(this).val().trim();
+                
+                // Update csvData
+                const rowData = csvData.find(r => r.index === index);
+                if (rowData) {
+                    rowData[field] = value;
+                }
+
+                validateAndUpdateRow(index);
+            });
+
+            // Validate and update row appearance
+            function validateAndUpdateRow(index) {
+                const rowData = csvData.find(r => r.index === index);
+                if (!rowData) return;
+
+                const validTicketTypes = ['visitor', 'vip', 'gold', 'platinum', 'exhibitor'];
+                const hasValidTicketType = validTicketTypes.includes(rowData.ticketType);
+                const hasValidEmail = rowData.email && validateEmail(rowData.email);
+                const isValid = rowData.name && hasValidEmail && hasValidTicketType;
+
+                const $row = $(`tr[data-index="${index}"]`);
+                if (isValid) {
+                    $row.removeClass('table-danger');
+                    $row.find('td:eq(5)').html('<span class="badge bg-success">Valid</span>');
+                } else {
+                    $row.addClass('table-danger');
+                    $row.find('td:eq(5)').html('<span class="badge bg-danger">Invalid</span>');
+                }
+
+                updateValidationCounts();
+            }
+
+            // Handle row deletion
+            $(document).on('click', '.delete-row-btn', function() {
+                const index = $(this).data('index');
+                
+                // Remove from csvData
+                csvData = csvData.filter(r => r.index !== index);
+                
+                // Remove row from table
+                $(`tr[data-index="${index}"]`).remove();
+                
+                // Update counts
+                updateValidationCounts();
+
+                // If no rows left, hide preview and disable button
+                if (csvData.length === 0) {
+                    $('#csvPreviewSection').hide();
+                    $('#sendBulkInviteBtn').prop('disabled', true);
+                }
+            });
+
+            // Clear all preview
+            $('#clearPreviewBtn').on('click', function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Clear All Data?',
+                    text: 'This will remove all uploaded data. Are you sure?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, Clear All',
+                    confirmButtonColor: '#d33'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        csvData = [];
+                        $('#csvPreviewBody').empty();
+                        $('#csvPreviewSection').hide();
+                        $('#sendBulkInviteBtn').prop('disabled', true);
+                        $('#bulkCsvFile').val('');
+                    }
+                });
+            });
+
+            // Add manual row button - FIXED
+            $(document).on('click', '#addManualRowBtn', function() {
+                // Show preview section if hidden
+                if (!$('#csvPreviewSection').is(':visible')) {
+                    $('#csvPreviewSection').show();
+                }
+
+                // Generate new index
+                const newIndex = csvData.length > 0 ? Math.max(...csvData.map(r => r.index)) + 1 : 1;
+
+                // Create new row data
+                const newRow = {
+                    index: newIndex,
+                    name: '',
+                    email: '',
+                    ticketType: '',
+                    company: '',
+                    message: ''
+                };
+
+                csvData.push(newRow);
+
+                const validTicketTypes = ['visitor', 'vip', 'gold', 'platinum', 'exhibitor'];
+                addPreviewRow(newRow, validTicketTypes);
+
+                updateValidationCounts();
+
+                // Scroll to the new row and focus
+                setTimeout(() => {
+                    const $newRow = $(`tr[data-index="${newIndex}"]`);
+                    if ($newRow.length) {
+                        $newRow[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        $newRow.find('.editable-field[data-field="name"]').focus();
+                    }
+                }, 100);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Row Added',
+                    text: 'Fill in the details for the new recipient',
+                    confirmButtonColor: '#0d6efd'
+                });
+            });
+
+            function validateEmail(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            }
+
+            // Download CSV Template
+            $('#downloadTemplateBtn').on('click', function() {
+                const csvContent = 'Full Name,Email,Ticket Type,Company Name,Personal Message\nJohn Doe,john@example.com,visitor,ABC Corp,Looking forward to seeing you\nJane Smith,jane@example.com,vip,XYZ Inc,';
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'bulk_invitation_template.csv';
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+
+            // Send Bulk Invitations
+            $('#sendBulkInviteBtn').click(function() {
+                if ($('#bulkPersonalizedForm')[0].checkValidity()) {
+                    const validTicketTypes = ['visitor', 'vip', 'gold', 'platinum', 'exhibitor'];
+                    const validRows = csvData.filter(row => 
+                        row.name && 
+                        row.email && 
+                        validateEmail(row.email) && 
+                        validTicketTypes.includes(row.ticketType)
+                    );
+                    
+                    Swal.fire({
+                        icon: 'question',
+                        title: 'Send Bulk Invitations',
+                        html: `Are you sure you want to send invitations to <strong>${validRows.length}</strong> recipients?`,
+                        showCancelButton: true,
+                        confirmButtonText: 'Send All',
+                        confirmButtonColor: '#198754'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            showLoading();
+                            setTimeout(() => {
+                                hideLoading();
+                                $('#bulkPersonalizedModal').modal('hide');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Invitations Sent!',
+                                    html: `Successfully sent <strong>${validRows.length}</strong> personalized invitations`,
+                                    confirmButtonColor: '#0d6efd'
+                                });
+                                $('#bulkPersonalizedForm')[0].reset();
+                                $('#csvPreviewSection').hide();
+                                csvData = [];
+                            }, 2000);
+                        }
+                    });
+                } else {
+                    $('#bulkPersonalizedForm')[0].reportValidity();
+                }
+            });
+
+            // Initialize DataTable
+            const table = $('#invitationTable').DataTable({
+                pageLength: 10,
+                responsive: true,
+                order: [[1, 'desc']],
+                dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rtip',
+                language: {
+                    lengthMenu: "Show _MENU_ entries",
+                    search: "Search:",
+                    info: "Showing _START_ to _END_ of _TOTAL_ entries",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+                columnDefs: [
+                    { orderable: false, targets: [0, 9] },
+                    { className: 'text-center', targets: [0] }
+                ],
+                columns: [
+                    {
+                        data: null,
+                        render: function(data, type, row, meta) {
+                            return `<input type="checkbox" class="table-checkbox row-checkbox" data-id="${meta.row}">`;
+                        }
+                    },
+                    { data: 'name' },
+                    { data: 'email' },
+                    { data: 'type' },
+                    { data: 'expiry' },
+                    { data: 'limit' },
+                    { data: 'registered' },
+                    { 
+                        
+                            data: null,
+                            render: function(data) {
+                                return `
+                                    <button
+                                        class="btn btn-sm btn-primary copy-link"
+                                        data-link="${data.link}">
+                                        <i class="fas fa-copy me-1"></i>
+                                        Copy Link
+                                    </button>
+                                `;
+                            }
+                        },
+                    {
+                        data: 'status',
+                        render: function(data) {
+                            let statusClass = 'secondary';
+                            switch(data) {
+                                case 'Active': statusClass = 'success'; break;
+                                case 'Pending': statusClass = 'warning'; break;
+                                case 'Deactivated': statusClass = 'secondary'; break;
+                                case 'Expired': statusClass = 'danger'; break;
+                                case 'Consumed': statusClass = 'info'; break;
+                                case 'Completed': statusClass = 'primary'; break;
+                            }
+                            return `<span class="badge bg-${statusClass}">${data}</span>`;
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function() {
+                            return `
+                                <button class="btn btn-action btn-sm btn-info" data-action="View" title="View"><i class="fas fa-eye"></i></button>
+                                <button class="btn btn-action btn-sm btn-warning" data-action="Edit" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-action btn-sm btn-primary" data-action="Send Email" title="Send Email"><i class="fas fa-envelope"></i></button>
+                                <button class="btn btn-action btn-sm btn-success" data-action="Broadcast" title="Broadcast"><i class="fas fa-broadcast-tower"></i></button>
+                                <button class="btn btn-action btn-sm btn-danger" data-action="Delete" title="Delete"><i class="fas fa-trash"></i></button>
+                            `;
+                        }
+                    }
+                ],
+                initComplete: function() {
+                    $('.dataTables_length select').addClass('form-select form-select-sm').css({
+                        'width': 'auto',
+                        'display': 'inline-block',
+                        'margin': '0 8px'
+                    });
+                    
+                    $('.dataTables_filter input').addClass('form-control form-control-sm').css({
+                        'width': 'auto',
+                        'display': 'inline-block',
+                        'margin-left': '8px'
+                    });
+                }
+            });
+
+            // Generate Sample Data
+            function generateSampleData() {
+                const names = ['Annaleen Pimentel', 'John Smith', 'Sarah Johnson', 'Michael Chen', 'Emma Wilson'];
+                const data = [];
+                for (let i = 0; i < 50; i++) {
+                    data.push({
+                        name: names[Math.floor(Math.random() * names.length)] + ' - 100 links',
+                        email: 'View',
+                        type: ['Generic Link', 'Personalized Invitation'][Math.floor(Math.random() * 2)],
+                        expiry: '17th Oct 2025',
+                        limit: Math.floor(Math.random() * 10) + 1,
+                        registered: Math.floor(Math.random() * 5),
+                        status: ['Active', 'Pending', 'Deactivated', 'Expired', 'Consumed', 'Completed'][Math.floor(Math.random() * 6)]
+                    });
+                }
+                return data;
+            }
+
+            // Checkbox Selection Logic
+            let selectedRows = new Set();
+
+            $('#selectAll').on('change', function() {
+                const isChecked = $(this).prop('checked');
+                $('.row-checkbox').prop('checked', isChecked);
+                
+                if (isChecked) {
+                    $('.row-checkbox').each(function() {
+                        selectedRows.add($(this).data('id'));
+                        $(this).closest('tr').addClass('selected');
+                    });
+                } else {
+                    selectedRows.clear();
+                    $('tbody tr').removeClass('selected');
+                }
+                updateBulkActionsBar();
+            });
+
+            $(document).on('change', '.row-checkbox', function() {
+                const rowId = $(this).data('id');
+                const isChecked = $(this).prop('checked');
+                
+                if (isChecked) {
+                    selectedRows.add(rowId);
+                    $(this).closest('tr').addClass('selected');
+                } else {
+                    selectedRows.delete(rowId);
+                    $(this).closest('tr').removeClass('selected');
+                }
+                
+                const totalCheckboxes = $('.row-checkbox').length;
+                const checkedCheckboxes = $('.row-checkbox:checked').length;
+                $('#selectAll').prop('checked', totalCheckboxes === checkedCheckboxes);
+                $('#selectAll').prop('indeterminate', checkedCheckboxes > 0 && checkedCheckboxes < totalCheckboxes);
+                
+                updateBulkActionsBar();
+            });
+
+            function updateBulkActionsBar() {
+                const count = selectedRows.size;
+                if (count > 0) {
+                    $('#bulkActionsBar').addClass('show');
+                    $('#selectedCount').text(count);
+                } else {
+                    $('#bulkActionsBar').removeClass('show');
+                }
+            }
+
+            $('#clearSelectionBtn').click(function() {
+                selectedRows.clear();
+                $('.row-checkbox, #selectAll').prop('checked', false);
+                $('tbody tr').removeClass('selected');
+                updateBulkActionsBar();
+            });
+
+            $('#bulkSendBtn').click(function() {
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Send Invitations',
+                    text: `Send invitations to ${selectedRows.size} selected items?`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Send All'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+                        setTimeout(() => {
+                            hideLoading();
+                            Swal.fire('Sent!', `${selectedRows.size} invitations have been sent.`, 'success');
+                            $('#clearSelectionBtn').click();
+                        }, 1500);
+                    }
+                });
+            });
+
+            $('#bulkActivateBtn').click(function() {
+                Swal.fire({
+                    icon: 'question',
+                    title: 'Activate Selected',
+                    text: `Activate ${selectedRows.size} selected items?`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Activate'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire('Activated!', `${selectedRows.size} items have been activated.`, 'success');
+                        $('#clearSelectionBtn').click();
+                    }
+                });
+            });
+
+            $('#bulkDeactivateBtn').click(function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Deactivate Selected',
+                    text: `Deactivate ${selectedRows.size} selected items?`,
+                    showCancelButton: true,
+                    confirmButtonText: 'Deactivate'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire('Deactivated!', `${selectedRows.size} items have been deactivated.`, 'success');
+                        $('#clearSelectionBtn').click();
+                    }
+                });
+            });
+
+            $('#bulkExportBtn').click(function() {
+                showLoading();
+                setTimeout(() => {
+                    hideLoading();
+                    Swal.fire('Exported!', `${selectedRows.size} items have been exported to Excel.`, 'success');
+                }, 1000);
+            });
+
+            $('#bulkDeleteBtn').click(function() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Delete Selected',
+                    text: `Are you sure you want to delete ${selectedRows.size} selected items?`,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Delete All'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        showLoading();
+                        setTimeout(() => {
+                            hideLoading();
+                            Swal.fire('Deleted!', `${selectedRows.size} items have been deleted.`, 'success');
+                            selectedRows.forEach(rowId => {
+                                table.row(rowId).remove();
+                            });
+                            table.draw();
+                            $('#clearSelectionBtn').click();
+                        }, 1000);
+                    }
+                });
+            });
+
+            $('#sidebarToggle').click(function() {
+                $('#sidebar').toggleClass('show');
+            });
+
+            $('.nav-item').click(function(e) {
+                e.preventDefault();
+                $('.nav-item').removeClass('active');
+                $(this).addClass('active');
+            });
+
+            // Badges submenu toggle
+            $('#badgesMenu').click(function() {
+                $(this).toggleClass('open');
+                $('#badgesSubmenu').toggleClass('open');
+            });
+
+            // Auto-open submenu if active item is inside
+            if ($('#badgesSubmenu .nav-item.active').length > 0) {
+                $('#badgesMenu').addClass('open');
+                $('#badgesSubmenu').addClass('open');
+            }
+
+            function updateCountdown() {
+                const countdown = $('#countdown');
+                let days = 16, hours = 17, minutes = 45, seconds = 19;
+                
+                setInterval(function() {
+                    seconds--;
+                    if (seconds < 0) {
+                        seconds = 59;
+                        minutes--;
+                        if (minutes < 0) {
+                            minutes = 59;
+                            hours--;
+                            if (hours < 0) {
+                                hours = 23;
+                                days--;
+                            }
+                        }
+                    }
+                    
+                    countdown.html(`
+                        <span>${days}<small>Days</small></span>
+                        <span>${hours}<small>Hours</small></span>
+                        <span>${minutes}<small>Mins</small></span>
+                        <span>${seconds}<small>Secs</small></span>
+                    `);
+                }, 1000);
+            }
+            updateCountdown();
+
+            $('.stat-value').each(function() {
+                const $this = $(this);
+                const countTo = $this.attr('data-count');
+                $({ countNum: 0 }).animate({
+                    countNum: countTo
+                }, {
+                    duration: 1500,
+                    easing: 'swing',
+                    step: function() {
+                        $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function() {
+                        $this.text(this.countNum);
+                    }
+                });
+            });
+
+           $(document).on('click', '.copy-link', function() {
+
+                const link = $(this).attr("data-link");
+
+                navigator.clipboard.writeText(link);
+
+                const btn = $(this);
+                const originalHtml = btn.html();
+
+                btn.html('<i class="fas fa-check me-1"></i>Copied!')
+                    .addClass('btn-success')
+                    .removeClass('btn-primary');
+
+                setTimeout(() => {
+                    btn.html(originalHtml)
+                        .addClass('btn-primary')
+                        .removeClass('btn-success');
+                }, 2000);
+
+            });
+            $('#searchBtn').click(function() {
+                showLoading();
+                setTimeout(() => {
+                    const keyword = $('#searchKeyword').val();
+                    table.search(keyword).draw();
+                    hideLoading();
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Search Complete',
+                        text: `Found ${table.page.info().recordsDisplay} results`,
+                        confirmButtonColor: '#0d6efd'
+                    });
+                }, 500);
+            });
+
+            $('#resetBtn').click(function() {
+                $('#searchKeyword').val('');
+                $('#filterStatus').val('').trigger('change');
+                $('#filterType').val('').trigger('change');
+                $('#filterDate').val('');
+                table.search('').draw();
+            });
+
+            $('#exportBtn').click(function() {
+                Swal.fire({
+                    title: 'Export Data',
+                    text: 'Select export format',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonText: 'Excel',
+                    cancelButtonText: 'CSV',
+                    showDenyButton: true,
+                    denyButtonText: 'PDF'
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDenied || result.dismiss === Swal.DismissReason.cancel) {
+                        showLoading();
+                        setTimeout(() => {
+                            hideLoading();
+                            Swal.fire('Exported!', 'Your file has been downloaded.', 'success');
+                        }, 1000);
+                    }
+                });
+            });
+
+            $('#submitLinkBtn').click(function() {
+                if ($('#generateLinkForm')[0].checkValidity()) {
+                    showLoading();
+                    setTimeout(() => {
+                        hideLoading();
+                        $('#generateLinkModal').modal('hide');
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Link Generated!',
+                            html: `
+                                <p>Your invitation link has been created:</p>
+                                <div class="input-group mt-3">
+                                    <input type="text" class="form-control" value="https://gitex.com/invite/XYZ789" readonly>
+                                    <button class="btn btn-primary" onclick="navigator.clipboard.writeText('https://gitex.com/invite/XYZ789')">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            `,
+                            confirmButtonText: 'Done'
+                        });
+                        $('#generateLinkForm')[0].reset();
+                    }, 1000);
+                } else {
+                    $('#generateLinkForm')[0].reportValidity();
+                }
+            });
+
+           $('#sendInviteBtn').click(async function () {
+
+    if (!$('#personalizedForm')[0].checkValidity()) {
+        $('#personalizedForm')[0].reportValidity();
+        return;
+    }
+
+    const fullName = $('#guestName').val().trim();
+    const parts = fullName.split(" ");
+
+    const payload = {
+        invitations: [
+            {
+                first_name: parts[0],
+                last_name: parts.slice(1).join(" "),
+                email: $('#guestEmail').val(),
+                ticket: $('#ticketType').val()
+            }
+        ]
+    };
+
+    console.log(payload);
+
+    try {
+
+        showLoading();
+
+        const response = await axios.post(
+            "http://127.0.0.1:8000/send-invitation/",
+            payload,
+            {
+                headers: {
+                    "X-CSRFToken": csrftoken
+                },
+                withCredentials: true
+            }
+        );
+
+        hideLoading();
+
+        console.log(response.data);
+
+        $('#personalizedModal').modal('hide');
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Invitation Sent!',
+            text: `Invitation has been sent to ${$('#guestEmail').val()}`,
+            confirmButtonColor: '#0d6efd'
+        });
+
+        $('#personalizedForm')[0].reset();
+
+        loadInvitations();
+
+    } catch (error) {
+
+        hideLoading();
+
+        console.log("STATUS:", error.response?.status);
+        console.log("DATA:", error.response?.data);
+        console.log("HEADERS:", error.response?.headers);
+        console.error(error);
+
+        Swal.fire({
+            icon: "error",
+            title: "Failed",
+            html: error.response?.data?.detail || "Unable to send invitation."
+        });
+
+    }
+
+});
+
+            // Confirm Send Email Button Handler
+            $('#confirmSendEmailBtn').click(function() {
+                $('#sendEmailModal').modal('hide');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email Sent!',
+                    text: 'The invitation email has been sent successfully.',
+                    confirmButtonColor: '#0d6efd'
+                });
+            });
+
+            function showLoading() {
+                $('#loadingOverlay').addClass('show');
+            }
+
+            function hideLoading() {
+                $('#loadingOverlay').removeClass('show');
+            }
+
+            $('[title]').tooltip();
+
+            const today = new Date();
+            const futureDate = new Date(today.setMonth(today.getMonth() + 1));
+            $('#expireDate, #personalExpireDate').val(futureDate.toISOString().split('T')[0]);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exhibitor Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #333;
+    }
+    .login-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      padding: 32px;
+    }
+    .login-card h1 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      font-size: 24px;
+      text-align: center;
+    }
+    .login-card label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .login-card input {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 16px;
+      border: 1px solid #ccd6df;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+    .login-card button {
+      width: 100%;
+      padding: 12px;
+      background: #0056d6;
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .login-card button:hover {
+      background: #0045a8;
+    }
+    .login-card .hint {
+      margin-top: 18px;
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+    }
+    .login-card .error {
+      margin-bottom: 16px;
+      padding: 12px;
+      background: #ffe8e8;
+      color: #b00020;
+      border: 1px solid #f5c2c7;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-wrapper">
+    <div class="login-card">
+      <h1>Exhibitor Login</h1>
+      <form id="loginForm">
+        {% csrf_token %}
+        <label for="username">Username</label>
+        <input
+            type="text"
+            name="username"
+            id="username"
+            maxlength="30"
+            autocomplete="username"
+            required
+        >
+        <label for="password">Password</label>
+        <input
+            type="password"
+            name="password"
+            id="password"
+            minlength="8"
+            maxlength="128"
+            autocomplete="current-password"
+            required
+        >
+        <button type="submit" id="loginBtn">Login</button>
+      </form>
+      <div class="hint">
+        Enter your exhibitor credentials to access the dashboard.
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const form = e.target;
+
+    const res = await fetch("/api/login/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": form.querySelector("[name=csrfmiddlewaretoken]").value,
+        },
+        body: JSON.stringify({
+            username: form.username.value,
+            password: form.password.value,
+        }),
+    });
+
+    const data = await res.json();
+
+    if (!data.success) {
+
+        Swal.fire({
+            icon: "error",
+            title: "Login Failed",
+            text:
+                data.errors?.__all__ ||
+                data.errors?.username ||
+                data.errors?.password ||
+                "Invalid username or password."
+        });
+
+        return;
+    }
+
+    Swal.fire({
+        icon: "success",
+        title: "Login Successful",
+        timer: 1000,
+        showConfirmButton: false
+    }).then(() => {
+        window.location.href = "/exhibitor/";
+    });
+
+});
+</script>
+
+
+</body>
+</html>

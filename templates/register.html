@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Complete Your Registration</title>
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<style>
+    :root {
+        --blue: #1565c0;
+        --blue-dark: #0d47a1;
+        --blue-light: #e3f2fd;
+        --white: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: var(--blue-light);
+        color: #1a1a1a;
+    }
+    .header {
+        background: var(--blue);
+        color: var(--white);
+        padding: 24px 32px;
+        text-align: center;
+    }
+    .header h1 { margin: 0; font-size: 22px; }
+    .container {
+        max-width: 560px;
+        margin: 40px auto;
+        background: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 4px 18px rgba(21, 101, 192, 0.15);
+        overflow: hidden;
+    }
+    .invite-info {
+        background: var(--blue-light);
+        padding: 16px 32px;
+        border-bottom: 1px solid #cfe3fb;
+        font-size: 14px;
+    }
+    .invite-info strong { color: var(--blue-dark); }
+    form { padding: 28px 32px 32px; }
+    .field { margin-bottom: 18px; }
+    label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--blue-dark);
+    }
+    input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1.5px solid #c7d9f0;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    input:focus {
+        outline: none;
+        border-color: var(--blue);
+        box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+    }
+    input.error { border-color: #d32f2f; }
+    .error-msg { color: #d32f2f; font-size: 12.5px; margin-top: 5px; }
+    button {
+        width: 100%;
+        background: var(--blue);
+        color: var(--white);
+        border: none;
+        padding: 13px;
+        font-size: 15px;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+    button:hover { background: var(--blue-dark); }
+    .top-error {
+        background: #fdecea;
+        color: #d32f2f;
+        padding: 14px 32px;
+        font-size: 14px;
+        display: none;
+    }
+    .success-box { text-align: center; padding: 50px 32px; display: none; }
+    .success-box .icon {
+        width: 56px; height: 56px;
+        background: var(--blue); color: var(--white);
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 28px; margin: 0 auto 18px;
+    }
+    .success-box h2 { color: var(--blue-dark); margin-bottom: 6px; }
+    .success-box p { color: #555; font-size: 14px; }
+    #loadingMsg { padding: 40px; text-align: center; color: #777; }
+
+    
+</style>
+</head>
+<body>
+
+<div class="header"><h1>Event Registration</h1></div>
+
+<div class="container">
+    <div id="loadingMsg">Loading your invitation...</div>
+    <div class="top-error" id="topError"></div>
+    <div class="invite-info" id="inviteInfo" style="display:none;"></div>
+
+    <form id="registerForm" style="display:none;" novalidate>
+        {% csrf_token %}
+        <div class="field">
+            <label for="company_name">Company Name</label>
+            <input type="text" id="company_name" maxlength="255" required>
+            <div class="error-msg" id="err_company_name"></div>
+        </div>
+
+        <div class="field">
+            <label for="job_title">Job Title</label>
+            <input type="text" id="job_title" maxlength="255" required>
+            <div class="error-msg" id="err_job_title"></div>
+        </div>
+
+        <div class="field">
+            <label for="phone_number">Phone Number</label>
+            <input type="tel" id="phone_number" maxlength="30" required>
+            <div class="error-msg" id="err_phone_number"></div>
+        </div>
+
+
+        <div class="field">
+            <label for="country_of_residence">Country of Residence</label>
+            <input type="text" id="country_of_residence" maxlength="100" required>
+            <div class="error-msg" id="err_country_of_residence"></div>
+        </div>
+
+        <div class="field">
+            <label for="nationality">Nationality</label>
+            <input type="text" id="nationality" maxlength="100" required>
+            <div class="error-msg" id="err_nationality"></div>
+        </div>
+
+        <button type="submit">Confirm Registration</button>
+    </form>
+
+    <div class="success-box" id="successBox">
+        <div class="icon">&#10003;</div>
+        <h2 id="successName"></h2>
+        <p>Your registration has been confirmed.</p>
+        <p><strong>Badge ID:</strong> <span id="badgeId"></span></p>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+
+
+
+function getCookie(name) {
+    let cookieValue = null;
+
+    if (document.cookie && document.cookie !== "") {
+        const cookies = document.cookie.split(";");
+
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1)
+                );
+                break;
+            }
+        }
+    }
+
+    return cookieValue;
+}
+
+const csrftoken = getCookie("csrftoken");
+
+const API_BASE = "http://127.0.0.1:8000/api"; 
+const params = new URLSearchParams(window.location.search);
+const token = params.get("token");
+console.log("Current URL:", window.location.href);
+console.log("Query String:", window.location.search);
+console.log("Token:", token);
+
+
+const loadingMsg = document.getElementById("loadingMsg");
+const topError = document.getElementById("topError");
+const inviteInfo = document.getElementById("inviteInfo");
+const form = document.getElementById("registerForm");
+
+
+
+        
+
+            let phoneInput = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.querySelector("#phone_number");
+
+    if (input) {
+        phoneInput = window.intlTelInput(input, {
+            initialCountry: "in",
+            preferredCountries: ["in", "ae", "sa", "kw", "qa", "bh", "om", "pk", "gb", "us"],
+            separateDialCode: true,
+            autoPlaceholder: "aggressive",
+            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
+        });
+    }
+});
+        
+
+const successBox = document.getElementById("successBox");
+
+function showTopError(msg) {
+    loadingMsg.style.display = "none";
+    topError.style.display = "block";
+    topError.textContent = msg;
+}
+
+async function loadInvitation() {
+    if (!token) {
+        showTopError("No invitation token found in the link.");
+        return;
+    }
+
+    try {
+        const res = await axios.get(`${API_BASE}/invitation/${token}/`);
+        const inv = res.data;
+
+        loadingMsg.style.display = "none";
+        inviteInfo.style.display = "block";
+        inviteInfo.innerHTML = `
+            <strong>${inv.first_name} ${inv.last_name}</strong> &middot;
+            ${inv.email} &middot;
+            Ticket: <strong>${inv.ticket_name}</strong>
+        `;
+        form.style.display = "block";
+
+    } catch (error) {
+        const msg = error.response?.data?.error || "This invitation link is invalid.";
+        showTopError(msg);
+    }
+}
+
+function clearErrors() {
+    document.querySelectorAll(".error-msg").forEach(el => el.textContent = "");
+    document.querySelectorAll("input").forEach(el => el.classList.remove("error"));
+    topError.style.display = "none";
+    topError.textContent = "";
+}
+
+function setFieldError(field, msg) {
+    document.getElementById(`err_${field}`).textContent = msg;
+    document.getElementById(field).classList.add("error");
+}
+
+function validateClientSide(values) {
+    let valid = true;
+
+    if (!values.company_name) { setFieldError("company_name", "Company name is required."); valid = false; }
+    if (!values.job_title) { setFieldError("job_title", "Job title is required."); valid = false; }
+   
+    if (!values.phone_number) {
+        setFieldError("phone_number", "Phone number is required.");
+        valid = false;
+    } else if (!phoneInput.isValidNumber()) {
+        setFieldError("phone_number", "Enter a valid phone number.");
+        valid = false;
+    }
+    if (!values.country_of_residence) { setFieldError("country_of_residence", "Country is required."); valid = false; }
+    if (!values.nationality) { setFieldError("nationality", "Nationality is required."); valid = false; }
+
+    return valid;
+}
+
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    clearErrors();
+
+    const values = {
+        company_name: document.getElementById("company_name").value.trim(),
+        job_title: document.getElementById("job_title").value.trim(),
+        phone_number: phoneInput.getNumber(),
+        country_of_residence: document.getElementById("country_of_residence").value.trim(),
+        nationality: document.getElementById("nationality").value.trim(),
+    };
+
+    if (!validateClientSide(values)) return;
+
+    try {
+        const res = await axios.post(
+            `${API_BASE}/register/${token}/`,
+            values,
+            {
+                headers: {
+                    "X-CSRFToken": csrftoken,
+                },
+                withCredentials: true,
+            }
+        );
+        form.style.display = "none";
+        inviteInfo.style.display = "none";
+        successBox.style.display = "block";
+
+        document.getElementById("successName").textContent =
+            `You're all set, ${res.data.visitor.first_name}!`;
+        document.getElementById("badgeId").textContent = res.data.visitor.badge_id;
+
+    } catch (error) {
+        if (error.response?.status === 400 && error.response.data.errors) {
+            const errs = error.response.data.errors;
+            Object.keys(errs).forEach(field => setFieldError(field, errs[field]));
+        } else {
+            showTopError(error.response?.data?.error || "Something went wrong. Please try again.");
+        }
+    }
+});
+
+loadInvitation();
+</script>
+</body>
+</html>
