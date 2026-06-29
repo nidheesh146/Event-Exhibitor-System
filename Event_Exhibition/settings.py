@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "nidheesh563.pythonanywhere.com",
     "127.0.0.1",
     "localhost",
+    
                  ]
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024
