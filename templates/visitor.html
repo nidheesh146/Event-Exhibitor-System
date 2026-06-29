@@ -1300,7 +1300,7 @@
     try {
 
         const response = await axios.get(
-            "http://127.0.0.1:8000/dashboard/"
+            "/dashboard/"
         );
 
         const data = response.data;
@@ -1748,7 +1748,7 @@ async function loadInvitations() {
     try {
 
         const response = await axios.get(
-            "http://127.0.0.1:8000/invitations/"
+            "/invitations/"
         );
 
         console.log(response.data);
@@ -2567,7 +2567,7 @@ $(document).on("click", ".copy-link", function(){
         showLoading();
 
         const response = await axios.post(
-            "http://127.0.0.1:8000/send-invitation/",
+            "/send-invitation/",
             payload,
             {
                 headers: {

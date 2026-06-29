@@ -1665,7 +1665,7 @@
     try {
 
         const response = await axios.get(
-            "http://127.0.0.1:8000/dashboard/"
+            "/dashboard/"
         );
 
         const data = response.data;
@@ -2605,7 +2605,7 @@ $('#saveRecordBtn').click(async function () {
     try {
 
         await axios.patch(
-            `http://127.0.0.1:8000/upload-record/${id}/`,
+            `/upload-record/${id}/`,
             payload,
             {
                 headers: {
@@ -2718,7 +2718,7 @@ $('#saveRecordBtn').click(async function () {
                 };
                         try {
                             const response = await axios.post(
-                                "http://127.0.0.1:8000/create-badge/",
+                                "/create-badge/",
                                 data,
                                 {
                                     headers: {
@@ -2816,7 +2816,7 @@ $('#saveRecordBtn').click(async function () {
     console.log("Params:", params.toString());
 
     axios.get(
-        `http://127.0.0.1:8000/upload-records/?${params.toString()}`
+        `/upload-records/?${params.toString()}`
     )
     .then(response => {
 
@@ -3103,7 +3103,7 @@ $('#saveRecordBtn').click(async function () {
                             didOpen: () => { Swal.showLoading(); }
                         });
 
-                        axios.post('http://127.0.0.1:8000/upload-records/delete-selected/', { ids: ids })
+                        axios.post('/upload-records/delete-selected/', { ids: ids })
                             .then(function(res) {
                                 table.ajax.reload(null, false);
                                 $('.row-checkbox').prop('checked', false);
@@ -3157,7 +3157,7 @@ $('#saveRecordBtn').click(async function () {
                             didOpen: () => { Swal.showLoading(); }
                         });
 
-                        axios.delete('http://127.0.0.1:8000/upload-records/bulk-delete/')
+                        axios.delete('/upload-records/bulk-delete/')
                             .then(function(res) {
                                 table.ajax.reload(null, false);
                                 $('.row-checkbox').prop('checked', false);
@@ -3269,7 +3269,7 @@ $('#saveRecordBtn').click(async function () {
                 var $btn = $(this);
                 $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Deleting...');
 
-                axios.delete(`http://127.0.0.1:8000/upload-record/${recordId}/delete/`)
+                axios.delete(`/upload-record/${recordId}/delete/`)
                     .then(function() {
                         $('#deleteModal').modal('hide');
                         table.ajax.reload(null, false);  // reload without resetting page
@@ -3739,7 +3739,7 @@ $('#saveRecordBtn').click(async function () {
                         console.log("CSRF:", csrftoken);
                         const response = await axios.post(
 
-                            "http://127.0.0.1:8000/send-invitation/",
+                            "/send-invitation/",
 
                             {
                                 invitations: invitations
@@ -4070,7 +4070,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
 
                     const response =
                         await axios.post(
-                            'http://127.0.0.1:8000/upload-batch/',
+                            '/upload-batch/',
                             formData,
                             {
                                 headers: {
@@ -4157,7 +4157,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
         try {
 
             const response = await axios.get(
-                `http://127.0.0.1:8000/upload-batch-status/${batchId}/`
+                `/upload-batch-status/${batchId}/`
             );
 
             const batch = response.data;
@@ -4427,7 +4427,7 @@ $('#saveMappingBtn').click(async function () {
     try {
 
         await axios.post(
-            `http://127.0.0.1:8000/upload-batch/${batchId}/mapping/`,
+            `/upload-batch/${batchId}/mapping/`,
             payload,
             {
                 headers: {
@@ -4471,7 +4471,7 @@ $('#saveMappingBtn').click(async function () {
     try {
 
         const response = await axios.get(
-            'http://127.0.0.1:8000/ticket-types/'
+            '/ticket-types/'
         );
 
         $('.ticket-select').each(function () {

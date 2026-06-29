@@ -1443,9 +1443,8 @@ class CreateInvitationAPIView(APIView):
                 exhibitor=request.user.exhibitor
             )
 
-            invitation_link = (
-                f"http://127.0.0.1:8000/register/"
-                f"{invitation.invitation_token}/"
+            invitation_link = request.build_absolute_uri(
+                f"/register/{invitation.invitation_token}/"
             )
 
             return Response(
