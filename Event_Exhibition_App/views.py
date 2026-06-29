@@ -53,10 +53,21 @@ class DashboardAPIView(APIView):
             exhibitor=exhibitor
         ).count()
 
-        confirmed = Invitation.objects.filter(
+        confirmed_invitation = Invitation.objects.filter(
             exhibitor=exhibitor,
             status="Confirmed"
         ).count()
+        
+
+        
+        confirmed_upload = UploadRecord.objects.filter(
+            batch__exhibitor=exhibitor,
+            is_valid=True
+            
+        ).count()
+
+        confirmed = confirmed_invitation + confirmed_upload
+        
 
         available = max(
             allocated - confirmed,
