@@ -29,8 +29,7 @@ ALLOWED_HOSTS = [
     "nidheesh563.pythonanywhere.com",
     "127.0.0.1",
     "localhost",
-    
-                 ]
+    ]
 
 DATA_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 200 * 1024 * 1024
@@ -142,6 +141,8 @@ REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": [
         "django_filters.rest_framework.DjangoFilterBackend",
     ],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 100,
 }
 
 SIMPLE_JWT = {

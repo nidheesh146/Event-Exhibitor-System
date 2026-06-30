@@ -1648,7 +1648,7 @@
                             <div class="stats-breakdown ms-4">
     <span>Confirmed <span id="confirmedCount">0</span></span>
     <span>Pending <span id="pendingCount">0</span></span>
-    <span>Invited <span id="invitedCount">0</span></span>
+    <span>Total Invited <span id="invitedCount">0</span></span>
 </div>
                           <div class="circular-progress ms-3">
     <span id="availableBadges">0</span>
@@ -2389,6 +2389,10 @@
                     type="hidden"
                     id="editRecordId">
 
+                <input
+                    type="hidden"
+                    id="editRecordType">
+
                 <div class="row">
 
                     <div class="col-md-6 mb-3">
@@ -2408,11 +2412,13 @@
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label>Email</label>
+                        <label>Email <small class="text-muted">(not editable)</small></label>
                         <input
                             type="email"
                             class="form-control"
-                            id="editEmail">
+                            id="editEmail"
+                            readonly
+                            style="background:#f5f5f5; cursor:not-allowed;">
                     </div>
 
                     <div class="col-md-6 mb-3">
@@ -2513,13 +2519,14 @@
 
     console.log(row);
 
-    $('#editRecordId').val(row.ticketId);
+    $('#editRecordId').val(row.id);
+    $('#editRecordType').val(row._type || 'upload');  // 'badge' or 'upload'
 
     const names = row.name.split(' ');
 
     $('#editFirstName').val(names[0] || '');
     $('#editLastName').val(names.slice(1).join(' '));
-    $('#editPhone').val(row.phone);
+    $('#editPhone').val(row.phone || '');
 
     $('#editEmail').val(row.email);
     $('#editCompany').val(row.companyName);
@@ -2531,108 +2538,63 @@
 
 $('#saveRecordBtn').click(async function () {
 
-    const id = $('#editRecordId').val();
+    const id       = $('#editRecordId').val();
+    const recType  = $('#editRecordType').val();  // 'badge' or 'upload'
 
     const firstName = $('#editFirstName').val().trim();
-    const lastName = $('#editLastName').val().trim();
-    const email = $('#editEmail').val().trim();
-    const company = $('#editCompany').val().trim();
-    const jobTitle = $('#editJobTitle').val().trim();
-    const phone = $('#editPhone').val().trim();
-    const phoneRegex = /^\+?[0-9\s\-]{7,15}$/;
-
-    
-
+    const lastName  = $('#editLastName').val().trim();
+    const company   = $('#editCompany').val().trim();
+    const jobTitle  = $('#editJobTitle').val().trim();
+    const phone     = $('#editPhone').val().trim();
 
     // ==========================
-    // VALIDATIONS GO HERE
+    // VALIDATIONS
     // ==========================
-
     if (!firstName) {
-        return Swal.fire({
-            icon: 'warning',
-            title: 'Validation Error',
-            text: 'First Name is required.'
-        });
+        return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'First Name is required.' });
     }
-    if (!phoneRegex.test(phone)) {
-        return Swal.fire({
-            icon: 'warning',
-            title: 'Validation Error',
-            text: 'Please enter a valid phone number.'
-        });
-    }
-
     if (!lastName) {
-        return Swal.fire({
-            icon: 'warning',
-            title: 'Validation Error',
-            text: 'Last Name is required.'
-        });
+        return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Last Name is required.' });
     }
-
-    if (!email) {
-        return Swal.fire({
-            icon: 'warning',
-            title: 'Validation Error',
-            text: 'Email is required.'
-        });
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email)) {
-        return Swal.fire({
-            icon: 'warning',
-            title: 'Validation Error',
-            text: 'Please enter a valid email.'
-        });
-    }
-
-
-
-    const payload = {
-        row_data: {
-            "First Name": $('#editFirstName').val(),
-            "Last Name": $('#editLastName').val(),
-            "Email": $('#editEmail').val(),
-            "Company": $('#editCompany').val(),
-            "Job Title": $('#editJobTitle').val(),
-            "Phone": editPhoneInput.getNumber()
-        }
-    };
 
     try {
-
-        await axios.patch(
-            `/upload-record/${id}/`,
-            payload,
-            {
-                headers: {
-                    "X-CSRFToken": getCookie("csrftoken")
-                },
+        if (recType === 'badge') {
+            // Direct badge row — PATCH /badges/<id>/
+            const payload = {
+                first_name:   firstName,
+                last_name:    lastName,
+                company_name: company,
+                job_title:    jobTitle,
+                phone_number: editPhoneInput ? editPhoneInput.getNumber() : phone
+            };
+            await axios.patch(`/badges/${id}/`, payload, {
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
                 withCredentials: true
-            }
-        );
+            });
+        } else {
+            // Bulk upload row — PATCH /upload-record/<id>/
+            const payload = {
+                row_data: {
+                    "First Name": firstName,
+                    "Last Name":  lastName,
+                    "Company":    company,
+                    "Job Title":  jobTitle,
+                    "Phone":      editPhoneInput ? editPhoneInput.getNumber() : phone
+                }
+            };
+            await axios.patch(`/upload-record/${id}/`, payload, {
+                headers: { "X-CSRFToken": getCookie("csrftoken") },
+                withCredentials: true
+            });
+        }
 
         $('#editModal').modal('hide');
-
-        Swal.fire({
-            icon: 'success',
-            title: 'Record Updated'
-        });
-
+        Swal.fire({ icon: 'success', title: 'Record Updated' });
         table.ajax.reload(null, false);
 
     } catch (error) {
-
         console.error(error);
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Update Failed'
-        });
-
+        Swal.fire({ icon: 'error', title: 'Update Failed' });
     }
 
 });
@@ -2713,7 +2675,7 @@ $('#saveRecordBtn').click(async function () {
                     country_of_residence: $("#countryResidence").val(),
                     nationality: $("#nationality").val(),
                     ticket: $("#ticketType").val(),
-                    status: "pending",
+                    status: "confirmed",
                     terms_accepted: $("#consent1").prop("checked")
                 };
                         try {
@@ -2748,8 +2710,8 @@ $('#saveRecordBtn').click(async function () {
 
                             $(".select2-modal").val("").trigger("change");
 
-                            // If you have a DataTable showing badges:
-                            // table.ajax.reload(null, false);
+                            // Reload the badge table to show the new badge:
+                            table.ajax.reload(null, false);
                 } catch (error) {
                     console.log("Status:", error.response?.status);
                     console.log("Response:", error.response?.data);
@@ -2784,75 +2746,93 @@ $('#saveRecordBtn').click(async function () {
                 serverSide: true,
              ajax: function (data, callback) {
 
-    const params = new URLSearchParams({
-        draw: data.draw,
-        start: data.start,
-        length: data.length,
-        page: String(Math.floor(data.start / data.length) + 1),
-        page_size: String(data.length)
-    });
+    const page     = String(Math.floor(data.start / data.length) + 1);
+    const pageSize = String(data.length);
+    const keyword  = $('#searchKeyword').val().trim();
 
-    // Keyword search
-    const keyword = $('#searchKeyword').val().trim();
-    if (keyword) {
-        params.set('search', keyword);
-    }
-
-    // Valid / Invalid filter
-    if ($('#recordType').val()) {
-        params.set('status', $('#recordType').val());
-    }
-
-    // Registration status
-    if ($('#filterStatus').val()) {
-        params.set('registration_status', $('#filterStatus').val());
-    }
+    // Status filter — only valid Badge choices (not 'all')
+    const recordTypeVal  = $('#recordType').val();
+    const filterStatusVal = $('#filterStatus').val();
+    const activeStatus = (filterStatusVal && filterStatusVal !== 'all')
+        ? filterStatusVal
+        : (recordTypeVal && recordTypeVal !== 'all' ? recordTypeVal : '');
 
     // Ticket filter
-    if ($('#filterTickets').val()) {
-        params.set('ticket', $('#filterTickets').val());
-    }
+    const filterTicketVal = $('#filterTickets').val();
+    const activeTicket = (filterTicketVal && filterTicketVal !== 'all') ? filterTicketVal : '';
 
-    console.log("Params:", params.toString());
+    // --- Build params for /badges/ ---
+    const badgeParams = new URLSearchParams({ page, page_size: pageSize });
+    if (keyword)      badgeParams.set('search', keyword);
+    if (activeStatus) badgeParams.set('status', activeStatus);
+    if (activeTicket) badgeParams.set('ticket', activeTicket);
 
-    axios.get(
-        `/upload-records/?${params.toString()}`
-    )
-    .then(response => {
+    // --- Build params for /upload-records/ ---
+    const uploadParams = new URLSearchParams({ page, page_size: pageSize });
+    if (keyword) uploadParams.set('search', keyword);
+    // upload records use is_valid; map confirmed→valid, pending→invalid
+    if (activeStatus === 'confirmed') uploadParams.set('status', 'valid');
+    else if (activeStatus === 'pending') uploadParams.set('status', 'invalid');
 
-        const payload = response.data || {};
-        const rows = payload.data || payload.results || [];
+    console.log("Fetching badges + upload-records in parallel");
 
-        const formatted = rows.map(record => ({
-            name: `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
-            email: record.row_data?.['Email'] || '',
-            jobTitle: record.row_data?.['Job Title'] || '-',
-            source: 'Bulk Upload',
-            ticketClass: '-',
-            ticketId: record.id,
-            companyName: record.row_data?.['Company'] || '-',
+    Promise.all([
+        axios.get(`/badges/?${badgeParams.toString()}`).catch(() => ({ data: { count: 0, results: [] } })),
+        axios.get(`/upload-records/?${uploadParams.toString()}`).catch(() => ({ data: { count: 0, data: [] } }))
+    ])
+    .then(([badgeRes, uploadRes]) => {
+
+        const badgePayload  = badgeRes.data  || {};
+        const uploadPayload = uploadRes.data || {};
+
+        const badges  = badgePayload.results || badgePayload.data  || (Array.isArray(badgePayload)  ? badgePayload  : []);
+        const uploads = uploadPayload.results || uploadPayload.data || (Array.isArray(uploadPayload) ? uploadPayload : []);
+
+        const formattedBadges = badges.map(badge => ({
+            id:           badge.id,
+            _type:        'badge',
+            name:         `${badge.first_name || ''} ${badge.last_name || ''}`.trim(),
+            email:        badge.email        || '',
+            jobTitle:     badge.job_title    || '-',
+            source:       'Badge',
+            ticketClass:  badge.ticket_name  || '-',
+            ticketId:     badge.id,
+            companyName:  badge.company_name || '-',
             digitalBadge: false,
             onsitePrinted: false,
-            status: record.is_valid ? 'confirmed' : 'pending',
-            date: record.created_at || ''
+            status:       badge.status       || 'pending',
+            date:         badge.created_at   ? badge.created_at.split('T')[0] : ''
         }));
 
-        callback({
-            draw: payload.draw || data.draw,
-            data: formatted,
-            recordsTotal: payload.recordsTotal || payload.count || 0,
-            recordsFiltered: payload.recordsFiltered || payload.count || 0
-        });
+        const formattedUploads = uploads.map(record => ({
+            id:           record.id,
+            _type:        'upload',
+            name:         `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
+            email:        record.row_data?.['Email']     || '',
+            jobTitle:     record.row_data?.['Job Title'] || '-',
+            source:       'Bulk Upload',
+            ticketClass:  record.row_data?.['Ticket']    || '-',
+            ticketId:     record.id,
+            companyName:  record.row_data?.['Company']   || '-',
+            digitalBadge: false,
+            onsitePrinted: false,
+            status:       record.is_valid ? 'confirmed' : 'pending',
+            date:         record.created_at ? record.created_at.split('T')[0] : ''
+        }));
 
+        const merged = [...formattedBadges, ...formattedUploads];
+        const total  = (badgePayload.count || badges.length) + (uploadPayload.count || uploads.length);
+
+        callback({
+            draw:            data.draw,
+            data:            merged,
+            recordsTotal:    total,
+            recordsFiltered: total
+        });
     })
     .catch(error => {
-        console.error("Failed to load records:", error);
-
-        callback({
-            data: [],
-            recordsTotal: 0,
-            recordsFiltered: 0
-        });
+        console.error("Failed to load registrations:", error);
+        callback({ data: [], recordsTotal: 0, recordsFiltered: 0 });
     });
 },
                 columns: [
@@ -2948,19 +2928,20 @@ $('#saveRecordBtn').click(async function () {
                 order: [[1, 'asc']]
             });
 
-            function renderTable(records) {
-                const formattedData = (records || []).map(record => ({
-                    name: `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
-                    email: record.row_data?.['Email'] || '',
-                    jobTitle: record.row_data?.['Job Title'] || '-',
-                    source: 'Bulk Upload',
-                    ticketClass: '-',
-                    ticketId: record.id,
-                    companyName: record.row_data?.['Company'] || '-',
+            function renderTable(badges) {
+                const formattedData = (badges || []).map(badge => ({
+                    id: badge.id,
+                    name: `${badge.first_name || ''} ${badge.last_name || ''}`.trim(),
+                    email: badge.email || '',
+                    jobTitle: badge.job_title || '-',
+                    source: 'Badge',
+                    ticketClass: badge.ticket_name || '-',
+                    ticketId: badge.id,
+                    companyName: badge.company_name || '-',
                     digitalBadge: false,
                     onsitePrinted: false,
-                    status: record.is_valid ? 'confirmed' : 'pending',
-                    date: record.created_at || ''
+                    status: badge.status || 'pending',
+                    date: badge.created_at ? badge.created_at.split('T')[0] : ''
                 }));
 
                 table.clear();
@@ -2969,18 +2950,8 @@ $('#saveRecordBtn').click(async function () {
             }
 
         function loadRecords(status = 'all') {
-
-    const params = new URLSearchParams({
-        page: '1',
-        page_size: '100'
-    });
-
-    if (status === 'valid' || status === 'invalid') {
-        params.set('status', status);
-    }
-
-    table.ajax.reload();
-}
+            table.ajax.reload();
+        }
 
             // Function to update bulk actions bar
             function updateBulkActionsBar() {
@@ -4249,8 +4220,11 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
                     icon: 'success',
                     title: 'Export Started!',
                     text: 'Your Excel file is being prepared for download.',
-                    confirmButtonColor: '#e74c3c'
+                    confirmButtonColor: '#e74c3c',
+                    timer: 2000,
+                    showConfirmButton: false
                 });
+                window.location.href = '/badges/export/';
             });
 
             // Sidebar Toggle

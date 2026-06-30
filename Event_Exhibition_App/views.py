@@ -12,7 +12,6 @@ from .serializers import BadgeSerializer,InvitationSerializer,Invitation
 
 class BadgeViewSet(viewsets.ModelViewSet):
 
-    queryset = Badge.objects.all().order_by("-id")
     serializer_class = BadgeSerializer
 
     filter_backends = [
@@ -31,9 +30,16 @@ class BadgeViewSet(viewsets.ModelViewSet):
         "email",
         "company_name"
     ]
-    
-    
-    
+
+    def get_queryset(self):
+        user = self.request.user
+        if hasattr(user, 'exhibitor'):
+            return Badge.objects.filter(
+                exhibitor=user.exhibitor
+            ).order_by("-id")
+        return Badge.objects.all().order_by("-id")
+
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth import login
@@ -212,7 +218,7 @@ class BulkDeleteBadgeAPIView(APIView):
         ids = request.data.get("ids", [])
 
         deleted_count, _ = Badge.objects.filter(
-            id__in=ids
+             id__in=ids
         ).delete()
 
         return Response({
@@ -338,27 +344,31 @@ class ExportBadgesAPIView(APIView):
         sheet.title = "Badges"
 
         sheet.append([
-            "First Name",
-            "Last Name",
-            "Email",
+            "Name",
+            "Company Name",
             "Job Title",
-            "Company",
+            "Ticket Name",
+            "Status",
             "Phone",
-            "Status"
+            "Email"
         ])
 
-        badges = Badge.objects.all()
+        exhibitor = getattr(request.user, 'exhibitor', None)
+        if exhibitor:
+            badges = Badge.objects.filter(exhibitor=exhibitor).select_related('ticket')
+        else:
+            badges = Badge.objects.all().select_related('ticket')
 
         for badge in badges:
 
             sheet.append([
-                badge.first_name,
-                badge.last_name,
-                badge.email,
-                badge.job_title,
+                f"{badge.first_name} {badge.last_name}",
                 badge.company_name,
+                badge.job_title,
+                badge.ticket.name if badge.ticket else '',
+                badge.status,
                 badge.phone_number,
-                badge.status
+                badge.email
             ])
 
         response = HttpResponse(
@@ -1191,7 +1201,8 @@ class CreateBadgeAPIView(APIView):
         if serializer.is_valid():
 
             serializer.save(
-                exhibitor=exhibitor
+                exhibitor=exhibitor,
+                status="confirmed"
             )
 
             return Response(
