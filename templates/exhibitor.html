@@ -3187,8 +3187,9 @@ $('#saveRecordBtn').click(async function () {
 
                 break;
                     case 'delete':
-                        // Store the record id so confirmDeleteBtn can use it
-                        $('#deleteModal').data('recordId', row.ticketId);
+                        // Store the record id and type so confirmDeleteBtn can use it
+                        $('#deleteModal').data('recordId', row.id);
+                        $('#deleteModal').data('recordType', row._type || 'upload');
                         var deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
                         deleteModal.show();
                         break;
@@ -3232,6 +3233,7 @@ $('#saveRecordBtn').click(async function () {
             // Confirm Single-Row Delete
             $('#confirmDeleteBtn').off('click').on('click', function() {
                 var recordId = $('#deleteModal').data('recordId');
+                var recordType = $('#deleteModal').data('recordType') || 'upload';
                 if (!recordId) {
                     Swal.fire({ icon: 'error', title: 'Error', text: 'No record selected.', confirmButtonColor: '#e74c3c' });
                     return;
@@ -3240,7 +3242,13 @@ $('#saveRecordBtn').click(async function () {
                 var $btn = $(this);
                 $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Deleting...');
 
-                axios.delete(`/upload-record/${recordId}/delete/`)
+                const deleteUrl = recordType === 'badge' 
+                    ? `/badges/${recordId}/` 
+                    : `/upload-record/${recordId}/delete/`;
+
+                axios.delete(deleteUrl, {
+                    headers: { "X-CSRFToken": getCookie("csrftoken") }
+                })
                     .then(function() {
                         $('#deleteModal').modal('hide');
                         table.ajax.reload(null, false);  // reload without resetting page
@@ -3256,7 +3264,7 @@ $('#saveRecordBtn').click(async function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Delete Failed',
-                            text: err.response?.data?.error || 'Something went wrong.',
+                            text: err.response?.data?.error || err.response?.data?.detail || 'Something went wrong.',
                             confirmButtonColor: '#e74c3c'
                         });
                     })
