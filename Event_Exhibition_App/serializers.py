@@ -20,8 +20,12 @@ class BadgeSerializer(serializers.ModelSerializer):
         return "-"
 
     def validate_email(self, value):
-
         instance = self.instance
+
+        if instance and instance.email and instance.email.lower() != value.lower():
+            raise serializers.ValidationError(
+                "Email address is not editable."
+            )
 
         if Badge.objects.filter(email=value)\
             .exclude(id=getattr(instance, 'id', None))\
@@ -30,6 +34,17 @@ class BadgeSerializer(serializers.ModelSerializer):
                 "Email already exists"
             )
 
+        return value
+
+    def validate_phone_number(self, value):
+        import re
+        if value and not re.match(r"^\+?[0-9\s\-\(\)]+$", value):
+            raise serializers.ValidationError("Phone number must contain only digits.")
+        cleaned = "".join(c for c in value if c.isdigit()) if value else ""
+        if not cleaned:
+            raise serializers.ValidationError("Phone number must contain only digits.")
+        if len(cleaned) < 10:
+            raise serializers.ValidationError("Phone number must be at least 10 digits.")
         return value
     
     

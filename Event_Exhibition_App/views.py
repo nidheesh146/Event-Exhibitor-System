@@ -950,9 +950,14 @@ class UploadRecordUpdateAPIView(APIView):
             id=record_id
         )
 
+        old_email = (record.row_data.get("Email") or "").strip()
         row_data = request.data.get("row_data", {})
 
         if row_data:
+            # If old_email was already set, prevent modifying it
+            new_email = (row_data.get("Email") or "").strip()
+            if old_email and new_email and old_email.lower() != new_email.lower():
+                row_data["Email"] = old_email
             record.row_data.update(row_data)
 
         errors = []
@@ -962,11 +967,16 @@ class UploadRecordUpdateAPIView(APIView):
         company = (record.row_data.get("Company") or "").strip()
         phone = (record.row_data.get("Phone") or "").strip()
 
-        
+        # Sanitize and normalize phone number digits
+        phone_clean = ""
+        if phone:
+            phone_clean = re.sub(r"[\s\-\+\(\)]", "", phone)
+            record.row_data["Phone"] = phone_clean
+            phone = phone_clean
+
         if not first_name:
             errors.append("First Name is required")
 
-        
         if not email:
             errors.append("Email is required")
 
@@ -979,17 +989,15 @@ class UploadRecordUpdateAPIView(APIView):
         elif Visitor.objects.filter(email__iexact=email).exists():
             errors.append("Email already exists")
 
-        
         if not company:
             errors.append("Company is required")
 
-        
         if not phone:
             errors.append("Phone number is required")
 
         else:
             try:
-                phone_validator(phone)
+                phone_validator(phone_clean)
             except ValidationError as e:
                 errors.append(e.messages[0])
 

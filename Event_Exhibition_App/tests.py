@@ -254,3 +254,29 @@ class CreateBadgeTests(APITestCase):
         self.assertEqual(bob_row[1], "Beta Corp")
         self.assertEqual(bob_row[6], "9876543210")
 
+    def test_badge_edit_validations(self):
+        # Create a badge
+        badge = Badge.objects.create(
+            exhibitor=self.exhibitor,
+            first_name="Alice",
+            last_name="Smith",
+            email="alice@example.com",
+            job_title="Manager",
+            company_name="Acme Corp",
+            phone_number="1234567890",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+
+        # Attempting to edit email should fail
+        response = self.client.patch(f"/badges/{badge.id}/", {"email": "changed@example.com"}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("Email address is not editable.", str(response.data))
+
+        # Attempting to edit phone with letters should fail
+        response = self.client.patch(f"/badges/{badge.id}/", {"phone_number": "invalid_phone_123"}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("Phone number must contain only digits.", str(response.data))
+

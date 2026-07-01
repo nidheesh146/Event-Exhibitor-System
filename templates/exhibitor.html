@@ -2579,7 +2579,12 @@
             $('#editLastName').val(names.slice(1).join(' '));
             $('#editPhone').val(row.phone || '');
 
-            $('#editEmail').val(row.email);
+            $('#editEmail').val(row.email || '');
+            if (!row.email || row.email === '-' || row.email.trim() === '') {
+                $('#editEmail').prop('readonly', false);
+            } else {
+                $('#editEmail').prop('readonly', true);
+            }
             $('#editCompany').val(row.companyName);
             $('#editJobTitle').val(row.jobTitle);
 
@@ -2597,6 +2602,7 @@
             const company = $('#editCompany').val().trim();
             const jobTitle = $('#editJobTitle').val().trim();
             const phone = $('#editPhone').val().trim();
+            const email = $('#editEmail').val().trim();
 
             // ==========================
             // VALIDATIONS
@@ -2607,6 +2613,23 @@
             if (!lastName) {
                 return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Last Name is required.' });
             }
+            if (!email) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Email is required.' });
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Invalid Email format.' });
+            }
+
+            const phoneClean = phone.replace(/[\s\-\+\(\)]/g, '');
+            if (!phone) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Phone number is required.' });
+            }
+            if (!/^\d+$/.test(phoneClean)) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Phone number must contain only digits.' });
+            }
+            if (phoneClean.length < 10) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Phone number must be at least 10 digits.' });
+            }
 
             try {
                 if (recType === 'badge') {
@@ -2616,7 +2639,8 @@
                         last_name: lastName,
                         company_name: company,
                         job_title: jobTitle,
-                        phone_number: editPhoneInput ? editPhoneInput.getNumber() : phone
+                        phone_number: editPhoneInput ? editPhoneInput.getNumber() : phone,
+                        email: email
                     };
                     await axios.patch(`/badges/${id}/`, payload, {
                         headers: { "X-CSRFToken": getCookie("csrftoken") },
@@ -2630,7 +2654,8 @@
                             "Last Name": lastName,
                             "Company": company,
                             "Job Title": jobTitle,
-                            "Phone": editPhoneInput ? editPhoneInput.getNumber() : phone
+                            "Phone": editPhoneInput ? editPhoneInput.getNumber() : phone,
+                            "Email": email
                         }
                     };
                     await axios.patch(`/upload-record/${id}/`, payload, {
