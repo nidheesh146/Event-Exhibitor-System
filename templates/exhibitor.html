@@ -2211,7 +2211,7 @@
                         <span class="text-muted">
                             <i class="fas fa-download me-2"></i>Need the template?
                         </span>
-                        <button class="btn btn-sm btn-outline-danger">
+                        <button class="btn btn-sm btn-outline-danger" id="downloadTemplateBtn">
                             <i class="fas fa-file-download me-1"></i>Download Template
                         </button>
                     </div>
@@ -4351,6 +4351,18 @@
                     showConfirmButton: false
                 });
                 window.location.href = '/badges/export/';
+            });
+
+            // Download Template Button in Bulk Upload Modal
+            $('#downloadTemplateBtn').click(function () {
+                const csvContent = "data:text/csv;charset=utf-8,First Name,Last Name,Email,Phone,Job Title,Company\nJohn,Doe,john.doe@example.com,1234567890,Manager,Acme Corp\n";
+                const encodedUri = encodeURI(csvContent);
+                const a = document.createElement('a');
+                a.href = encodedUri;
+                a.download = 'badge_bulk_upload_template.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
             });
 
             // Sidebar Toggle
