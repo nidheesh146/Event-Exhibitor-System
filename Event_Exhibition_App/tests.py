@@ -181,3 +181,61 @@ class CreateBadgeTests(APITestCase):
         self.assertFalse(Badge.objects.filter(id=badge.id).exists())
         self.assertTrue(Badge.objects.filter(id=other_badge.id).exists())
 
+    def test_export_badges_contains_both_badges_and_uploads(self):
+        # Create a badge
+        Badge.objects.create(
+            exhibitor=self.exhibitor,
+            first_name="Alice",
+            last_name="Smith",
+            email="alice@example.com",
+            job_title="Manager",
+            company_name="Acme Corp",
+            phone_number="1234567890",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+        # Create a batch and an upload record
+        batch = UploadBatch.objects.create(batch_name="Batch 1", file_name="batch1.xlsx", exhibitor=self.exhibitor)
+        UploadRecord.objects.create(
+            batch=batch,
+            row_data={
+                "First Name": "Bob",
+                "Last Name": "Jones",
+                "Company": "Beta Corp",
+                "Job Title": "Developer",
+                "Ticket": "VIP",
+                "Phone": "9876543210",
+                "Email": "bob@example.com"
+            },
+            is_valid=True
+        )
+
+        response = self.client.get("/badges/export/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response["Content-Type"], "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+        self.assertIn("attachment; filename=", response["Content-Disposition"])
+
+        # Parse response with openpyxl to check content
+        from io import BytesIO
+        from openpyxl import load_workbook
+        wb = load_workbook(BytesIO(response.getvalue()))
+        sheet = wb.active
+        self.assertEqual(sheet.title, "All Records")
+
+        rows = list(sheet.values)
+        self.assertEqual(rows[0], ("Name", "Company Name", "Job Title", "Ticket Name", "Status", "Phone", "Email", "Source", "Created At"))
+        
+        # Verify Alice (Badge) is in the output
+        alice_row = next(r for r in rows if r[0] == "Alice Smith")
+        self.assertEqual(alice_row[1], "Acme Corp")
+        self.assertEqual(alice_row[6], "alice@example.com")
+        self.assertEqual(alice_row[7], "Badge")
+
+        # Verify Bob (UploadRecord) is in the output
+        bob_row = next(r for r in rows if r[0] == "Bob Jones")
+        self.assertEqual(bob_row[1], "Beta Corp")
+        self.assertEqual(bob_row[6], "bob@example.com")
+        self.assertEqual(bob_row[7], "Bulk Upload")
+

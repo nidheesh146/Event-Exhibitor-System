@@ -340,56 +340,95 @@ class BulkDeleteUploadRecordAPIView(APIView):
 from openpyxl import Workbook
 from django.http import HttpResponse
 
+import tempfile
+import os
+from django.http import FileResponse
+from openpyxl import Workbook
+
+class DeleteOnCloseFileResponse(FileResponse):
+    def __init__(self, open_file, filename, **kwargs):
+        self.filename = filename
+        super().__init__(open_file, **kwargs)
+        
+    def close(self):
+        super().close()
+        try:
+            if os.path.exists(self.filename):
+                os.remove(self.filename)
+        except Exception as e:
+            print("Failed to delete temp file:", e)
+
 class ExportBadgesAPIView(APIView):
 
     def get(self, request):
+        exhibitor = getattr(request.user, 'exhibitor', None)
 
-        workbook = Workbook()
+        wb = Workbook(write_only=True)
+        ws = wb.create_sheet(title="All Records")
 
-        sheet = workbook.active
-        sheet.title = "Badges"
-
-        sheet.append([
+        ws.append([
             "Name",
             "Company Name",
             "Job Title",
             "Ticket Name",
             "Status",
             "Phone",
-            "Email"
+            "Email",
+            "Source",
+            "Created At"
         ])
 
-        exhibitor = getattr(request.user, 'exhibitor', None)
         if exhibitor:
-            badges = Badge.objects.filter(exhibitor=exhibitor).select_related('ticket')
+            badges = Badge.objects.filter(exhibitor=exhibitor).select_related('ticket').iterator(chunk_size=2000)
+            uploads = UploadRecord.objects.filter(batch__exhibitor=exhibitor).order_by("-id").iterator(chunk_size=2000)
         else:
-            badges = Badge.objects.all().select_related('ticket')
+            badges = Badge.objects.all().select_related('ticket').iterator(chunk_size=2000)
+            uploads = UploadRecord.objects.all().order_by("-id").iterator(chunk_size=2000)
 
+        # Write Badge Creations
         for badge in badges:
-
-            sheet.append([
-                f"{badge.first_name} {badge.last_name}",
-                badge.company_name,
-                badge.job_title,
-                badge.ticket.name if badge.ticket else '',
-                badge.status,
-                badge.phone_number,
-                badge.email
+            ws.append([
+                f"{badge.first_name} {badge.last_name}".strip(),
+                badge.company_name or "-",
+                badge.job_title or "-",
+                badge.ticket.name if badge.ticket else "-",
+                badge.status or "pending",
+                badge.phone_number or "-",
+                badge.email or "-",
+                "Badge",
+                badge.created_at.strftime("%Y-%m-%d") if badge.created_at else "-"
             ])
 
-        response = HttpResponse(
-            content_type=(
-                "application/vnd.openxmlformats-officedocument."
-                "spreadsheetml.sheet"
-            )
+        # Write Upload Records
+        for upload in uploads:
+            row_data = upload.row_data or {}
+            first_name = row_data.get("First Name") or ""
+            last_name = row_data.get("Last Name") or ""
+            name = f"{first_name} {last_name}".strip()
+            
+            ws.append([
+                name or "-",
+                row_data.get("Company") or "-",
+                row_data.get("Job Title") or "-",
+                row_data.get("Ticket") or "-",
+                "confirmed" if upload.is_valid else "pending",
+                row_data.get("Phone") or "-",
+                row_data.get("Email") or "-",
+                "Bulk Upload",
+                upload.created_at.strftime("%Y-%m-%d") if upload.created_at else "-"
+            ])
+
+        with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as tmp:
+            wb.save(tmp.name)
+            tmp_path = tmp.name
+
+        f = open(tmp_path, 'rb')
+        response = DeleteOnCloseFileResponse(
+            f,
+            filename=tmp_path,
+            content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-
-        response[
-            "Content-Disposition"
-        ] = 'attachment; filename="badges.xlsx"'
-
-        workbook.save(response)
-
+        response["Content-Disposition"] = 'attachment; filename="all_records.xlsx"'
         return response
     
 from openpyxl import load_workbook
