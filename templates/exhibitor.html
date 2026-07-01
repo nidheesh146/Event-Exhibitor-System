@@ -4339,7 +4339,7 @@
                                 confirmButtonColor: "#e74c3c"
                             });
 
-                            if (batch.invalid_records > 0) {
+                            if (batch.invalid_records > 0 && !batch.is_mapped) {
                                 $('#openMappingBtn').show();
                             } else {
                                 toggleMappingButton();
@@ -4540,7 +4540,7 @@
                 axios.get(`/upload-batch-status/${lastBatchId}/`)
                     .then(res => {
                         const batch = res.data;
-                        if (batch.invalid_records > 0) {
+                        if (batch.invalid_records > 0 && !batch.is_mapped) {
                             $('#openMappingBtn').show();
                         } else {
                             toggleMappingButton();

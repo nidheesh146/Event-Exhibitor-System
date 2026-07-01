@@ -676,12 +676,15 @@ class UploadBatchStatusAPIView(APIView):
 
             batch = UploadBatch.objects.get(id=batch_id)
 
+            from .models import ColumnMapping
+            is_mapped = ColumnMapping.objects.filter(batch=batch).exists()
             return Response({
                 "status": batch.status,
                 "total_records": batch.total_records,
                 "valid_records": batch.valid_records,
-                "invalid_records": batch.invalid_records
-        })
+                "invalid_records": batch.invalid_records,
+                "is_mapped": is_mapped
+            })
 
         except UploadBatch.DoesNotExist:
 
