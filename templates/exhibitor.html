@@ -1873,11 +1873,11 @@
                     <thead>
                         <tr>
                             <th style="width: 40px;"><input type="checkbox" class="table-checkbox" id="selectAll"></th>
-                            <th>URN</th>
                             <th>NAME</th>
                             <th>JOB TITLE</th>
                             <th>SOURCE</th>
                             <th>TICKET CLASS</th>
+                            <th>TICKET ID</th>
                             <th>COMPANY NAME</th>
                             <th>INVITATION LINK</th>
                             <th>STATUS</th>
@@ -2848,11 +2848,11 @@
                     // --- Sorting ---
                     const columnsMap = [
                         null,           // Checkbox
-                        'urn',          // URN
                         'first_name',   // NAME
                         'job_title',    // JOB TITLE
                         null,           // SOURCE
                         'ticket',       // TICKET CLASS
+                        'id',           // TICKET ID
                         'company_name', // COMPANY NAME
                         null,           // INVITATION LINK
                         'status'        // STATUS
@@ -2892,6 +2892,7 @@
                                 jobTitle: badge.job_title || '-',
                                 source: 'Badge',
                                 ticketClass: badge.ticket_name || '-',
+                                ticketId: badge.id,
                                 companyName: badge.company_name || '-',
                                 invitationLink: badge.invitation_link || '-',
                                 status: badge.status || 'pending',
@@ -2908,6 +2909,7 @@
                                 jobTitle: record.row_data?.['Job Title'] || '-',
                                 source: 'Bulk Upload',
                                 ticketClass: record.row_data?.['Ticket'] || '-',
+                                ticketId: record.id,
                                 companyName: record.row_data?.['Company'] || '-',
                                 invitationLink: record.invitation_link || '-',
                                 status: record.is_valid ? 'confirmed' : 'pending',
@@ -2946,7 +2948,6 @@
                             return '<input type="checkbox" class="table-checkbox row-checkbox">';
                         }
                     },
-                    { data: 'urn' },
                     {
                         data: null,
                         render: function (data) {
@@ -2959,6 +2960,7 @@
                     { data: 'jobTitle' },
                     { data: 'source' },
                     { data: 'ticketClass' },
+                    { data: 'ticketId' },
                     { data: 'companyName' },
                     {
                         data: 'invitationLink',
