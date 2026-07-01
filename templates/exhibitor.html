@@ -4339,6 +4339,12 @@
                                 confirmButtonColor: "#e74c3c"
                             });
 
+                            if (batch.invalid_records > 0) {
+                                $('#openMappingBtn').show();
+                            } else {
+                                toggleMappingButton();
+                            }
+
                         }
 
                         if (batch.status === "failed") {
@@ -4527,6 +4533,25 @@
 
 
             loadRecords();
+
+            // Initialize mapping button visibility based on last batch or columns config
+            const lastBatchId = localStorage.getItem('batchId');
+            if (lastBatchId) {
+                axios.get(`/upload-batch-status/${lastBatchId}/`)
+                    .then(res => {
+                        const batch = res.data;
+                        if (batch.invalid_records > 0) {
+                            $('#openMappingBtn').show();
+                        } else {
+                            toggleMappingButton();
+                        }
+                    })
+                    .catch(() => {
+                        toggleMappingButton();
+                    });
+            } else {
+                toggleMappingButton();
+            }
 
         });
 
