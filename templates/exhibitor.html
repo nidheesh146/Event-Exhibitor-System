@@ -2816,15 +2816,35 @@
                     // --- Build params for /badges/ ---
                     const badgeParams = new URLSearchParams({ page, page_size: pageSize });
                     if (keyword) badgeParams.set('search', keyword);
-                    if (activeStatus) badgeParams.set('status', activeStatus);
+                    
+                    // Map activeStatus to Badge status values ('confirmed', 'pending', 'invited')
+                    let badgeStatus = '';
+                    if (activeStatus === 'confirmed' || activeStatus === 'valid') {
+                        badgeStatus = 'confirmed';
+                    } else if (activeStatus === 'pending' || activeStatus === 'invalid') {
+                        badgeStatus = 'pending';
+                    } else if (activeStatus === 'invited') {
+                        badgeStatus = 'invited';
+                    }
+                    if (badgeStatus) {
+                        badgeParams.set('status', badgeStatus);
+                    }
                     if (activeTicket) badgeParams.set('ticket', activeTicket);
 
                     // --- Build params for /upload-records/ ---
                     const uploadParams = new URLSearchParams({ page, page_size: pageSize });
                     if (keyword) uploadParams.set('search', keyword);
-                    // upload records use is_valid; map confirmed→valid, pending→invalid
-                    if (activeStatus === 'confirmed') uploadParams.set('status', 'valid');
-                    else if (activeStatus === 'pending') uploadParams.set('status', 'invalid');
+                    
+                    // Map activeStatus to UploadRecord status values ('valid', 'invalid')
+                    let uploadStatus = '';
+                    if (activeStatus === 'confirmed' || activeStatus === 'valid') {
+                        uploadStatus = 'valid';
+                    } else if (activeStatus === 'pending' || activeStatus === 'invalid') {
+                        uploadStatus = 'invalid';
+                    }
+                    if (uploadStatus) {
+                        uploadParams.set('status', uploadStatus);
+                    }
 
                     // --- Sorting ---
                     const columnsMap = [
