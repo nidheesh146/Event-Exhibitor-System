@@ -4495,9 +4495,22 @@
             }
             updateCountdown();
 
-            // Filter functionality
-            $('#searchKeyword').on('keyup', function () {
-                table.search(this.value).draw();
+            // Filter functionality with debounce and Enter key handling
+            let searchTimeout = null;
+            $('#searchKeyword').on('keyup', function (e) {
+                const val = this.value.trim();
+                clearTimeout(searchTimeout);
+                
+                if (e.key === 'Enter') {
+                    table.search(val).draw();
+                    return;
+                }
+                
+                searchTimeout = setTimeout(function () {
+                    if (val === '' || val.length >= 3) {
+                        table.search(val).draw();
+                    }
+                }, 850);
             });
 
             $('#filterStatus').on('change', function () {
