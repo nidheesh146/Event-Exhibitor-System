@@ -109,3 +109,75 @@ class CreateBadgeTests(APITestCase):
         self.assertFalse(bob_rec.is_valid)
         self.assertIn("Invalid email format", bob_rec.error_message)
 
+    def test_bulk_delete_wipes_badges_and_uploads(self):
+        # Create a batch and an upload record for the exhibitor
+        batch = UploadBatch.objects.create(batch_name="Batch 1", file_name="batch1.xlsx", exhibitor=self.exhibitor)
+        UploadRecord.objects.create(batch=batch, row_data={"First Name": "Alice"}, is_valid=True)
+        
+        # Create a badge for the exhibitor
+        Badge.objects.create(
+            exhibitor=self.exhibitor,
+            first_name="Alice",
+            last_name="Smith",
+            email="alice@example.com",
+            job_title="Manager",
+            company_name="Acme Corp",
+            phone_number="1234567890",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+        
+        self.assertEqual(UploadRecord.objects.filter(batch__exhibitor=self.exhibitor).count(), 1)
+        self.assertEqual(Badge.objects.filter(exhibitor=self.exhibitor).count(), 1)
+        
+        # Call the bulk delete API
+        response = self.client.delete("/upload-records/bulk-delete/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # Verify both UploadRecords and Badges are wiped
+        self.assertEqual(UploadRecord.objects.filter(batch__exhibitor=self.exhibitor).count(), 0)
+        self.assertEqual(Badge.objects.filter(exhibitor=self.exhibitor).count(), 0)
+
+    def test_bulk_delete_badges_ownership_security(self):
+        # Create a badge for the exhibitor
+        badge = Badge.objects.create(
+            exhibitor=self.exhibitor,
+            first_name="Alice",
+            last_name="Smith",
+            email="alice@example.com",
+            job_title="Manager",
+            company_name="Acme Corp",
+            phone_number="1234567890",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+        
+        # Create another exhibitor and badge
+        other_user = User.objects.create_user(username='other_exhibitor2', password='secret123')
+        other_exhibitor = Exhibitor.objects.create(user=other_user, company_name='Other Ltd 2', allocated_badges=10)
+        other_badge = Badge.objects.create(
+            exhibitor=other_exhibitor,
+            first_name="Bob",
+            last_name="Jones",
+            email="bob@example.com",
+            job_title="Developer",
+            company_name="Other Corp",
+            phone_number="9876543210",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+        
+        # Call the bulk delete badge API trying to delete both IDs, but only self.exhibitor's badge should be deleted
+        response = self.client.post("/badges/bulk-delete/", {"ids": [badge.id, other_badge.id]}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
+        # badge should be deleted, other_badge should NOT be deleted
+        self.assertFalse(Badge.objects.filter(id=badge.id).exists())
+        self.assertTrue(Badge.objects.filter(id=other_badge.id).exists())
+

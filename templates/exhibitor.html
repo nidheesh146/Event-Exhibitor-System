@@ -3124,11 +3124,16 @@
                 }
 
                 // Collect the record IDs from checked rows
-                var ids = [];
+                var uploadRecordIds = [];
+                var badgeIds = [];
                 checkedBoxes.each(function () {
                     var rowData = table.row($(this).closest('tr')).data();
                     if (rowData && rowData.ticketId) {
-                        ids.push(rowData.ticketId);
+                        if (rowData._type === 'badge') {
+                            badgeIds.push(rowData.ticketId);
+                        } else {
+                            uploadRecordIds.push(rowData.ticketId);
+                        }
                     }
                 });
 
@@ -3151,8 +3156,24 @@
                             didOpen: () => { Swal.showLoading(); }
                         });
 
-                        axios.post('/upload-records/delete-selected/', { ids: ids })
-                            .then(function (res) {
+                        var deletePromises = [];
+                        if (uploadRecordIds.length > 0) {
+                            deletePromises.push(
+                                axios.post('/upload-records/delete-selected/', { ids: uploadRecordIds }, {
+                                    headers: { "X-CSRFToken": getCookie("csrftoken") }
+                                })
+                            );
+                        }
+                        if (badgeIds.length > 0) {
+                            deletePromises.push(
+                                axios.post('/badges/bulk-delete/', { ids: badgeIds }, {
+                                    headers: { "X-CSRFToken": getCookie("csrftoken") }
+                                })
+                            );
+                        }
+
+                        Promise.all(deletePromises)
+                            .then(function (responses) {
                                 table.ajax.reload(null, false);
                                 $('.row-checkbox').prop('checked', false);
                                 $('#selectAll').prop('checked', false);
@@ -3160,7 +3181,7 @@
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Deleted!',
-                                    text: (res.data.deleted_count || count) + ' record(s) deleted.',
+                                    text: count + ' record(s) deleted.',
                                     confirmButtonColor: '#e74c3c'
                                 });
                             })

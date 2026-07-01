@@ -214,11 +214,15 @@ from .models import Badge
 class BulkDeleteBadgeAPIView(APIView):
 
     def post(self, request):
+        exhibitor = resolve_exhibitor_from_request(request)
+        if not exhibitor:
+            return Response({"error": "Not authenticated."}, status=401)
 
         ids = request.data.get("ids", [])
 
         deleted_count, _ = Badge.objects.filter(
-             id__in=ids
+             id__in=ids,
+             exhibitor=exhibitor
         ).delete()
 
         return Response({
@@ -316,6 +320,8 @@ class BulkDeleteUploadRecordAPIView(APIView):
         else:
             # Wipe everything for this exhibitor
             qs = UploadRecord.objects.filter(batch__exhibitor=exhibitor)
+            # Wipes all Badge creations for this exhibitor
+            Badge.objects.filter(exhibitor=exhibitor).delete()
 
         # Chunked delete – safe for 3-lakh+ rows
         while True:
