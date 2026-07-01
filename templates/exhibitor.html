@@ -2895,7 +2895,8 @@
                                 companyName: badge.company_name || '-',
                                 invitationLink: badge.invitation_link || '-',
                                 status: badge.status || 'pending',
-                                date: badge.created_at ? badge.created_at.split('T')[0] : ''
+                                date: badge.created_at ? badge.created_at.split('T')[0] : '',
+                                createdAtRaw: badge.created_at || ''
                             }));
 
                             const formattedUploads = uploads.map(record => ({
@@ -2910,10 +2911,19 @@
                                 companyName: record.row_data?.['Company'] || '-',
                                 invitationLink: record.invitation_link || '-',
                                 status: record.is_valid ? 'confirmed' : 'pending',
-                                date: record.created_at ? record.created_at.split('T')[0] : ''
+                                date: record.created_at ? record.created_at.split('T')[0] : '',
+                                createdAtRaw: record.created_at || ''
                             }));
 
                             const merged = [...formattedBadges, ...formattedUploads];
+
+                            // Sort merged list by createdAtRaw descending (newest first)
+                            merged.sort((a, b) => {
+                                const dateA = a.createdAtRaw || '';
+                                const dateB = b.createdAtRaw || '';
+                                return dateB.localeCompare(dateA);
+                            });
+
                             const total = (badgePayload.count || badges.length) + (uploadPayload.count || uploads.length);
 
                             callback({
