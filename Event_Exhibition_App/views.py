@@ -19,10 +19,11 @@ class BadgeViewSet(viewsets.ModelViewSet):
         SearchFilter
     ]
 
-    filterset_fields = [
-        "status",
-        "ticket"
-    ]
+    filterset_fields = {
+        "status": ["exact"],
+        "ticket": ["exact"],
+        "ticket__name": ["exact", "iexact", "icontains"]
+    }
 
     search_fields = [
         "first_name",

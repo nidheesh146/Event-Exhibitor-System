@@ -2829,7 +2829,7 @@
                     if (badgeStatus) {
                         badgeParams.set('status', badgeStatus);
                     }
-                    if (activeTicket) badgeParams.set('ticket', activeTicket);
+                    if (activeTicket) badgeParams.set('ticket__name__iexact', activeTicket);
 
                     // --- Build params for /upload-records/ ---
                     const uploadParams = new URLSearchParams({ page, page_size: pageSize });
