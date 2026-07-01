@@ -242,17 +242,15 @@ class CreateBadgeTests(APITestCase):
         self.assertEqual(sheet.title, "All Records")
 
         rows = list(sheet.values)
-        self.assertEqual(rows[0], ("Name", "Company Name", "Job Title", "Ticket Name", "Status", "Phone", "Email", "Source", "Created At"))
+        self.assertEqual(rows[0], ("Name", "Company name", "Job title", "Ticket name", "Status", "Invitation link", "Phone number"))
         
         # Verify Alice (Badge) is in the output
         alice_row = next(r for r in rows if r[0] == "Alice Smith")
         self.assertEqual(alice_row[1], "Acme Corp")
-        self.assertEqual(alice_row[6], "alice@example.com")
-        self.assertEqual(alice_row[7], "Badge")
+        self.assertEqual(alice_row[6], "1234567890")
 
         # Verify Bob (UploadRecord) is in the output
         bob_row = next(r for r in rows if r[0] == "Bob Jones")
         self.assertEqual(bob_row[1], "Beta Corp")
-        self.assertEqual(bob_row[6], "bob@example.com")
-        self.assertEqual(bob_row[7], "Bulk Upload")
+        self.assertEqual(bob_row[6], "9876543210")
 

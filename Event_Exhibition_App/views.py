@@ -369,14 +369,12 @@ class ExportBadgesAPIView(APIView):
 
         ws.append([
             "Name",
-            "Company Name",
-            "Job Title",
-            "Ticket Name",
+            "Company name",
+            "Job title",
+            "Ticket name",
             "Status",
-            "Phone",
-            "Email",
-            "Source",
-            "Created At"
+            "Invitation link",
+            "Phone number"
         ])
 
         if exhibitor:
@@ -388,16 +386,20 @@ class ExportBadgesAPIView(APIView):
 
         # Write Badge Creations
         for badge in badges:
+            inv_link = "-"
+            inv = Invitation.objects.filter(email=badge.email).first()
+            if inv:
+                host = request.get_host()
+                inv_link = f"http://{host}/register/?token={inv.invitation_token}"
+
             ws.append([
                 f"{badge.first_name} {badge.last_name}".strip(),
                 badge.company_name or "-",
                 badge.job_title or "-",
                 badge.ticket.name if badge.ticket else "-",
                 badge.status or "pending",
-                badge.phone_number or "-",
-                badge.email or "-",
-                "Badge",
-                badge.created_at.strftime("%Y-%m-%d") if badge.created_at else "-"
+                inv_link,
+                badge.phone_number or "-"
             ])
 
         # Write Upload Records
@@ -407,16 +409,22 @@ class ExportBadgesAPIView(APIView):
             last_name = row_data.get("Last Name") or ""
             name = f"{first_name} {last_name}".strip()
             
+            inv_link = "-"
+            email = row_data.get("Email")
+            if email:
+                inv = Invitation.objects.filter(email=email).first()
+                if inv:
+                    host = request.get_host()
+                    inv_link = f"http://{host}/register/?token={inv.invitation_token}"
+
             ws.append([
                 name or "-",
                 row_data.get("Company") or "-",
                 row_data.get("Job Title") or "-",
                 row_data.get("Ticket") or "-",
                 "confirmed" if upload.is_valid else "pending",
-                row_data.get("Phone") or "-",
-                row_data.get("Email") or "-",
-                "Bulk Upload",
-                upload.created_at.strftime("%Y-%m-%d") if upload.created_at else "-"
+                inv_link,
+                row_data.get("Phone") or "-"
             ])
 
         with tempfile.NamedTemporaryFile(suffix=".xlsx", delete=False) as tmp:

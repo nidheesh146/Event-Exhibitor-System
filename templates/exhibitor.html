@@ -1873,14 +1873,13 @@
                     <thead>
                         <tr>
                             <th style="width: 40px;"><input type="checkbox" class="table-checkbox" id="selectAll"></th>
+                            <th>URN</th>
                             <th>NAME</th>
                             <th>JOB TITLE</th>
                             <th>SOURCE</th>
                             <th>TICKET CLASS</th>
-                            <th>TICKET ID</th>
                             <th>COMPANY NAME</th>
-                            <th>DIGITAL BADGE ISSUE</th>
-                            <th>ONSITE BADGE PRINTED</th>
+                            <th>INVITATION LINK</th>
                             <th>STATUS</th>
                             <th>ACTION</th>
                         </tr>
@@ -2849,14 +2848,13 @@
                     // --- Sorting ---
                     const columnsMap = [
                         null,           // Checkbox
+                        'urn',          // URN
                         'first_name',   // NAME
                         'job_title',    // JOB TITLE
                         null,           // SOURCE
                         'ticket',       // TICKET CLASS
-                        'id',           // TICKET ID
                         'company_name', // COMPANY NAME
-                        null,           // DIGITAL BADGE ISSUE
-                        null,           // ONSITE BADGE PRINTED
+                        null,           // INVITATION LINK
                         'status'        // STATUS
                     ];
 
@@ -2888,15 +2886,14 @@
                             const formattedBadges = badges.map(badge => ({
                                 id: badge.id,
                                 _type: 'badge',
+                                urn: badge.urn || badge.id,
                                 name: `${badge.first_name || ''} ${badge.last_name || ''}`.trim(),
                                 email: badge.email || '',
                                 jobTitle: badge.job_title || '-',
                                 source: 'Badge',
                                 ticketClass: badge.ticket_name || '-',
-                                ticketId: badge.id,
                                 companyName: badge.company_name || '-',
-                                digitalBadge: false,
-                                onsitePrinted: false,
+                                invitationLink: badge.invitation_link || '-',
                                 status: badge.status || 'pending',
                                 date: badge.created_at ? badge.created_at.split('T')[0] : ''
                             }));
@@ -2904,15 +2901,14 @@
                             const formattedUploads = uploads.map(record => ({
                                 id: record.id,
                                 _type: 'upload',
+                                urn: record.urn || `UPLOAD-${record.id}`,
                                 name: `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
                                 email: record.row_data?.['Email'] || '',
                                 jobTitle: record.row_data?.['Job Title'] || '-',
                                 source: 'Bulk Upload',
                                 ticketClass: record.row_data?.['Ticket'] || '-',
-                                ticketId: record.id,
                                 companyName: record.row_data?.['Company'] || '-',
-                                digitalBadge: false,
-                                onsitePrinted: false,
+                                invitationLink: record.invitation_link || '-',
                                 status: record.is_valid ? 'confirmed' : 'pending',
                                 date: record.created_at ? record.created_at.split('T')[0] : ''
                             }));
@@ -2940,6 +2936,7 @@
                             return '<input type="checkbox" class="table-checkbox row-checkbox">';
                         }
                     },
+                    { data: 'urn' },
                     {
                         data: null,
                         render: function (data) {
@@ -2952,18 +2949,18 @@
                     { data: 'jobTitle' },
                     { data: 'source' },
                     { data: 'ticketClass' },
-                    { data: 'ticketId' },
                     { data: 'companyName' },
                     {
-                        data: 'digitalBadge',
+                        data: 'invitationLink',
                         render: function (data) {
-                            return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
-                        }
-                    },
-                    {
-                        data: 'onsitePrinted',
-                        render: function (data) {
-                            return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
+                            if (data && data !== '-') {
+                                return `
+                                    <button class="btn btn-sm btn-outline-primary copy-link" data-link="${data}" style="font-size: 11px; padding: 4px 8px;">
+                                        <i class="fas fa-copy me-1"></i>Copy Link
+                                    </button>
+                                `;
+                            }
+                            return '<span class="text-muted">-</span>';
                         }
                     },
                     {
@@ -4363,6 +4360,24 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
+            });
+
+            // Copy Link click handler
+            $(document).on('click', '.copy-link', function () {
+                const link = $(this).attr("data-link");
+                navigator.clipboard.writeText(link);
+                const btn = $(this);
+                const originalHtml = btn.html();
+
+                btn.html('<i class="fas fa-check me-1"></i>Copied!')
+                    .addClass('btn-success')
+                    .removeClass('btn-outline-primary');
+
+                setTimeout(() => {
+                    btn.html(originalHtml)
+                        .addClass('btn-outline-primary')
+                        .removeClass('btn-success');
+                }, 2000);
             });
 
             // Sidebar Toggle

@@ -3,10 +3,21 @@ from .models import Badge
 
 class BadgeSerializer(serializers.ModelSerializer):
     ticket_name = serializers.CharField(source='ticket.name', read_only=True)
+    invitation_link = serializers.SerializerMethodField()
 
     class Meta:
         model = Badge
         fields = "__all__"
+
+    def get_invitation_link(self, obj):
+        from .models import Invitation
+        inv = Invitation.objects.filter(email=obj.email).first()
+        if inv:
+            request = self.context.get("request")
+            if request:
+                return request.build_absolute_uri(f"/register/?token={inv.invitation_token}")
+            return f"/register/?token={inv.invitation_token}"
+        return "-"
 
     def validate_email(self, value):
 
@@ -57,10 +68,23 @@ class UploadBatchSerializer(
 class UploadRecordSerializer(
     serializers.ModelSerializer
 ):
+    invitation_link = serializers.SerializerMethodField()
 
     class Meta:
         model = UploadRecord
         fields = "__all__"
+
+    def get_invitation_link(self, obj):
+        email = obj.row_data.get("Email") if obj.row_data else None
+        if email:
+            from .models import Invitation
+            inv = Invitation.objects.filter(email=email).first()
+            if inv:
+                request = self.context.get("request")
+                if request:
+                    return request.build_absolute_uri(f"/register/?token={inv.invitation_token}")
+                return f"/register/?token={inv.invitation_token}"
+        return "-"
         
         
         
