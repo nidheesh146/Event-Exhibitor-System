@@ -1879,7 +1879,8 @@
                             <th>TICKET CLASS</th>
                             <th>TICKET ID</th>
                             <th>COMPANY NAME</th>
-                            <th>INVITATION LINK</th>
+                            <th>DIGITAL BADGE ISSUE</th>
+                            <th>ONSITE BADGE PRINTED</th>
                             <th>STATUS</th>
                             <th>ACTION</th>
                         </tr>
@@ -2879,7 +2880,8 @@
                         'ticket',       // TICKET CLASS
                         'id',           // TICKET ID
                         'company_name', // COMPANY NAME
-                        null,           // INVITATION LINK
+                        null,           // DIGITAL BADGE ISSUE
+                        null,           // ONSITE BADGE PRINTED
                         'status'        // STATUS
                     ];
 
@@ -2919,7 +2921,8 @@
                                 ticketClass: badge.ticket_name || '-',
                                 ticketId: badge.id,
                                 companyName: badge.company_name || '-',
-                                invitationLink: badge.invitation_link || '-',
+                                digitalBadge: false,
+                                onsitePrinted: false,
                                 status: badge.status || 'pending',
                                 date: badge.created_at ? badge.created_at.split('T')[0] : '',
                                 createdAtRaw: badge.created_at || ''
@@ -2936,7 +2939,8 @@
                                 ticketClass: record.row_data?.['Ticket'] || '-',
                                 ticketId: record.id,
                                 companyName: record.row_data?.['Company'] || '-',
-                                invitationLink: record.invitation_link || '-',
+                                digitalBadge: false,
+                                onsitePrinted: false,
                                 status: record.is_valid ? 'confirmed' : 'pending',
                                 date: record.created_at ? record.created_at.split('T')[0] : '',
                                 createdAtRaw: record.created_at || ''
@@ -2956,7 +2960,8 @@
                                     'ticketClass',  // TICKET CLASS
                                     'ticketId',     // TICKET ID
                                     'companyName',  // COMPANY NAME
-                                    null,           // INVITATION LINK
+                                    'digitalBadge', // DIGITAL BADGE ISSUE
+                                    'onsitePrinted',// ONSITE BADGE PRINTED
                                     'status'        // STATUS
                                 ];
                                 const field = columnsMapJS[colIndex];
@@ -3017,16 +3022,15 @@
                     { data: 'ticketId' },
                     { data: 'companyName' },
                     {
-                        data: 'invitationLink',
+                        data: 'digitalBadge',
                         render: function (data) {
-                            if (data && data !== '-') {
-                                return `
-                                    <button class="btn btn-sm btn-outline-primary copy-link" data-link="${data}" style="font-size: 11px; padding: 4px 8px;">
-                                        <i class="fas fa-copy me-1"></i>Copy Link
-                                    </button>
-                                `;
-                            }
-                            return '<span class="text-muted">-</span>';
+                            return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
+                        }
+                    },
+                    {
+                        data: 'onsitePrinted',
+                        render: function (data) {
+                            return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
                         }
                     },
                     {
