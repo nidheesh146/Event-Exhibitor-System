@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exhibitor Badge - GULFOOD 2026</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Select2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/css/select2-bootstrap-5-theme.min.css" rel="stylesheet">
-    
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/css/select2-bootstrap-5-theme.min.css"
+        rel="stylesheet">
+
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    
+
     <!-- Intl Tel Input CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
-    
+
     <!-- Custom CSS -->
     <style>
-                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
         :root {
-                 --primary-color: #490e5e;
+            --primary-color: #490e5e;
             --secondary-color: #2c3e50;
             --sidebar-bg: #1c0627;
             --success-color: #198754;
@@ -43,7 +46,7 @@
         }
 
         /* Fix modal body scroll/shift issue */
-         body.modal-open .top-header {
+        body.modal-open .top-header {
             padding-right: 15px !important;
         }
 
@@ -68,7 +71,8 @@
             background-size: 5652px 15px;
         }
 
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @media (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 192dpi) {
             .iti__flag {
                 background-image: url("https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/img/flags@2x.png") !important;
                 background-size: 5652px 15px;
@@ -94,7 +98,7 @@
             max-height: 250px;
             z-index: 99999 !important;
             border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             list-style: none !important;
             list-style-type: none !important;
             padding: 0 !important;
@@ -255,7 +259,7 @@
         .select2-container--bootstrap-5 .select2-dropdown {
             border: 1px solid #ddd;
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .select2-container--bootstrap-5 .select2-results__option--highlighted,
@@ -280,8 +284,9 @@
         }
 
         /* Limit dropdown to 6 items with scroll */
-        .select2-container--bootstrap-5 .select2-results > .select2-results__options {
-            max-height: 252px !important; /* 6 items x 42px each */
+        .select2-container--bootstrap-5 .select2-results>.select2-results__options {
+            max-height: 252px !important;
+            /* 6 items x 42px each */
             overflow-y: auto !important;
         }
 
@@ -340,21 +345,23 @@
                 opacity: 0;
                 transform: translateY(-10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .active>.page-link, .page-link.active {
+        .active>.page-link,
+        .page-link.active {
             background: #e74c3c;
             color: #ffffff;
             border: none;
         }
 
         .page-link {
-                color: #1e1e1e;
-            }
+            color: #1e1e1e;
+        }
 
         .bulk-actions-bar.show {
             display: flex;
@@ -392,7 +399,7 @@
             color: white;
         }
 
-        .btn-primary{
+        .btn-primary {
             background: #76127d !important;
             border: none;
         }
@@ -473,6 +480,7 @@
                 opacity: 0;
                 transform: translateY(-5px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -569,15 +577,15 @@
         }
 
         .top-header .search-input {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
             padding-left: 35px;
             height: 32px;
         }
 
         .top-header .search-input::placeholder {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .top-header .search-icon {
@@ -585,7 +593,7 @@
             left: 10px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255,255,255,0.8);
+            color: rgba(255, 255, 255, 0.8);
         }
 
         /* Layout */
@@ -630,7 +638,7 @@
         .countdown-section {
             padding: 12px 15px;
             background: rgba(231, 76, 60, 0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 10;
@@ -682,7 +690,7 @@
         }
 
         .nav-item:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
             text-decoration: none;
         }
@@ -723,7 +731,7 @@
         }
 
         .nav-parent:hover {
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
             color: white;
         }
 
@@ -751,7 +759,7 @@
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s ease-out;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .nav-submenu.open {
@@ -813,7 +821,7 @@
             transition: margin-left 0.3s;
         }
 
-        .sidebar.collapsed ~ .main-content {
+        .sidebar.collapsed~.main-content {
             margin-left: 60px;
         }
 
@@ -885,12 +893,10 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: conic-gradient(
-                #4CAF50 0deg 120deg,
-                #FFC107 120deg 180deg,
-                #2196F3 180deg 240deg,
-                #e0e0e0 240deg 360deg
-            );
+            background: conic-gradient(#4CAF50 0deg 120deg,
+                    #FFC107 120deg 180deg,
+                    #2196F3 180deg 240deg,
+                    #e0e0e0 240deg 360deg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -926,7 +932,7 @@
         }
 
         .action-card:hover {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
             transform: translateY(-2px);
         }
 
@@ -1236,7 +1242,7 @@
 
         .btn-action-table:hover {
             transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
         }
 
         .btn-action-table.edit {
@@ -1407,8 +1413,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Loading Spinner */
@@ -1418,7 +1431,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255,255,255,0.8);
+            background: rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1442,21 +1455,26 @@
             animation: spin 1s linear infinite;
         }
 
-        .yellow_btn{
+        .yellow_btn {
             background: #ff9800 !important;
         }
 
-        .green_btn{
+        .green_btn {
             background: #4caf50 !important;
         }
 
-        .select2-selection__clear span{
+        .select2-selection__clear span {
             display: none;
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive */
@@ -1477,7 +1495,7 @@
                 margin-left: 0 !important;
             }
 
-            .sidebar.collapsed ~ .main-content {
+            .sidebar.collapsed~.main-content {
                 margin-left: 0;
             }
         }
@@ -1492,24 +1510,24 @@
         }
 
         .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 3px;
         }
 
         .sidebar::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.3);
+            background: rgba(255, 255, 255, 0.3);
         }
 
-        .modal-header{
-            background: linear-gradient(45deg, #3f0e60, #891487);    
+        .modal-header {
+            background: linear-gradient(45deg, #3f0e60, #891487);
         }
 
-        .modal-title{
+        .modal-title {
             color: #fff;
             display: flex;
         }
 
-        .modal-title i{
+        .modal-title i {
             background: #ffffff;
             width: 30px;
             height: 30px;
@@ -1521,12 +1539,13 @@
             padding: 5px;
         }
 
-        .btn-close{
+        .btn-close {
             filter: invert(1);
             opacity: 1;
         }
     </style>
 </head>
+
 <body>
     <!-- Loading Overlay -->
     <div class="loading-overlay" id="loadingOverlay">
@@ -1541,9 +1560,11 @@
                     <div class="d-flex align-items-center gap-3">
                         <div class="search-wrapper">
                             <i class="fas fa-search search-icon"></i>
-                            <input type="text" class="form-control search-input form-control-sm" placeholder="Search...">
+                            <input type="text" class="form-control search-input form-control-sm"
+                                placeholder="Search...">
                         </div>
-                        <select class="form-select form-select-sm" style="width: 200px; background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: white; height: 32px;">
+                        <select class="form-select form-select-sm"
+                            style="width: 200px; background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.3); color: white; height: 32px;">
                             <option>GULFOOD 2026</option>
                             <option>Tech Summit 2025</option>
                             <option>Innovation Expo</option>
@@ -1552,11 +1573,7 @@
                 </div>
                 <div class="col-md-6 text-end d-flex align-items-center justify-content-end">
                     <span class="me-3">Welcome, {{ request.user.username }} </span>
-                    <button
-                        class="btn btn-sm btn-outline-light"
-                        style="height: 32px;"
-                        onclick="logout()"
-                    >
+                    <button class="btn btn-sm btn-outline-light" style="height: 32px;" onclick="logout()">
                         <i class="fas fa-sign-out-alt"></i> Sign Out
                     </button>
                 </div>
@@ -1564,16 +1581,16 @@
         </div>
     </div>
 
-<script>
+    <script>
 
-    function logout() {
+        function logout() {
 
-    localStorage.removeItem("access");
-    localStorage.removeItem("refresh");
+            localStorage.removeItem("access");
+            localStorage.removeItem("refresh");
 
-    window.location.href = "/exhibitor-login-page/";
-}
-</script>
+            window.location.href = "/exhibitor-login-page/";
+        }
+    </script>
 
 
     <!-- Sidebar Toggle Button (Mobile) -->
@@ -1594,7 +1611,7 @@
                     <span>19<small>Secs</small></span>
                 </div>
             </div>
-            
+
             <div class="nav-menu">
                 <a href="#" class="nav-item">
                     <i class="fas fa-home"></i>
@@ -1608,7 +1625,8 @@
                     <i class="fas fa-chevron-right nav-arrow"></i>
                 </div>
                 <div class="nav-submenu open" id="badgesSubmenu">
-                    <a href="{% url 'exhibitor-dashboard' %}" class="nav-item active" onclick="window.location.href='exhibitor.html'">
+                    <a href="{% url 'exhibitor-dashboard' %}" class="nav-item active"
+                        onclick="window.location.href='exhibitor.html'">
                         <i class="fas fa-user-tie"></i>
                         <span>EXHIBITOR BADGE</span>
                     </a>
@@ -1639,20 +1657,20 @@
                                 <i class="fas fa-cog"></i>
                             </div>
                             <div>
-<div class="stats-number">
-    <span id="usedBadges">0</span>/<span id="allocatedBadges">0</span>
-</div>
+                                <div class="stats-number">
+                                    <span id="usedBadges">0</span>/<span id="allocatedBadges">0</span>
+                                </div>
 
                                 <div class="stats-label" id="ticketName">VIP PASS</div>
                             </div>
                             <div class="stats-breakdown ms-4">
-    <span>Confirmed <span id="confirmedCount">0</span></span>
-    <span>Pending <span id="pendingCount">0</span></span>
-    <span>Total Invited <span id="invitedCount">0</span></span>
-</div>
-                          <div class="circular-progress ms-3">
-    <span id="availableBadges">0</span>
-</div>
+                                <span>Confirmed <span id="confirmedCount">0</span></span>
+                                <span>Pending <span id="pendingCount">0</span></span>
+                                <span>Total Invited <span id="invitedCount">0</span></span>
+                            </div>
+                            <div class="circular-progress ms-3">
+                                <span id="availableBadges">0</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1660,58 +1678,58 @@
 
 
             <script>
-         async function loadDashboardSummary() {
+                async function loadDashboardSummary() {
 
-    try {
+                    try {
 
-        const response = await axios.get(
-            "/dashboard/"
-        );
+                        const response = await axios.get(
+                            "/dashboard/"
+                        );
 
-        const data = response.data;
+                        const data = response.data;
 
-        if (data.ticket_summary.length > 0) {
+                        if (data.ticket_summary.length > 0) {
 
-            const ticket = data.ticket_summary[0];
+                            const ticket = data.ticket_summary[0];
 
-            $("#ticketName").text(ticket.ticket_name);
+                            $("#ticketName").text(ticket.ticket_name);
 
-            $("#allocatedBadges").text(ticket.allocated);
+                            $("#allocatedBadges").text(ticket.allocated);
 
-            $("#usedBadges").text(ticket.used);
+                            $("#usedBadges").text(ticket.used);
 
-            $("#availableBadges").text(ticket.available);
+                            $("#availableBadges").text(ticket.available);
 
-        } else {
+                        } else {
 
-            $("#ticketName").text("-");
+                            $("#ticketName").text("-");
 
-            $("#allocatedBadges").text(0);
+                            $("#allocatedBadges").text(0);
 
-            $("#usedBadges").text(0);
+                            $("#usedBadges").text(0);
 
-            $("#availableBadges").text(0);
+                            $("#availableBadges").text(0);
 
-        }
+                        }
 
-        $("#confirmedCount").text(data.confirmed_count);
+                        $("#confirmedCount").text(data.confirmed_count);
 
-        $("#invitedCount").text(data.total_invited_count);
+                        $("#invitedCount").text(data.total_invited_count);
 
-        $("#pendingCount").text(
-            Math.max(
-                data.total_invited_count - data.confirmed_count,
-                0
-            )
-        );
+                        $("#pendingCount").text(
+                            Math.max(
+                                data.total_invited_count - data.confirmed_count,
+                                0
+                            )
+                        );
 
-    } catch (error) {
+                    } catch (error) {
 
-        console.error("Dashboard Error:", error);
+                        console.error("Dashboard Error:", error);
 
-    }
+                    }
 
-}
+                }
             </script>
             <!-- Action Cards -->
             <div class="row g-2 mb-4 animate-fade-in">
@@ -1733,8 +1751,10 @@
                             <i class="fas fa-file-upload"></i>
                         </div>
                         <h5>Bulk Upload</h5>
-                        <p>Import multiple badges at once by uploading a completed Excel file containing all required badge details</p>
-                        <button class="btn btn-action-card yellow_btn" data-bs-toggle="modal" data-bs-target="#bulkUploadModal">
+                        <p>Import multiple badges at once by uploading a completed Excel file containing all required
+                            badge details</p>
+                        <button class="btn btn-action-card yellow_btn" data-bs-toggle="modal"
+                            data-bs-target="#bulkUploadModal">
                             <i class="fas fa-cloud-upload-alt me-2"></i>Upload File
                         </button>
                     </div>
@@ -1746,7 +1766,8 @@
                         </div>
                         <h5>Send Invitations</h5>
                         <p>Send one or multiple badges by entering their name and email.</p>
-                        <button class="btn btn-action-card green_btn" data-bs-toggle="modal" data-bs-target="#sendInvitationModal">
+                        <button class="btn btn-action-card green_btn" data-bs-toggle="modal"
+                            data-bs-target="#sendInvitationModal">
                             <i class="fas fa-paper-plane me-2"></i>Send Invitation
                         </button>
                     </div>
@@ -1757,7 +1778,7 @@
 
 
             <!-- Registrations Section -->
-          <div class="registrations-header">
+            <div class="registrations-header">
                 <h5>Registrations</h5>
 
                 <div>
@@ -1766,117 +1787,110 @@
                         Export to Excel
                     </button>
 
-                    <button
-                        id="openMappingBtn"
-                        class="btn btn-primary ms-2"
-                        style="display:none;"
-                    >
+                    <button id="openMappingBtn" class="btn btn-primary ms-2" style="display:none;">
                         <i class="fas fa-random me-2"></i>
                         Map Columns
                     </button>
 
-                    <button
-                        id="deleteAllRecordsBtn"
-                        class="btn btn-danger ms-2"
-                        title="Permanently delete ALL records for your account across every page"
-                    >
+                    <button id="deleteAllRecordsBtn" class="btn btn-danger ms-2"
+                        title="Permanently delete ALL records for your account across every page">
                         <i class="fas fa-radiation-alt me-2"></i>
                         Delete All Records
                     </button>
                 </div>
 
-                </div>
+            </div>
 
-                <!-- Filters -->
-                <div class="filter-section">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label">Keyword</label>
-                            <input type="text" class="form-control" placeholder="Search..." id="searchKeyword">
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label">Status</label>
-                            <select class="form-select select2-filter" id="filterStatus" style="width: 100%;">
-                                <option value="">All Status</option>
-                                <option value="pending">Pending</option>
-                                <option value="invited">Invited</option>
-                                <option value="confirmed">Confirmed</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label class="form-label">Tickets</label>
-                            <select class="form-select select2-filter" id="filterTickets" style="width: 100%;">
-                                <option value="">All Tickets</option>
-                                <option value="vip">VIP Pass</option>
-                                <option value="exhibitor">Exhibitor Pass</option>
-                                <option value="visitor">Visitor Pass</option>
-                            </select>
-                        </div>
-
-                          <div class="col-md-2">
-                            <label class="form-label">Record Type</label>
-                            <select class="form-select select2-filter" id="recordType">
-                                <option value="all">All Records</option>
-                                <option value="valid">Valid Records</option>
-                                <option value="invalid">Invalid Records</option>
-                            </select>
-                        </div>
-                       
+            <!-- Filters -->
+            <div class="filter-section">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Keyword</label>
+                        <input type="text" class="form-control" placeholder="Search..." id="searchKeyword">
                     </div>
-                </div>
-
-                <!-- Bulk Actions Bar -->
-                <div class="bulk-actions-bar" id="bulkActionsBar">
-                    <div class="bulk-actions-left">
-                        <i class="fas fa-check-circle text-primary me-2"></i>
-                        <span><strong id="selectedCount">0</strong> items selected</span>
+                    <div class="col-md-2">
+                        <label class="form-label">Status</label>
+                        <select class="form-select select2-filter" id="filterStatus" style="width: 100%;">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="invited">Invited</option>
+                            <option value="confirmed">Confirmed</option>
+                        </select>
                     </div>
-                    <div class="bulk-actions-right">
-                        <button class="btn btn-bulk btn-primary" id="bulkSendInvites">
-                            <i class="fas fa-paper-plane me-1"></i>Send Invites
-                        </button>
-                        <button class="btn btn-bulk btn-success" id="bulkActivate">
-                            <i class="fas fa-check me-1"></i>Activate
-                        </button>
-                        <button class="btn btn-bulk btn-secondary" id="bulkDeactivate">
-                            <i class="fas fa-pause me-1"></i>Deactivate
-                        </button>
-                        <button class="btn btn-bulk btn-info" id="bulkExport">
-                            <i class="fas fa-download me-1"></i>Export Selected
-                        </button>
-                        <button class="btn btn-bulk btn-danger" id="bulkDelete">
-                            <i class="fas fa-trash me-1"></i>Delete Selected
-                        </button>
-                        <button class="btn btn-bulk btn-dark" id="bulkClear">
-                            <i class="fas fa-times me-1"></i>Clear
-                        </button>
+                    <div class="col-md-2">
+                        <label class="form-label">Tickets</label>
+                        <select class="form-select select2-filter" id="filterTickets" style="width: 100%;">
+                            <option value="">All Tickets</option>
+                            <option value="vip">VIP Pass</option>
+                            <option value="exhibitor">Exhibitor Pass</option>
+                            <option value="visitor">Visitor Pass</option>
+                        </select>
                     </div>
-                </div>
 
-                <!-- Table -->
-                <div class="table-responsive">
-                    <table class="table table-hover" id="registrationsTable">
-                        <thead>
-                            <tr>
-                                <th style="width: 40px;"><input type="checkbox" class="table-checkbox" id="selectAll"></th>
-                                <th>NAME</th>
-                                <th>JOB TITLE</th>
-                                <th>SOURCE</th>
-                                <th>TICKET CLASS</th>
-                                <th>TICKET ID</th>
-                                <th>COMPANY NAME</th>
-                                <th>DIGITAL BADGE ISSUE</th>
-                                <th>ONSITE BADGE PRINTED</th>
-                                <th>STATUS</th>
-                                <th>ACTION</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
+                    <div class="col-md-2">
+                        <label class="form-label">Record Type</label>
+                        <select class="form-select select2-filter" id="recordType">
+                            <option value="all">All Records</option>
+                            <option value="valid">Valid Records</option>
+                            <option value="invalid">Invalid Records</option>
+                        </select>
+                    </div>
+
                 </div>
             </div>
-        </main>
+
+            <!-- Bulk Actions Bar -->
+            <div class="bulk-actions-bar" id="bulkActionsBar">
+                <div class="bulk-actions-left">
+                    <i class="fas fa-check-circle text-primary me-2"></i>
+                    <span><strong id="selectedCount">0</strong> items selected</span>
+                </div>
+                <div class="bulk-actions-right">
+                    <button class="btn btn-bulk btn-primary" id="bulkSendInvites">
+                        <i class="fas fa-paper-plane me-1"></i>Send Invites
+                    </button>
+                    <button class="btn btn-bulk btn-success" id="bulkActivate">
+                        <i class="fas fa-check me-1"></i>Activate
+                    </button>
+                    <button class="btn btn-bulk btn-secondary" id="bulkDeactivate">
+                        <i class="fas fa-pause me-1"></i>Deactivate
+                    </button>
+                    <button class="btn btn-bulk btn-info" id="bulkExport">
+                        <i class="fas fa-download me-1"></i>Export Selected
+                    </button>
+                    <button class="btn btn-bulk btn-danger" id="bulkDelete">
+                        <i class="fas fa-trash me-1"></i>Delete Selected
+                    </button>
+                    <button class="btn btn-bulk btn-dark" id="bulkClear">
+                        <i class="fas fa-times me-1"></i>Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive">
+                <table class="table table-hover" id="registrationsTable">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><input type="checkbox" class="table-checkbox" id="selectAll"></th>
+                            <th>NAME</th>
+                            <th>JOB TITLE</th>
+                            <th>SOURCE</th>
+                            <th>TICKET CLASS</th>
+                            <th>TICKET ID</th>
+                            <th>COMPANY NAME</th>
+                            <th>DIGITAL BADGE ISSUE</th>
+                            <th>ONSITE BADGE PRINTED</th>
+                            <th>STATUS</th>
+                            <th>ACTION</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    </main>
     </div>
 
     <!-- Create Badge Modal -->
@@ -1886,11 +1900,14 @@
                 <!-- Modal Header with Event Info -->
                 <div class="modal-header border-bottom bg-white py-3">
                     <div class="d-flex align-items-center">
-                        <div style="width: 80px; height: 50px; border: 1px solid #eee; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 15px; padding: 5px;">
-                            <img src="https://via.placeholder.com/70x40?text=Gulfood" alt="Gulfood" style="max-width: 100%; max-height: 100%;">
+                        <div
+                            style="width: 80px; height: 50px; border: 1px solid #eee; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-right: 15px; padding: 5px;">
+                            <img src="https://via.placeholder.com/70x40?text=Gulfood" alt="Gulfood"
+                                style="max-width: 100%; max-height: 100%;">
                         </div>
                         <div>
-                            <h5 class="modal-title mb-0" style="font-size: 20px; font-weight: 700; color: #333;">GULFOOD 2026</h5>
+                            <h5 class="modal-title mb-0" style="font-size: 20px; font-weight: 700; color: #333;">GULFOOD
+                                2026</h5>
                             <p class="mb-0" style="font-size: 13px; color: #666;">
                                 <i class="fas fa-calendar-alt me-1"></i>Jan. 26, 2026 - Jan. 30, 2026
                             </p>
@@ -1898,43 +1915,59 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                
+
                 <!-- Modal Body -->
                 <div class="modal-body" style="padding: 25px; max-height: 70vh; overflow-y: auto;">
                     <form id="createBadgeForm" novalidate>
                         <!-- First Name / Last Name -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">First Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Enter your firstname" required style="border: 1px solid #ddd; padding: 10px 12px;">
-                                <div class="validation-error" id="firstNameError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <label class="form-label" style="font-weight: 600; color: #333;">First Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="firstName"
+                                    placeholder="Enter your firstname" required
+                                    style="border: 1px solid #ddd; padding: 10px 12px;">
+                                <div class="validation-error" id="firstNameError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Last Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Enter your lastname" required style="border: 1px solid #ddd; padding: 10px 12px;">
-                                <div class="validation-error" id="lastNameError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <label class="form-label" style="font-weight: 600; color: #333;">Last Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="lastName" placeholder="Enter your lastname"
+                                    required style="border: 1px solid #ddd; padding: 10px 12px;">
+                                <div class="validation-error" id="lastNameError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                         </div>
-                        
+
                         <!-- Job Title / Company Name -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Job Title <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="jobTitle" placeholder="Enter your job title" required style="border: 1px solid #ddd; padding: 10px 12px;">
-                                <div class="validation-error" id="jobTitleError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <label class="form-label" style="font-weight: 600; color: #333;">Job Title <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="jobTitle" placeholder="Enter your job title"
+                                    required style="border: 1px solid #ddd; padding: 10px 12px;">
+                                <div class="validation-error" id="jobTitleError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Company Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="companyName" placeholder="Enter your company name" required style="border: 1px solid #ddd; padding: 10px 12px;">
-                                <div class="validation-error" id="companyNameError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <label class="form-label" style="font-weight: 600; color: #333;">Company Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="companyName"
+                                    placeholder="Enter your company name" required
+                                    style="border: 1px solid #ddd; padding: 10px 12px;">
+                                <div class="validation-error" id="companyNameError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                         </div>
-                        
+
                         <!-- Country of Residence / Nationality -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Country of Residence <span class="text-danger">*</span></label>
-                                <select class="form-select select2-modal" id="countryResidence" required style="width: 100%;">
+                                <label class="form-label" style="font-weight: 600; color: #333;">Country of Residence
+                                    <span class="text-danger">*</span></label>
+                                <select class="form-select select2-modal" id="countryResidence" required
+                                    style="width: 100%;">
                                     <option value="">Select Country of Residence</option>
                                     <option value="ae">United Arab Emirates</option>
                                     <option value="sa">Saudi Arabia</option>
@@ -1982,11 +2015,14 @@
                                     <option value="ng">Nigeria</option>
                                     <option value="ke">Kenya</option>
                                 </select>
-                                <div class="validation-error" id="countryResidenceError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <div class="validation-error" id="countryResidenceError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Nationality <span class="text-danger">*</span></label>
-                                <select class="form-select select2-modal" id="nationality" required style="width: 100%;">
+                                <label class="form-label" style="font-weight: 600; color: #333;">Nationality <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select select2-modal" id="nationality" required
+                                    style="width: 100%;">
                                     <option value="">Select Nationality</option>
                                     <option value="ae">Emirati</option>
                                     <option value="sa">Saudi</option>
@@ -2034,75 +2070,106 @@
                                     <option value="ng">Nigerian</option>
                                     <option value="ke">Kenyan</option>
                                 </select>
-                                <div class="validation-error" id="nationalityError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <div class="validation-error" id="nationalityError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                         </div>
-                        
+
                         <!-- Email / Mobile Number -->
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter email" required style="border: 1px solid #ddd; padding: 10px 12px; height: 42px;">
-                                <div class="validation-error" id="emailError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <label class="form-label" style="font-weight: 600; color: #333;">Email <span
+                                        class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter email" required
+                                    style="border: 1px solid #ddd; padding: 10px 12px; height: 42px;">
+                                <div class="validation-error" id="emailError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Mobile Number <span class="text-danger">*</span></label>
+                                <label class="form-label" style="font-weight: 600; color: #333;">Mobile Number <span
+                                        class="text-danger">*</span></label>
                                 <div class="phone-input-wrapper">
-                                    <input type="tel" class="form-control" id="mobileNumber" placeholder="Enter mobile number" required style="border: 1px solid #ddd;">
+                                    <input type="tel" class="form-control" id="mobileNumber"
+                                        placeholder="Enter mobile number" required style="border: 1px solid #ddd;">
                                 </div>
-                                <div class="validation-error" id="mobileNumberError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <div class="validation-error" id="mobileNumberError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                         </div>
-                        
+
                         <!-- Ticket Type -->
                         <div class="row">
                             <div class="col-md-6 mb-4">
-                                <label class="form-label" style="font-weight: 600; color: #333;">Ticket Type <span class="text-danger">*</span></label>
-                                <select class="form-select select2-modal ticket-select" id="ticketType" required style="width: 100%;">
+                                <label class="form-label" style="font-weight: 600; color: #333;">Ticket Type <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-select select2-modal ticket-select" id="ticketType" required
+                                    style="width: 100%;">
                                     <option value="">Select Ticket Type</option>
                                     <option value="vip">VIP Pass - 10.0 AED</option>
                                     <option value="exhibitor">Exhibitor Pass - Free</option>
                                     <option value="visitor">Visitor Pass - Free</option>
                                 </select>
-                                <div class="validation-error" id="ticketTypeError"><i class="fas fa-exclamation-circle"></i><span></span></div>
+                                <div class="validation-error" id="ticketTypeError"><i
+                                        class="fas fa-exclamation-circle"></i><span></span></div>
                             </div>
                         </div>
-                        
+
                         <!-- Consent Checkboxes -->
                         <div class="consent-section" style="padding-top: 10px;">
                             <!-- Checkbox 1 -->
                             <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="consent1" required style="margin-top: 3px;">
-                                <label class="form-check-label" for="consent1" style="font-size: 13px; color: #555; line-height: 1.6;">
-                                    I confirm that I am 21 years of age or older, and I have read and agree to the <a href="#" style="color: #e74c3c;">Terms & Conditions</a> and <a href="#" style="color: #e74c3c;">Privacy Policy</a>. I understand that my personal data will be processed and, where necessary, shared with contracted service providers, exhibitors, sponsors, and partners to deliver event services, facilitate my participation, and manage follow-ups or communications related to this event. <span class="text-danger">*</span>
+                                <input class="form-check-input" type="checkbox" id="consent1" required
+                                    style="margin-top: 3px;">
+                                <label class="form-check-label" for="consent1"
+                                    style="font-size: 13px; color: #555; line-height: 1.6;">
+                                    I confirm that I am 21 years of age or older, and I have read and agree to the <a
+                                        href="#" style="color: #e74c3c;">Terms & Conditions</a> and <a href="#"
+                                        style="color: #e74c3c;">Privacy Policy</a>. I understand that my personal data
+                                    will be processed and, where necessary, shared with contracted service providers,
+                                    exhibitors, sponsors, and partners to deliver event services, facilitate my
+                                    participation, and manage follow-ups or communications related to this event. <span
+                                        class="text-danger">*</span>
                                 </label>
                             </div>
-                            
+
                             <!-- Checkbox 2 -->
                             <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="consent2" required style="margin-top: 3px;">
-                                <label class="form-check-label" for="consent2" style="font-size: 13px; color: #555; line-height: 1.6;">
-                                    I understand that if I allow an exhibitor or sponsor at the event to scan my badge, whether physical or digital (e.g., via the Mobile App), I am providing them with my personal data. I acknowledge that the organizers have no control over any third-party use of this data and cannot be held liable for such use to the extent permitted by law. <span class="text-danger">*</span>
+                                <input class="form-check-input" type="checkbox" id="consent2" required
+                                    style="margin-top: 3px;">
+                                <label class="form-check-label" for="consent2"
+                                    style="font-size: 13px; color: #555; line-height: 1.6;">
+                                    I understand that if I allow an exhibitor or sponsor at the event to scan my badge,
+                                    whether physical or digital (e.g., via the Mobile App), I am providing them with my
+                                    personal data. I acknowledge that the organizers have no control over any
+                                    third-party use of this data and cannot be held liable for such use to the extent
+                                    permitted by law. <span class="text-danger">*</span>
                                 </label>
                             </div>
-                            
+
                             <!-- Checkbox 3 -->
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="consent3" style="margin-top: 3px;">
-                                <label class="form-check-label" for="consent3" style="font-size: 13px; color: #555; line-height: 1.6;">
-                                    I consent to Kaoun International Limited and Dubai World Trade Centre, and where necessary their contracted service providers, exhibitors, sponsors, and partners, using my personal data for communications & marketing their products, services, and future events. I understand that I can withdraw my consent at any time.
+                                <label class="form-check-label" for="consent3"
+                                    style="font-size: 13px; color: #555; line-height: 1.6;">
+                                    I consent to Kaoun International Limited and Dubai World Trade Centre, and where
+                                    necessary their contracted service providers, exhibitors, sponsors, and partners,
+                                    using my personal data for communications & marketing their products, services, and
+                                    future events. I understand that I can withdraw my consent at any time.
                                 </label>
                             </div>
                         </div>
                     </form>
                 </div>
-                
+
                 <!-- Modal Footer -->
-                <div class="modal-footer border-top justify-content-end" style="background: #f5f5f5; padding: 15px 25px;">
-                    <button type="button" class="btn px-4 py-2 me-2" id="submitBadgeBtn" style="background: #e74c3c; color: white; border-radius: 6px; font-weight: 500; min-width: 120px;">
+                <div class="modal-footer border-top justify-content-end"
+                    style="background: #f5f5f5; padding: 15px 25px;">
+                    <button type="button" class="btn px-4 py-2 me-2" id="submitBadgeBtn"
+                        style="background: #e74c3c; color: white; border-radius: 6px; font-weight: 500; min-width: 120px;">
                         REGISTER
                     </button>
-                    <button type="button" class="btn px-4 py-2" data-bs-dismiss="modal" style="background: #6c757d; color: white; border-radius: 6px; font-weight: 500; min-width: 100px;">
+                    <button type="button" class="btn px-4 py-2" data-bs-dismiss="modal"
+                        style="background: #6c757d; color: white; border-radius: 6px; font-weight: 500; min-width: 100px;">
                         CLOSE
                     </button>
                 </div>
@@ -2114,7 +2181,7 @@
     <div class="modal fade" id="bulkUploadModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header border-bottom" >
+                <div class="modal-header border-bottom">
                     <h5 class="modal-title">
                         <i class="fas fa-file-upload me-2" style="color: #e74c3c;"></i>Bulk Upload
                     </h5>
@@ -2122,7 +2189,8 @@
                 </div>
                 <div class="modal-body" style="padding: 25px;">
                     <div class="text-center mb-4">
-                        <div style="width: 80px; height: 80px; background: rgba(231, 76, 60, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                        <div
+                            style="width: 80px; height: 80px; background: rgba(231, 76, 60, 0.1); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <i class="fas fa-cloud-upload-alt" style="font-size: 36px; color: #e74c3c;"></i>
                         </div>
                         <p class="text-muted">Upload your Excel file with badge details</p>
@@ -2132,12 +2200,7 @@
                             Batch Name
                         </label>
 
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="batchName"
-                            placeholder="Enter Batch Name"
-                        >
+                        <input type="text" class="form-control" id="batchName" placeholder="Enter Batch Name">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Select Excel File <span class="text-danger">*</span></label>
@@ -2155,7 +2218,8 @@
                 </div>
                 <div class="modal-footer border-top">
                     <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn px-4" id="uploadBulkBtn" style="background: #e74c3c; color: white;">
+                    <button type="button" class="btn px-4" id="uploadBulkBtn"
+                        style="background: #e74c3c; color: white;">
                         <i class="fas fa-upload me-2"></i>Upload & Process
                     </button>
                 </div>
@@ -2174,10 +2238,11 @@
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                
+
                 <div class="modal-body" style="padding: 25px; background: #f8f9fa;">
                     <!-- Import from File Banner -->
-                    <div style="background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 18px 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                    <div
+                        style="background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 18px 20px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
                         <div>
                             <h6 style="color: #333; margin: 0 0 5px 0; font-size: 15px; font-weight: 600;">
                                 <i class="fas fa-file-upload me-2" style="color: #e74c3c;"></i>Import from File
@@ -2187,28 +2252,35 @@
                             </p>
                         </div>
                         <input type="file" id="importFileInput" accept=".csv,.xlsx,.xls" style="display: none;">
-                        <button type="button" class="btn" id="importFileBtn" style="background: #e74c3c; color: white; border: none; border-radius: 8px; padding: 8px 20px; font-weight: 500;">
+                        <button type="button" class="btn" id="importFileBtn"
+                            style="background: #e74c3c; color: white; border: none; border-radius: 8px; padding: 8px 20px; font-weight: 500;">
                             <i class="fas fa-cloud-upload-alt me-2"></i>Upload
                         </button>
                     </div>
-                    
+
                     <!-- Invitation Entries Form -->
                     <form id="invitationForm">
                         <div id="invitationEntries" style="max-height: 295px; overflow-y: auto; padding-right: 10px;">
                             <!-- Entry Row 1 -->
-                            <div class="invitation-entry-row" style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
-                                <input type="text" class="form-control first-name" placeholder="First Name" style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
-                                <input type="text" class="form-control last-name" placeholder="Last Name" style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
-                                <input type="email" class="form-control email" placeholder="Email" style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
-                                <select  class="form-select ticket-select" style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
+                            <div class="invitation-entry-row"
+                                style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
+                                <input type="text" class="form-control first-name" placeholder="First Name"
+                                    style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
+                                <input type="text" class="form-control last-name" placeholder="Last Name"
+                                    style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
+                                <input type="email" class="form-control email" placeholder="Email"
+                                    style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
+                                <select class="form-select ticket-select"
+                                    style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
                                     <option value="">Select Ticket</option>
                                 </select>
-                                <button type="button" class="btn btn-link text-danger remove-entry-btn" style="padding: 0; font-size: 18px;">
+                                <button type="button" class="btn btn-link text-danger remove-entry-btn"
+                                    style="padding: 0; font-size: 18px;">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
                             </div>
                         </div>
-                        
+
                         <!-- Add Entry Button -->
                         <div class="text-center mt-3">
                             <button type="button" class="btn btn-primary" id="addEntryBtn">
@@ -2217,14 +2289,17 @@
                         </div>
                     </form>
                 </div>
-                
+
                 <!-- Footer -->
-                <div class="modal-footer border-top" style="background: white; padding: 15px 25px; justify-content: space-between;">
+                <div class="modal-footer border-top"
+                    style="background: white; padding: 15px 25px; justify-content: space-between;">
                     <div>
-                        <button type="button" class="btn px-4 py-2 me-2" id="sendInviteBtn" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 8px; font-weight: 500;">
+                        <button type="button" class="btn px-4 py-2 me-2" id="sendInviteBtn"
+                            style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; border-radius: 8px; font-weight: 500;">
                             <i class="fas fa-paper-plane me-2"></i>Send Invitation
                         </button>
-                        <button type="button" class="btn px-4 py-2" data-bs-dismiss="modal" style="background: white; color: #333; border: 1px solid #ddd; border-radius: 8px; font-weight: 500;">
+                        <button type="button" class="btn px-4 py-2" data-bs-dismiss="modal"
+                            style="background: white; color: #333; border: 1px solid #ddd; border-radius: 8px; font-weight: 500;">
                             <i class="fas fa-times me-2"></i>Close
                         </button>
                     </div>
@@ -2240,24 +2315,32 @@
     <div class="modal fade" id="sendEmailModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
-                <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); padding: 25px 25px 20px;">
+                <div class="modal-header border-0 pb-0"
+                    style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); padding: 25px 25px 20px;">
                     <div class="w-100 text-center">
-                        <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                        <div
+                            style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <i class="fas fa-envelope" style="font-size: 32px; color: white;"></i>
                         </div>
-                        <h5 class="modal-title text-white mb-0" style="font-size: 20px; font-weight: 600;">Send Email</h5>
+                        <h5 class="modal-title text-white mb-0" style="font-size: 20px; font-weight: 600;">Send Email
+                        </h5>
                     </div>
-                    <button type="button" class="btn-close btn-close-white position-absolute" style="top: 15px; right: 15px;" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white position-absolute"
+                        style="top: 15px; right: 15px;" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center" style="padding: 30px 25px;">
-                    <p style="font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 500;">Are you sure you want to send email?</p>
-                    <p style="font-size: 14px; color: #777; margin-bottom: 0;">An invitation email will be sent to the recipient.</p>
+                    <p style="font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 500;">Are you sure you want
+                        to send email?</p>
+                    <p style="font-size: 14px; color: #777; margin-bottom: 0;">An invitation email will be sent to the
+                        recipient.</p>
                 </div>
                 <div class="modal-footer border-0 justify-content-center" style="padding: 0 25px 25px; gap: 12px;">
-                    <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal" style="border-radius: 8px; min-width: 120px; font-weight: 500;">
+                    <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal"
+                        style="border-radius: 8px; min-width: 120px; font-weight: 500;">
                         <i class="fas fa-times me-2"></i>Cancel
                     </button>
-                    <button type="button" class="btn btn-primary px-4 py-2" id="confirmSendEmailBtn" style="border-radius: 8px; min-width: 120px; font-weight: 500; background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
+                    <button type="button" class="btn btn-primary px-4 py-2" id="confirmSendEmailBtn"
+                        style="border-radius: 8px; min-width: 120px; font-weight: 500; background: linear-gradient(135deg, #0d6efd 0%, #0056b3 100%); border: none;">
                         <i class="fas fa-paper-plane me-2"></i>Send
                     </button>
                 </div>
@@ -2269,24 +2352,31 @@
     <div class="modal fade" id="deleteModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" style="border-radius: 12px; overflow: hidden;">
-                <div class="modal-header border-0 pb-0" style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 25px 20px;">
+                <div class="modal-header border-0 pb-0"
+                    style="background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); padding: 25px 25px 20px;">
                     <div class="w-100 text-center">
-                        <div style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
+                        <div
+                            style="width: 70px; height: 70px; background: rgba(255,255,255,0.2); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 15px;">
                             <i class="fas fa-trash-alt" style="font-size: 32px; color: white;"></i>
                         </div>
-                        <h5 class="modal-title text-white mb-0" style="font-size: 20px; font-weight: 600;">Delete Record</h5>
+                        <h5 class="modal-title text-white mb-0" style="font-size: 20px; font-weight: 600;">Delete Record
+                        </h5>
                     </div>
-                    <button type="button" class="btn-close btn-close-white position-absolute" style="top: 15px; right: 15px;" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white position-absolute"
+                        style="top: 15px; right: 15px;" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body text-center" style="padding: 30px 25px;">
-                    <p style="font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 500;">Are you sure you want to delete this record?</p>
+                    <p style="font-size: 17px; color: #333; margin-bottom: 8px; font-weight: 500;">Are you sure you want
+                        to delete this record?</p>
                     <p style="font-size: 14px; color: #777; margin-bottom: 0;">This action cannot be undone.</p>
                 </div>
                 <div class="modal-footer border-0 justify-content-center" style="padding: 0 25px 25px; gap: 12px;">
-                    <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal" style="border-radius: 8px; min-width: 120px; font-weight: 500;">
+                    <button type="button" class="btn btn-secondary px-4 py-2" data-bs-dismiss="modal"
+                        style="border-radius: 8px; min-width: 120px; font-weight: 500;">
                         <i class="fas fa-times me-2"></i>Cancel
                     </button>
-                    <button type="button" class="btn btn-danger px-4 py-2" id="confirmDeleteBtn" style="border-radius: 8px; min-width: 120px; font-weight: 500;">
+                    <button type="button" class="btn btn-danger px-4 py-2" id="confirmDeleteBtn"
+                        style="border-radius: 8px; min-width: 120px; font-weight: 500;">
                         <i class="fas fa-trash me-2"></i>Delete
                     </button>
                 </div>
@@ -2295,199 +2385,161 @@
     </div>
 
     <div class="modal fade" id="mappingModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
 
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    Map Excel Columns
-                </h5>
-            </div>
-
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label>First Name</label>
-                    <select id="firstNameMap"
-                            class="form-select">
-                    </select>
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        Map Excel Columns
+                    </h5>
                 </div>
 
-                <div class="mb-3">
-                    <label>Last Name</label>
-                    <select id="lastNameMap"
-                            class="form-select">
-                    </select>
-                </div>
+                <div class="modal-body">
 
-                <div class="mb-3">
-                    <label>Email</label>
-                    <select id="emailMap"
-                            class="form-select">
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label>Job Title</label>
-                    <select id="jobTitleMap"
-                            class="form-select">
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label>Company</label>
-                    <select id="companyMap"
-                            class="form-select">
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label>Phone</label>
-                    <select id="phoneMap"
-                            class="form-select">
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-                <button
-                    class="btn btn-primary"
-                    id="saveMappingBtn">
-                    Save Mapping
-                </button>
-            </div>
-
-        </div>
-    </div>
-</div>  
-
-
-
-
-<!-- Edit Upload Record Modal -->
-<div class="modal fade" id="editModal" tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    <i class="fas fa-pen me-2"></i>
-                    Edit Record
-                </h5>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal">
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <input
-                    type="hidden"
-                    id="editRecordId">
-
-                <input
-                    type="hidden"
-                    id="editRecordType">
-
-                <div class="row">
-
-                    <div class="col-md-6 mb-3">
+                    <div class="mb-3">
                         <label>First Name</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="editFirstName">
+                        <select id="firstNameMap" class="form-select">
+                        </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="mb-3">
                         <label>Last Name</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="editLastName">
+                        <select id="lastNameMap" class="form-select">
+                        </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label>Email <small class="text-muted">(not editable)</small></label>
-                        <input
-                            type="email"
-                            class="form-control"
-                            id="editEmail"
-                            readonly
-                            style="background:#f5f5f5; cursor:not-allowed;">
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <select id="emailMap" class="form-select">
+                        </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
-                        <label>Company</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="editCompany">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
+                    <div class="mb-3">
                         <label>Job Title</label>
-                        <input
-                            type="text"
-                            class="form-control"
-                            id="editJobTitle">
+                        <select id="jobTitleMap" class="form-select">
+                        </select>
                     </div>
 
-                    <div class="col-md-6 mb-3">
+                    <div class="mb-3">
+                        <label>Company</label>
+                        <select id="companyMap" class="form-select">
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
                         <label>Phone</label>
-                        <input
-                            type="tel"
-                            class="form-control"
-                            id="editPhone">
+                        <select id="phoneMap" class="form-select">
+                        </select>
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="modal-footer">
-
-                <button
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal">
-                    Cancel
-                </button>
-
-                <button
-                    class="btn btn-primary"
-                    id="saveRecordBtn">
-                    Save Changes
-                </button>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="saveMappingBtn">
+                        Save Mapping
+                    </button>
+                </div>
 
             </div>
-
         </div>
     </div>
-</div>
+
+
+
+
+    <!-- Edit Upload Record Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-pen me-2"></i>
+                        Edit Record
+                    </h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="editRecordId">
+
+                    <input type="hidden" id="editRecordType">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" id="editFirstName">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" id="editLastName">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Email <small class="text-muted">(not editable)</small></label>
+                            <input type="email" class="form-control" id="editEmail" readonly
+                                style="background:#f5f5f5; cursor:not-allowed;">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Company</label>
+                            <input type="text" class="form-control" id="editCompany">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Job Title</label>
+                            <input type="text" class="form-control" id="editJobTitle">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label>Phone</label>
+                            <input type="tel" class="form-control" id="editPhone">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary" id="saveRecordBtn">
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <!--axiom-->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    
-    <!-- Bootstrap JS --> 
+
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
+
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <!-- Intl Tel Input JS -->
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
 
@@ -2497,108 +2549,108 @@
 
         let editPhoneInput = null;
 
-    $('#editModal').on('shown.bs.modal', function () {
-        if (!editPhoneInput) {
-            editPhoneInput = window.intlTelInput(
-                document.querySelector("#editPhone"),
-                {
-                    initialCountry: "in",
-                    preferredCountries: ["in", "ae", "sa", "kw", "qa", "bh", "om", "pk", "gb", "us"],
-                    separateDialCode: true,
-                    autoPlaceholder: "aggressive",
-                    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
-                }
-            );
-        }
-    });
+        $('#editModal').on('shown.bs.modal', function () {
+            if (!editPhoneInput) {
+                editPhoneInput = window.intlTelInput(
+                    document.querySelector("#editPhone"),
+                    {
+                        initialCountry: "in",
+                        preferredCountries: ["in", "ae", "sa", "kw", "qa", "bh", "om", "pk", "gb", "us"],
+                        separateDialCode: true,
+                        autoPlaceholder: "aggressive",
+                        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
+                    }
+                );
+            }
+        });
 
 
         $('#registrationsTable tbody').on('click', '.edit', function () {
 
-    const row = table.row($(this).closest('tr')).data();
+            const row = table.row($(this).closest('tr')).data();
 
-    console.log(row);
+            console.log(row);
 
-    $('#editRecordId').val(row.id);
-    $('#editRecordType').val(row._type || 'upload');  // 'badge' or 'upload'
+            $('#editRecordId').val(row.id);
+            $('#editRecordType').val(row._type || 'upload');  // 'badge' or 'upload'
 
-    const names = row.name.split(' ');
+            const names = row.name.split(' ');
 
-    $('#editFirstName').val(names[0] || '');
-    $('#editLastName').val(names.slice(1).join(' '));
-    $('#editPhone').val(row.phone || '');
+            $('#editFirstName').val(names[0] || '');
+            $('#editLastName').val(names.slice(1).join(' '));
+            $('#editPhone').val(row.phone || '');
 
-    $('#editEmail').val(row.email);
-    $('#editCompany').val(row.companyName);
-    $('#editJobTitle').val(row.jobTitle);
+            $('#editEmail').val(row.email);
+            $('#editCompany').val(row.companyName);
+            $('#editJobTitle').val(row.jobTitle);
 
-    $('#editModal').modal('show');
+            $('#editModal').modal('show');
 
-});
+        });
 
-$('#saveRecordBtn').click(async function () {
+        $('#saveRecordBtn').click(async function () {
 
-    const id       = $('#editRecordId').val();
-    const recType  = $('#editRecordType').val();  // 'badge' or 'upload'
+            const id = $('#editRecordId').val();
+            const recType = $('#editRecordType').val();  // 'badge' or 'upload'
 
-    const firstName = $('#editFirstName').val().trim();
-    const lastName  = $('#editLastName').val().trim();
-    const company   = $('#editCompany').val().trim();
-    const jobTitle  = $('#editJobTitle').val().trim();
-    const phone     = $('#editPhone').val().trim();
+            const firstName = $('#editFirstName').val().trim();
+            const lastName = $('#editLastName').val().trim();
+            const company = $('#editCompany').val().trim();
+            const jobTitle = $('#editJobTitle').val().trim();
+            const phone = $('#editPhone').val().trim();
 
-    // ==========================
-    // VALIDATIONS
-    // ==========================
-    if (!firstName) {
-        return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'First Name is required.' });
-    }
-    if (!lastName) {
-        return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Last Name is required.' });
-    }
+            // ==========================
+            // VALIDATIONS
+            // ==========================
+            if (!firstName) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'First Name is required.' });
+            }
+            if (!lastName) {
+                return Swal.fire({ icon: 'warning', title: 'Validation Error', text: 'Last Name is required.' });
+            }
 
-    try {
-        if (recType === 'badge') {
-            // Direct badge row — PATCH /badges/<id>/
-            const payload = {
-                first_name:   firstName,
-                last_name:    lastName,
-                company_name: company,
-                job_title:    jobTitle,
-                phone_number: editPhoneInput ? editPhoneInput.getNumber() : phone
-            };
-            await axios.patch(`/badges/${id}/`, payload, {
-                headers: { "X-CSRFToken": getCookie("csrftoken") },
-                withCredentials: true
-            });
-        } else {
-            // Bulk upload row — PATCH /upload-record/<id>/
-            const payload = {
-                row_data: {
-                    "First Name": firstName,
-                    "Last Name":  lastName,
-                    "Company":    company,
-                    "Job Title":  jobTitle,
-                    "Phone":      editPhoneInput ? editPhoneInput.getNumber() : phone
+            try {
+                if (recType === 'badge') {
+                    // Direct badge row — PATCH /badges/<id>/
+                    const payload = {
+                        first_name: firstName,
+                        last_name: lastName,
+                        company_name: company,
+                        job_title: jobTitle,
+                        phone_number: editPhoneInput ? editPhoneInput.getNumber() : phone
+                    };
+                    await axios.patch(`/badges/${id}/`, payload, {
+                        headers: { "X-CSRFToken": getCookie("csrftoken") },
+                        withCredentials: true
+                    });
+                } else {
+                    // Bulk upload row — PATCH /upload-record/<id>/
+                    const payload = {
+                        row_data: {
+                            "First Name": firstName,
+                            "Last Name": lastName,
+                            "Company": company,
+                            "Job Title": jobTitle,
+                            "Phone": editPhoneInput ? editPhoneInput.getNumber() : phone
+                        }
+                    };
+                    await axios.patch(`/upload-record/${id}/`, payload, {
+                        headers: { "X-CSRFToken": getCookie("csrftoken") },
+                        withCredentials: true
+                    });
                 }
-            };
-            await axios.patch(`/upload-record/${id}/`, payload, {
-                headers: { "X-CSRFToken": getCookie("csrftoken") },
-                withCredentials: true
-            });
-        }
 
-        $('#editModal').modal('hide');
-        Swal.fire({ icon: 'success', title: 'Record Updated' });
-        table.ajax.reload(null, false);
+                $('#editModal').modal('hide');
+                Swal.fire({ icon: 'success', title: 'Record Updated' });
+                table.ajax.reload(null, false);
 
-    } catch (error) {
-        console.error(error);
-        Swal.fire({ icon: 'error', title: 'Update Failed' });
-    }
+            } catch (error) {
+                console.error(error);
+                Swal.fire({ icon: 'error', title: 'Update Failed' });
+            }
 
-});
-</script>
+        });
+    </script>
 
 
 
@@ -2608,29 +2660,29 @@ $('#saveRecordBtn').click(async function () {
         var phoneInput = null;
         var select2Initialized = false;
         let table;
-        
-        $(document).ready(function() {
-            
+
+        $(document).ready(function () {
+
             loadDashboardSummary();
 
             $('#openMappingBtn').hide();
             loadTicketTypes();
             // Initialize intl-tel-input and Select2 when modal is shown
-            $('#createBadgeModal').on('shown.bs.modal', function() {
+            $('#createBadgeModal').on('shown.bs.modal', function () {
                 // Initialize phone input
                 if (!phoneInput) {
                     var input = document.querySelector("#mobileNumber");
                     if (input) {
-                       phoneInput = window.intlTelInput(input, {
-    initialCountry: "in",
-    preferredCountries: ["in", "ae", "sa", "kw", "qa", "bh", "om", "pk", "gb", "us"],
-    separateDialCode: true,
-    autoPlaceholder: "aggressive",
-    utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
-});
+                        phoneInput = window.intlTelInput(input, {
+                            initialCountry: "in",
+                            preferredCountries: ["in", "ae", "sa", "kw", "qa", "bh", "om", "pk", "gb", "us"],
+                            separateDialCode: true,
+                            autoPlaceholder: "aggressive",
+                            utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js"
+                        });
                     }
                 }
-                
+
                 // Initialize Select2 for modal dropdowns
                 if (!select2Initialized) {
                     $('.select2-modal').select2({
@@ -2645,12 +2697,12 @@ $('#saveRecordBtn').click(async function () {
                     select2Initialized = true;
                 }
             });
-            
+
             // Reset Select2 when modal is hidden
-            $('#createBadgeModal').on('hidden.bs.modal', function() {
+            $('#createBadgeModal').on('hidden.bs.modal', function () {
                 $('.select2-modal').val('').trigger('change');
             });
-            
+
             // Initialize Select2 for filter dropdowns
             $('.select2-filter').select2({
                 theme: 'bootstrap-5',
@@ -2660,7 +2712,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
 
-           
+
 
             $("#createBadgeForm").on("submit", async function (e) {
                 e.preventDefault();
@@ -2678,40 +2730,40 @@ $('#saveRecordBtn').click(async function () {
                     status: "confirmed",
                     terms_accepted: $("#consent1").prop("checked")
                 };
-                        try {
-                            const response = await axios.post(
-                                "/create-badge/",
-                                data,
-                                {
-                                    headers: {
-                                        "X-CSRFToken": csrftoken
-                                    },
-                                    withCredentials: true
-                                }
-                            );
+                try {
+                    const response = await axios.post(
+                        "/create-badge/",
+                        data,
+                        {
+                            headers: {
+                                "X-CSRFToken": csrftoken
+                            },
+                            withCredentials: true
+                        }
+                    );
 
-                            console.log(response.data);
+                    console.log(response.data);
 
-                            await Swal.fire({
-                                icon: 'success',
-                                title: 'Registration Successful!',
-                                text: 'Your badge has been registered successfully.',
-                                confirmButtonColor: '#e74c3c'
-                            });
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Registration Successful!',
+                        text: 'Your badge has been registered successfully.',
+                        confirmButtonColor: '#e74c3c'
+                    });
 
-                            $("#createBadgeModal").modal("hide");
+                    $("#createBadgeModal").modal("hide");
 
-                            $("#createBadgeForm")[0].reset();
-                            resetValidation();
+                    $("#createBadgeForm")[0].reset();
+                    resetValidation();
 
-                            if (phoneInput) {
-                                phoneInput.setCountry('ae');
-                            }
+                    if (phoneInput) {
+                        phoneInput.setCountry('ae');
+                    }
 
-                            $(".select2-modal").val("").trigger("change");
+                    $(".select2-modal").val("").trigger("change");
 
-                            // Reload the badge table to show the new badge:
-                            table.ajax.reload(null, false);
+                    // Reload the badge table to show the new badge:
+                    table.ajax.reload(null, false);
                 } catch (error) {
                     console.log("Status:", error.response?.status);
                     console.log("Response:", error.response?.data);
@@ -2739,113 +2791,138 @@ $('#saveRecordBtn').click(async function () {
                 }
             });
 
-          
+
 
             table = $('#registrationsTable').DataTable({
                 processing: true,
                 serverSide: true,
-             ajax: function (data, callback) {
+                ajax: function (data, callback) {
 
-    const page     = String(Math.floor(data.start / data.length) + 1);
-    const pageSize = String(data.length);
-    const keyword  = $('#searchKeyword').val().trim();
+                    const page = String(Math.floor(data.start / data.length) + 1);
+                    const pageSize = String(data.length);
+                    const keyword = $('#searchKeyword').val().trim();
 
-    // Status filter — only valid Badge choices (not 'all')
-    const recordTypeVal  = $('#recordType').val();
-    const filterStatusVal = $('#filterStatus').val();
-    const activeStatus = (filterStatusVal && filterStatusVal !== 'all')
-        ? filterStatusVal
-        : (recordTypeVal && recordTypeVal !== 'all' ? recordTypeVal : '');
+                    // Status filter — only valid Badge choices (not 'all')
+                    const recordTypeVal = $('#recordType').val();
+                    const filterStatusVal = $('#filterStatus').val();
+                    const activeStatus = (filterStatusVal && filterStatusVal !== 'all')
+                        ? filterStatusVal
+                        : (recordTypeVal && recordTypeVal !== 'all' ? recordTypeVal : '');
 
-    // Ticket filter
-    const filterTicketVal = $('#filterTickets').val();
-    const activeTicket = (filterTicketVal && filterTicketVal !== 'all') ? filterTicketVal : '';
+                    // Ticket filter
+                    const filterTicketVal = $('#filterTickets').val();
+                    const activeTicket = (filterTicketVal && filterTicketVal !== 'all') ? filterTicketVal : '';
 
-    // --- Build params for /badges/ ---
-    const badgeParams = new URLSearchParams({ page, page_size: pageSize });
-    if (keyword)      badgeParams.set('search', keyword);
-    if (activeStatus) badgeParams.set('status', activeStatus);
-    if (activeTicket) badgeParams.set('ticket', activeTicket);
+                    // --- Build params for /badges/ ---
+                    const badgeParams = new URLSearchParams({ page, page_size: pageSize });
+                    if (keyword) badgeParams.set('search', keyword);
+                    if (activeStatus) badgeParams.set('status', activeStatus);
+                    if (activeTicket) badgeParams.set('ticket', activeTicket);
 
-    // --- Build params for /upload-records/ ---
-    const uploadParams = new URLSearchParams({ page, page_size: pageSize });
-    if (keyword) uploadParams.set('search', keyword);
-    // upload records use is_valid; map confirmed→valid, pending→invalid
-    if (activeStatus === 'confirmed') uploadParams.set('status', 'valid');
-    else if (activeStatus === 'pending') uploadParams.set('status', 'invalid');
+                    // --- Build params for /upload-records/ ---
+                    const uploadParams = new URLSearchParams({ page, page_size: pageSize });
+                    if (keyword) uploadParams.set('search', keyword);
+                    // upload records use is_valid; map confirmed→valid, pending→invalid
+                    if (activeStatus === 'confirmed') uploadParams.set('status', 'valid');
+                    else if (activeStatus === 'pending') uploadParams.set('status', 'invalid');
 
-    console.log("Fetching badges + upload-records in parallel");
+                    // --- Sorting ---
+                    const columnsMap = [
+                        null,           // Checkbox
+                        'first_name',   // NAME
+                        'job_title',    // JOB TITLE
+                        null,           // SOURCE
+                        'ticket',       // TICKET CLASS
+                        'id',           // TICKET ID
+                        'company_name', // COMPANY NAME
+                        null,           // DIGITAL BADGE ISSUE
+                        null,           // ONSITE BADGE PRINTED
+                        'status'        // STATUS
+                    ];
 
-    Promise.all([
-        axios.get(`/badges/?${badgeParams.toString()}`).catch(() => ({ data: { count: 0, results: [] } })),
-        axios.get(`/upload-records/?${uploadParams.toString()}`).catch(() => ({ data: { count: 0, data: [] } }))
-    ])
-    .then(([badgeRes, uploadRes]) => {
+                    if (data.order && data.order.length > 0) {
+                        const colIndex = data.order[0].column;
+                        const dir = data.order[0].dir;
+                        const field = columnsMap[colIndex];
+                        if (field) {
+                            const ordering = dir === 'desc' ? `-${field}` : field;
+                            badgeParams.set('ordering', ordering);
+                            uploadParams.set('ordering', ordering);
+                        }
+                    }
 
-        const badgePayload  = badgeRes.data  || {};
-        const uploadPayload = uploadRes.data || {};
+                    console.log("Fetching badges + upload-records in parallel");
 
-        const badges  = badgePayload.results || badgePayload.data  || (Array.isArray(badgePayload)  ? badgePayload  : []);
-        const uploads = uploadPayload.results || uploadPayload.data || (Array.isArray(uploadPayload) ? uploadPayload : []);
+                    Promise.all([
+                        axios.get(`/badges/?${badgeParams.toString()}`).catch(() => ({ data: { count: 0, results: [] } })),
+                        axios.get(`/upload-records/?${uploadParams.toString()}`).catch(() => ({ data: { count: 0, data: [] } }))
+                    ])
+                        .then(([badgeRes, uploadRes]) => {
 
-        const formattedBadges = badges.map(badge => ({
-            id:           badge.id,
-            _type:        'badge',
-            name:         `${badge.first_name || ''} ${badge.last_name || ''}`.trim(),
-            email:        badge.email        || '',
-            jobTitle:     badge.job_title    || '-',
-            source:       'Badge',
-            ticketClass:  badge.ticket_name  || '-',
-            ticketId:     badge.id,
-            companyName:  badge.company_name || '-',
-            digitalBadge: false,
-            onsitePrinted: false,
-            status:       badge.status       || 'pending',
-            date:         badge.created_at   ? badge.created_at.split('T')[0] : ''
-        }));
+                            const badgePayload = badgeRes.data || {};
+                            const uploadPayload = uploadRes.data || {};
 
-        const formattedUploads = uploads.map(record => ({
-            id:           record.id,
-            _type:        'upload',
-            name:         `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
-            email:        record.row_data?.['Email']     || '',
-            jobTitle:     record.row_data?.['Job Title'] || '-',
-            source:       'Bulk Upload',
-            ticketClass:  record.row_data?.['Ticket']    || '-',
-            ticketId:     record.id,
-            companyName:  record.row_data?.['Company']   || '-',
-            digitalBadge: false,
-            onsitePrinted: false,
-            status:       record.is_valid ? 'confirmed' : 'pending',
-            date:         record.created_at ? record.created_at.split('T')[0] : ''
-        }));
+                            const badges = badgePayload.results || badgePayload.data || (Array.isArray(badgePayload) ? badgePayload : []);
+                            const uploads = uploadPayload.results || uploadPayload.data || (Array.isArray(uploadPayload) ? uploadPayload : []);
 
-        const merged = [...formattedBadges, ...formattedUploads];
-        const total  = (badgePayload.count || badges.length) + (uploadPayload.count || uploads.length);
+                            const formattedBadges = badges.map(badge => ({
+                                id: badge.id,
+                                _type: 'badge',
+                                name: `${badge.first_name || ''} ${badge.last_name || ''}`.trim(),
+                                email: badge.email || '',
+                                jobTitle: badge.job_title || '-',
+                                source: 'Badge',
+                                ticketClass: badge.ticket_name || '-',
+                                ticketId: badge.id,
+                                companyName: badge.company_name || '-',
+                                digitalBadge: false,
+                                onsitePrinted: false,
+                                status: badge.status || 'pending',
+                                date: badge.created_at ? badge.created_at.split('T')[0] : ''
+                            }));
 
-        callback({
-            draw:            data.draw,
-            data:            merged,
-            recordsTotal:    total,
-            recordsFiltered: total
-        });
-    })
-    .catch(error => {
-        console.error("Failed to load registrations:", error);
-        callback({ data: [], recordsTotal: 0, recordsFiltered: 0 });
-    });
-},
+                            const formattedUploads = uploads.map(record => ({
+                                id: record.id,
+                                _type: 'upload',
+                                name: `${record.row_data?.['First Name'] || ''} ${record.row_data?.['Last Name'] || ''}`.trim(),
+                                email: record.row_data?.['Email'] || '',
+                                jobTitle: record.row_data?.['Job Title'] || '-',
+                                source: 'Bulk Upload',
+                                ticketClass: record.row_data?.['Ticket'] || '-',
+                                ticketId: record.id,
+                                companyName: record.row_data?.['Company'] || '-',
+                                digitalBadge: false,
+                                onsitePrinted: false,
+                                status: record.is_valid ? 'confirmed' : 'pending',
+                                date: record.created_at ? record.created_at.split('T')[0] : ''
+                            }));
+
+                            const merged = [...formattedBadges, ...formattedUploads];
+                            const total = (badgePayload.count || badges.length) + (uploadPayload.count || uploads.length);
+
+                            callback({
+                                draw: data.draw,
+                                data: merged,
+                                recordsTotal: total,
+                                recordsFiltered: total
+                            });
+                        })
+                        .catch(error => {
+                            console.error("Failed to load registrations:", error);
+                            callback({ data: [], recordsTotal: 0, recordsFiltered: 0 });
+                        });
+                },
                 columns: [
                     {
                         data: null,
                         orderable: false,
-                        render: function() {
+                        render: function () {
                             return '<input type="checkbox" class="table-checkbox row-checkbox">';
                         }
                     },
                     {
                         data: null,
-                        render: function(data) {
+                        render: function (data) {
                             return `<div class="user-info">
                                 <span class="name">${data.name || ''}</span>
                                 <span class="email">${data.email || ''}</span>
@@ -2859,19 +2936,19 @@ $('#saveRecordBtn').click(async function () {
                     { data: 'companyName' },
                     {
                         data: 'digitalBadge',
-                        render: function(data) {
+                        render: function (data) {
                             return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
                         }
                     },
                     {
                         data: 'onsitePrinted',
-                        render: function(data) {
+                        render: function (data) {
                             return data ? '<span class="label-yes">YES</span>' : '<span class="label-no">NO</span>';
                         }
                     },
                     {
                         data: null,
-                        render: function(data) {
+                        render: function (data) {
                             let statusClass = data.status || 'pending';
                             let statusText = (data.status || 'pending').charAt(0).toUpperCase() + (data.status || 'pending').slice(1);
                             return `<div>
@@ -2882,7 +2959,7 @@ $('#saveRecordBtn').click(async function () {
                     },
                     {
                         data: null,
-                        render: function(data) {
+                        render: function (data) {
                             let buttons = `
                                 <div class="action-buttons">
                                     <button class="btn-action-table edit" data-action="edit" title="Edit">
@@ -2949,15 +3026,15 @@ $('#saveRecordBtn').click(async function () {
                 table.draw();
             }
 
-        function loadRecords(status = 'all') {
-            table.ajax.reload();
-        }
+            function loadRecords(status = 'all') {
+                table.ajax.reload();
+            }
 
             // Function to update bulk actions bar
             function updateBulkActionsBar() {
                 var selectedCount = $('.row-checkbox:checked').length;
                 $('#selectedCount').text(selectedCount);
-                
+
                 if (selectedCount > 0) {
                     $('#bulkActionsBar').addClass('show');
                 } else {
@@ -2966,7 +3043,7 @@ $('#saveRecordBtn').click(async function () {
             }
 
             // Select All Checkbox
-            $('#selectAll').on('change', function() {
+            $('#selectAll').on('change', function () {
                 var isChecked = $(this).prop('checked');
                 $('.row-checkbox').prop('checked', isChecked);
                 if (isChecked) {
@@ -2978,7 +3055,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // Individual Row Checkbox
-            $(document).on('change', '.row-checkbox', function() {
+            $(document).on('change', '.row-checkbox', function () {
                 var row = $(this).closest('tr');
                 if ($(this).prop('checked')) {
                     row.addClass('selected2');
@@ -2986,18 +3063,18 @@ $('#saveRecordBtn').click(async function () {
                     row.removeClass('selected2');
                     $('#selectAll').prop('checked', false);
                 }
-                
+
                 // Check if all checkboxes are selected
                 var allChecked = $('.row-checkbox:checked').length === $('.row-checkbox').length;
                 $('#selectAll').prop('checked', allChecked);
-                
+
                 updateBulkActionsBar();
             });
 
             // Bulk Actions Button Handlers
-            $('#bulkSendInvites').click(function() {
+            $('#bulkSendInvites').click(function () {
                 var count = $('.row-checkbox:checked').length;
-                
+
                 Swal.fire({
                     icon: 'success',
                     title: 'Invitations Sent!',
@@ -3006,7 +3083,7 @@ $('#saveRecordBtn').click(async function () {
                 });
             });
 
-            $('#bulkActivate').click(function() {
+            $('#bulkActivate').click(function () {
                 var count = $('.row-checkbox:checked').length;
                 Swal.fire({
                     icon: 'success',
@@ -3016,7 +3093,7 @@ $('#saveRecordBtn').click(async function () {
                 });
             });
 
-            $('#bulkDeactivate').click(function() {
+            $('#bulkDeactivate').click(function () {
                 var count = $('.row-checkbox:checked').length;
                 Swal.fire({
                     icon: 'info',
@@ -3026,7 +3103,7 @@ $('#saveRecordBtn').click(async function () {
                 });
             });
 
-            $('#bulkExport').click(function() {
+            $('#bulkExport').click(function () {
                 var count = $('.row-checkbox:checked').length;
                 Swal.fire({
                     icon: 'success',
@@ -3037,7 +3114,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // ─── Delete SELECTED rows (checked on current page) ───────────────
-            $('#bulkDelete').click(function() {
+            $('#bulkDelete').click(function () {
                 var checkedBoxes = $('.row-checkbox:checked');
                 var count = checkedBoxes.length;
 
@@ -3048,7 +3125,7 @@ $('#saveRecordBtn').click(async function () {
 
                 // Collect the record IDs from checked rows
                 var ids = [];
-                checkedBoxes.each(function() {
+                checkedBoxes.each(function () {
                     var rowData = table.row($(this).closest('tr')).data();
                     if (rowData && rowData.ticketId) {
                         ids.push(rowData.ticketId);
@@ -3075,7 +3152,7 @@ $('#saveRecordBtn').click(async function () {
                         });
 
                         axios.post('/upload-records/delete-selected/', { ids: ids })
-                            .then(function(res) {
+                            .then(function (res) {
                                 table.ajax.reload(null, false);
                                 $('.row-checkbox').prop('checked', false);
                                 $('#selectAll').prop('checked', false);
@@ -3087,7 +3164,7 @@ $('#saveRecordBtn').click(async function () {
                                     confirmButtonColor: '#e74c3c'
                                 });
                             })
-                            .catch(function(err) {
+                            .catch(function (err) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Delete Failed',
@@ -3100,7 +3177,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // ─── Delete ALL records across every page ─────────────────────────
-            $('#deleteAllRecordsBtn').click(function() {
+            $('#deleteAllRecordsBtn').click(function () {
                 Swal.fire({
                     title: '⚠️ Delete ALL Records?',
                     html: `<p>This will <b>permanently delete every record</b> in your account across all pages and batches.</p><p style="color:#dc3545;font-weight:600">This cannot be undone!</p>  <p style="margin-top:12px;">To confirm, type <code>DELETE</code> in the box below:</p>`,
@@ -3129,7 +3206,7 @@ $('#saveRecordBtn').click(async function () {
                         });
 
                         axios.delete('/upload-records/bulk-delete/')
-                            .then(function(res) {
+                            .then(function (res) {
                                 table.ajax.reload(null, false);
                                 $('.row-checkbox').prop('checked', false);
                                 $('#selectAll').prop('checked', false);
@@ -3141,7 +3218,7 @@ $('#saveRecordBtn').click(async function () {
                                     confirmButtonColor: '#e74c3c'
                                 });
                             })
-                            .catch(function(err) {
+                            .catch(function (err) {
                                 Swal.fire({
                                     icon: 'error',
                                     title: 'Delete All Failed',
@@ -3153,7 +3230,7 @@ $('#saveRecordBtn').click(async function () {
                 });
             });
 
-            $('#bulkClear').click(function() {
+            $('#bulkClear').click(function () {
                 $('.row-checkbox').prop('checked', false);
                 $('#selectAll').prop('checked', false);
                 $('#registrationsTable tbody tr').removeClass('selected');
@@ -3161,31 +3238,31 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // Action Buttons Click Handler
-            $(document).on('click', '.btn-action-table', function(e) {
+            $(document).on('click', '.btn-action-table', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 const action = $(this).data('action');
                 const row = table.row($(this).parents('tr')).data();
-                
-                switch(action) {
+
+                switch (action) {
                     case 'edit':
 
-                $('#editRecordId').val(row.ticketId);
+                        $('#editRecordId').val(row.ticketId);
 
-                const names = (row.name || '').split(' ');
+                        const names = (row.name || '').split(' ');
 
-                $('#editFirstName').val(names[0] || '');
-                $('#editLastName').val(names.slice(1).join(' '));
+                        $('#editFirstName').val(names[0] || '');
+                        $('#editLastName').val(names.slice(1).join(' '));
 
-                $('#editEmail').val(row.email || '');
-                $('#editCompany').val(row.companyName || '');
-                $('#editJobTitle').val(row.jobTitle || '');
-                $('#editPhone').val(row.phone || '');
+                        $('#editEmail').val(row.email || '');
+                        $('#editCompany').val(row.companyName || '');
+                        $('#editJobTitle').val(row.jobTitle || '');
+                        $('#editPhone').val(row.phone || '');
 
-                $('#editModal').modal('show');
+                        $('#editModal').modal('show');
 
-                break;
+                        break;
                     case 'delete':
                         // Store the record id and type so confirmDeleteBtn can use it
                         $('#deleteModal').data('recordId', row.id);
@@ -3217,7 +3294,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // Confirm Send Email
-            $('#confirmSendEmailBtn').click(function() {
+            $('#confirmSendEmailBtn').click(function () {
                 $('#sendEmailModal').on('hidden.bs.modal', function () {
                     Swal.fire({
                         icon: 'success',
@@ -3231,7 +3308,7 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // Confirm Single-Row Delete
-            $('#confirmDeleteBtn').off('click').on('click', function() {
+            $('#confirmDeleteBtn').off('click').on('click', function () {
                 var recordId = $('#deleteModal').data('recordId');
                 var recordType = $('#deleteModal').data('recordType') || 'upload';
                 if (!recordId) {
@@ -3242,14 +3319,14 @@ $('#saveRecordBtn').click(async function () {
                 var $btn = $(this);
                 $btn.prop('disabled', true).html('<i class="fas fa-spinner fa-spin me-2"></i>Deleting...');
 
-                const deleteUrl = recordType === 'badge' 
-                    ? `/badges/${recordId}/` 
+                const deleteUrl = recordType === 'badge'
+                    ? `/badges/${recordId}/`
                     : `/upload-record/${recordId}/delete/`;
 
                 axios.delete(deleteUrl, {
                     headers: { "X-CSRFToken": getCookie("csrftoken") }
                 })
-                    .then(function() {
+                    .then(function () {
                         $('#deleteModal').modal('hide');
                         table.ajax.reload(null, false);  // reload without resetting page
                         Swal.fire({
@@ -3259,7 +3336,7 @@ $('#saveRecordBtn').click(async function () {
                             confirmButtonColor: '#e74c3c'
                         });
                     })
-                    .catch(function(err) {
+                    .catch(function (err) {
                         $('#deleteModal').modal('hide');
                         Swal.fire({
                             icon: 'error',
@@ -3268,13 +3345,13 @@ $('#saveRecordBtn').click(async function () {
                             confirmButtonColor: '#e74c3c'
                         });
                     })
-                    .finally(function() {
+                    .finally(function () {
                         $btn.prop('disabled', false).html('<i class="fas fa-trash me-2"></i>Delete');
                     });
             });
 
             // ==================== FORM VALIDATION ====================
-            
+
             // Validation patterns
             const validationPatterns = {
                 name: /^[a-zA-Z\s\-'\.]{2,50}$/,
@@ -3330,16 +3407,16 @@ $('#saveRecordBtn').click(async function () {
             function showError(fieldId, message) {
                 const field = $('#' + fieldId);
                 const errorDiv = $('#' + fieldId + 'Error');
-                
+
                 field.addClass('is-invalid').removeClass('is-valid');
                 errorDiv.find('span').text(message);
                 errorDiv.addClass('show');
-                
+
                 // For Select2
                 if (field.hasClass('select2-modal')) {
                     field.next('.select2-container').find('.select2-selection').addClass('is-invalid').removeClass('is-valid');
                 }
-                
+
                 // For phone input
                 if (fieldId === 'mobileNumber') {
                     field.closest('.iti').addClass('is-invalid').removeClass('is-valid');
@@ -3350,15 +3427,15 @@ $('#saveRecordBtn').click(async function () {
             function clearError(fieldId) {
                 const field = $('#' + fieldId);
                 const errorDiv = $('#' + fieldId + 'Error');
-                
+
                 field.removeClass('is-invalid').addClass('is-valid');
                 errorDiv.removeClass('show');
-                
+
                 // For Select2
                 if (field.hasClass('select2-modal')) {
                     field.next('.select2-container').find('.select2-selection').removeClass('is-invalid').addClass('is-valid');
                 }
-                
+
                 // For phone input
                 if (fieldId === 'mobileNumber') {
                     field.closest('.iti').removeClass('is-invalid').addClass('is-valid');
@@ -3376,7 +3453,7 @@ $('#saveRecordBtn').click(async function () {
             // Validate name fields
             function validateName(fieldId, value) {
                 const trimmedValue = value.trim();
-                
+
                 if (!trimmedValue) {
                     showError(fieldId, errorMessages[fieldId].required);
                     return false;
@@ -3396,7 +3473,7 @@ $('#saveRecordBtn').click(async function () {
             // Validate text fields (job title, company)
             function validateTextField(fieldId, value) {
                 const trimmedValue = value.trim();
-                
+
                 if (!trimmedValue) {
                     showError(fieldId, errorMessages[fieldId].required);
                     return false;
@@ -3412,7 +3489,7 @@ $('#saveRecordBtn').click(async function () {
             // Validate email
             function validateEmail(value) {
                 const trimmedValue = value.trim();
-                
+
                 if (!trimmedValue) {
                     showError('email', errorMessages.email.required);
                     return false;
@@ -3426,38 +3503,38 @@ $('#saveRecordBtn').click(async function () {
             }
 
             function validatePhone() {
-    const phoneValue = $('#mobileNumber').val().trim();
-    const fullNumber = phoneInput?.getNumber() || phoneValue;
-    const numbersOnly = fullNumber.replace(/\D/g, '');
+                const phoneValue = $('#mobileNumber').val().trim();
+                const fullNumber = phoneInput?.getNumber() || phoneValue;
+                const numbersOnly = fullNumber.replace(/\D/g, '');
 
-    console.log("phoneValue:", phoneValue);
-    console.log("fullNumber:", fullNumber);
-    console.log("numbersOnly:", numbersOnly);
-    console.log("length:", numbersOnly.length);
+                console.log("phoneValue:", phoneValue);
+                console.log("fullNumber:", fullNumber);
+                console.log("numbersOnly:", numbersOnly);
+                console.log("length:", numbersOnly.length);
 
-    if (!phoneValue) {
-        showError('mobileNumber', errorMessages.mobileNumber.required);
-        return false;
-    }
+                if (!phoneValue) {
+                    showError('mobileNumber', errorMessages.mobileNumber.required);
+                    return false;
+                }
 
-    if (numbersOnly.length < 8) {
-        showError('mobileNumber', errorMessages.mobileNumber.tooShort);
-        return false;
-    }
+                if (numbersOnly.length < 8) {
+                    showError('mobileNumber', errorMessages.mobileNumber.tooShort);
+                    return false;
+                }
 
-    if (phoneInput && !phoneInput.isValidNumber()) {
-        showError('mobileNumber', errorMessages.mobileNumber.invalid);
-        return false;
-    }
+                if (phoneInput && !phoneInput.isValidNumber()) {
+                    showError('mobileNumber', errorMessages.mobileNumber.invalid);
+                    return false;
+                }
 
-    clearError('mobileNumber');
-    return true;
-}
+                clearError('mobileNumber');
+                return true;
+            }
 
             // Validate select fields
             function validateSelect(fieldId) {
                 const value = $('#' + fieldId).val();
-                
+
                 if (!value) {
                     showError(fieldId, errorMessages[fieldId].required);
                     return false;
@@ -3467,45 +3544,45 @@ $('#saveRecordBtn').click(async function () {
             }
 
             // Real-time validation on blur
-            $('#firstName').on('blur', function() {
+            $('#firstName').on('blur', function () {
                 validateName('firstName', $(this).val());
             });
 
-            $('#lastName').on('blur', function() {
+            $('#lastName').on('blur', function () {
                 validateName('lastName', $(this).val());
             });
 
-            $('#jobTitle').on('blur', function() {
+            $('#jobTitle').on('blur', function () {
                 validateTextField('jobTitle', $(this).val());
             });
 
-            $('#companyName').on('blur', function() {
+            $('#companyName').on('blur', function () {
                 validateTextField('companyName', $(this).val());
             });
 
-            $('#email').on('blur', function() {
+            $('#email').on('blur', function () {
                 validateEmail($(this).val());
             });
 
-            $('#mobileNumber').on('blur', function() {
+            $('#mobileNumber').on('blur', function () {
                 validatePhone();
             });
 
             // Select2 change validation
-            $('#countryResidence').on('change', function() {
+            $('#countryResidence').on('change', function () {
                 validateSelect('countryResidence');
             });
 
-            $('#nationality').on('change', function() {
+            $('#nationality').on('change', function () {
                 validateSelect('nationality');
             });
 
-            $('#ticketType').on('change', function() {
+            $('#ticketType').on('change', function () {
                 validateSelect('ticketType');
             });
 
             // Clear validation on input
-            $('#firstName, #lastName, #jobTitle, #companyName, #email, #mobileNumber').on('input', function() {
+            $('#firstName, #lastName, #jobTitle, #companyName, #email, #mobileNumber').on('input', function () {
                 const fieldId = $(this).attr('id');
                 if ($(this).val().trim()) {
                     $('#' + fieldId + 'Error').removeClass('show');
@@ -3513,35 +3590,35 @@ $('#saveRecordBtn').click(async function () {
                 }
             });
 
-           
 
-            $('#submitBadgeBtn').click(function() {
+
+            $('#submitBadgeBtn').click(function () {
                 // Validate all fields
                 let isValid = true;
-                
+
                 // Name validations
                 if (!validateName('firstName', $('#firstName').val())) isValid = false;
                 if (!validateName('lastName', $('#lastName').val())) isValid = false;
-                
+
                 // Text field validations
                 if (!validateTextField('jobTitle', $('#jobTitle').val())) isValid = false;
                 if (!validateTextField('companyName', $('#companyName').val())) isValid = false;
-                
+
                 // Email validation
                 if (!validateEmail($('#email').val())) isValid = false;
-                
+
                 // Phone validation
                 if (!validatePhone()) isValid = false;
-                
+
                 // Select validations
                 if (!validateSelect('countryResidence')) isValid = false;
                 if (!validateSelect('nationality')) isValid = false;
                 if (!validateSelect('ticketType')) isValid = false;
-                
+
                 // Check consent checkboxes
                 var consent1 = $('#consent1').prop('checked');
                 var consent2 = $('#consent2').prop('checked');
-                
+
                 if (!consent1 || !consent2) {
                     Swal.fire({
                         icon: 'warning',
@@ -3551,14 +3628,14 @@ $('#saveRecordBtn').click(async function () {
                     });
                     return;
                 }
-                
+
                 if (!isValid) {
                     // Scroll to first error
                     const firstError = $('.validation-error.show').first();
                     if (firstError.length) {
                         firstError[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
                     }
-                    
+
                     Swal.fire({
                         icon: 'error',
                         title: 'Validation Error',
@@ -3567,37 +3644,37 @@ $('#saveRecordBtn').click(async function () {
                     });
                     return;
                 }
-                
+
                 // Trigger form submit
                 $("#createBadgeForm").submit();
             });
 
             // Send Invitation Submit
-            $('#sendInviteBtn').click(async function() {
+            $('#sendInviteBtn').click(async function () {
                 var hasValidEntry = false;
                 var hasErrors = false;
                 var errorMessages = [];
-                
+
                 // Clear previous validation styles
                 $('.invitation-entry-row input, .invitation-entry-row select').removeClass('is-invalid is-valid');
                 $('.invitation-entry-row .row-error').remove();
-                
-                $('.invitation-entry-row').each(function(index) {
+
+                $('.invitation-entry-row').each(function (index) {
                     var row = $(this);
                     var rowNum = index + 1;
                     var firstNameInput = row.find('input[placeholder="First Name"]');
                     var lastNameInput = row.find('input[placeholder="Last Name"]');
                     var emailInput = row.find('input[placeholder="Email"]');
                     var ticketSelect = row.find('select');
-                    
+
                     var firstName = firstNameInput.val().trim();
                     var lastName = lastNameInput.val().trim();
                     var email = emailInput.val().trim();
                     var ticket = ticketSelect.val();
-                    
+
                     var rowHasData = firstName || lastName || email || ticket;
                     var rowErrors = [];
-                    
+
                     if (rowHasData) {
                         // Validate First Name
                         if (!firstName) {
@@ -3612,7 +3689,7 @@ $('#saveRecordBtn').click(async function () {
                         } else {
                             firstNameInput.addClass('is-valid');
                         }
-                        
+
                         // Validate Last Name
                         if (!lastName) {
                             rowErrors.push('Last name is required');
@@ -3626,7 +3703,7 @@ $('#saveRecordBtn').click(async function () {
                         } else {
                             lastNameInput.addClass('is-valid');
                         }
-                        
+
                         // Validate Email
                         var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                         if (!email) {
@@ -3638,7 +3715,7 @@ $('#saveRecordBtn').click(async function () {
                         } else {
                             emailInput.addClass('is-valid');
                         }
-                        
+
                         // Validate Ticket
                         if (!ticket) {
                             rowErrors.push('Please select a ticket type');
@@ -3646,7 +3723,7 @@ $('#saveRecordBtn').click(async function () {
                         } else {
                             ticketSelect.addClass('is-valid');
                         }
-                        
+
                         if (rowErrors.length > 0) {
                             hasErrors = true;
                             // Add error message below row
@@ -3657,7 +3734,7 @@ $('#saveRecordBtn').click(async function () {
                         }
                     }
                 });
-                
+
                 if (!hasValidEntry && !hasErrors) {
                     Swal.fire({
                         icon: 'warning',
@@ -3667,7 +3744,7 @@ $('#saveRecordBtn').click(async function () {
                     });
                     return;
                 }
-                
+
                 if (hasErrors) {
                     Swal.fire({
                         icon: 'error',
@@ -3681,90 +3758,90 @@ $('#saveRecordBtn').click(async function () {
 
                 const invitations = [];
 
-                    $('.invitation-entry-row').each(function () {
+                $('.invitation-entry-row').each(function () {
 
-                        const row = $(this);
+                    const row = $(this);
 
-                        const firstName = row.find('input[placeholder="First Name"]').val().trim();
+                    const firstName = row.find('input[placeholder="First Name"]').val().trim();
 
-                        const lastName = row.find('input[placeholder="Last Name"]').val().trim();
+                    const lastName = row.find('input[placeholder="Last Name"]').val().trim();
 
-                        const email = row.find('input[placeholder="Email"]').val().trim();
+                    const email = row.find('input[placeholder="Email"]').val().trim();
 
-                        const ticket = row.find('select').val();
+                    const ticket = row.find('select').val();
 
-                        if (firstName && lastName && email && ticket) {
+                    if (firstName && lastName && email && ticket) {
 
-                            invitations.push({
+                        invitations.push({
 
-                                first_name: firstName,
+                            first_name: firstName,
 
-                                last_name: lastName,
+                            last_name: lastName,
 
-                                email: email,
+                            email: email,
 
-                                ticket: ticket
+                            ticket: ticket
 
-                            });
+                        });
 
+                    }
+
+                });
+
+                console.log(invitations);
+
+                try {
+
+                    console.log("CSRF:", csrftoken);
+                    const response = await axios.post(
+
+                        "/send-invitation/",
+
+                        {
+                            invitations: invitations
+                        },
+                        {
+                            headers: {
+                                "X-CSRFToken": csrftoken
+                            },
+                            withCredentials: true
                         }
+
+
+                    );
+
+                    console.log(response.data);
+
+                    Swal.fire({
+
+                        icon: "success",
+
+                        title: "Invitations Sent",
+
+                        text: `${response.data.success_count} invitation(s) sent successfully.`
 
                     });
 
-                    console.log(invitations);
+                }
+                catch (error) {
 
-                    try {
+                    console.error(error);
 
-                        console.log("CSRF:", csrftoken);
-                        const response = await axios.post(
+                    Swal.fire({
 
-                            "/send-invitation/",
+                        icon: "error",
 
-                            {
-                                invitations: invitations
-                            },
-                            {
-                                headers: {
-                                    "X-CSRFToken": csrftoken
-                                },
-                                withCredentials: true
-                            }
+                        title: "Failed",
 
+                        text: error.response?.data?.error || "Failed to send invitations."
 
-                        );
+                    });
 
-                        console.log(response.data);
+                }
 
-                        Swal.fire({
-
-                            icon: "success",
-
-                            title: "Invitations Sent",
-
-                            text: `${response.data.success_count} invitation(s) sent successfully.`
-
-                        });
-
-                    }
-                    catch (error) {
-
-                        console.error(error);
-
-                        Swal.fire({
-
-                            icon: "error",
-
-                            title: "Failed",
-
-                            text: error.response?.data?.error || "Failed to send invitations."
-
-                        });
-
-                    }
-                
                 // Count valid entries
                 var validCount = 0;
-                $('.invitation-entry-row').each(function() {
+                $('.invitation-entry-row').each(function () {
                     var firstName = $(this).find('input[placeholder="First Name"]').val().trim();
                     var lastName = $(this).find('input[placeholder="Last Name"]').val().trim();
                     var email = $(this).find('input[placeholder="Email"]').val().trim();
@@ -3773,7 +3850,7 @@ $('#saveRecordBtn').click(async function () {
                         validCount++;
                     }
                 });
-                
+
                 $('#sendInvitationModal').on('hidden.bs.modal', function () {
                     Swal.fire({
                         icon: 'success',
@@ -3784,7 +3861,7 @@ $('#saveRecordBtn').click(async function () {
                 }, { once: true });
 
                 $('#sendInvitationModal').modal('hide');
-                
+
                 // Reset form - keep only one empty row
                 $('#invitationEntries').html(`
                     <div class="invitation-entry-row" style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
@@ -3802,26 +3879,26 @@ $('#saveRecordBtn').click(async function () {
                 `);
                 await loadTicketTypes();
             });
-            
+
             // Clear validation on input for invitation rows
-            $(document).on('input', '.invitation-entry-row input', function() {
+            $(document).on('input', '.invitation-entry-row input', function () {
                 $(this).removeClass('is-invalid');
                 $(this).closest('.invitation-entry-row').next('.row-error').remove();
             });
-            
-            $(document).on('change', '.invitation-entry-row select', function() {
+
+            $(document).on('change', '.invitation-entry-row select', function () {
                 $(this).removeClass('is-invalid');
                 $(this).closest('.invitation-entry-row').next('.row-error').remove();
             });
-            
+
             // Reset validation when send invitation modal is closed
-            $('#sendInvitationModal').on('hidden.bs.modal', function() {
+            $('#sendInvitationModal').on('hidden.bs.modal', function () {
                 $('.invitation-entry-row input, .invitation-entry-row select').removeClass('is-invalid is-valid');
                 $('.row-error').remove();
             });
-            
+
             // Add Entry Button
-            $('#addEntryBtn').click(function() {
+            $('#addEntryBtn').click(function () {
                 var newRow = `
                     <div class="invitation-entry-row" style="display: flex; gap: 12px; align-items: center; margin-bottom: 15px;">
                         <input type="text" class="form-control" placeholder="First Name" style="flex: 1; border-radius: 8px; border: 1px solid #ddd; padding: 12px 15px;">
@@ -3842,9 +3919,9 @@ $('#saveRecordBtn').click(async function () {
                 var container = document.getElementById('invitationEntries');
                 container.scrollTop = container.scrollHeight;
             });
-            
+
             // Remove Entry Button
-            $(document).on('click', '.remove-entry-btn', function() {
+            $(document).on('click', '.remove-entry-btn', function () {
                 if ($('.invitation-entry-row').length > 1) {
                     $(this).closest('.invitation-entry-row').remove();
                 } else {
@@ -3855,12 +3932,12 @@ $('#saveRecordBtn').click(async function () {
             });
 
             // Import File Button Click
-            $('#importFileBtn').click(function() {
+            $('#importFileBtn').click(function () {
                 $('#importFileInput').click();
             });
 
             // Import File Change Handler
-            $('#importFileInput').on('change', function(e) {
+            $('#importFileInput').on('change', function (e) {
                 var file = e.target.files[0];
                 if (!file) return;
 
@@ -3893,7 +3970,7 @@ $('#saveRecordBtn').click(async function () {
                 // For CSV files, parse and populate
                 if (fileName.endsWith('.csv')) {
                     var reader = new FileReader();
-                    reader.onload = function(event) {
+                    reader.onload = function (event) {
                         var csv = event.target.result;
                         var lines = csv.split('\n');
                         var entries = [];
@@ -3919,7 +3996,7 @@ $('#saveRecordBtn').click(async function () {
                             $('#invitationEntries').empty();
 
                             // Add new entries
-                            entries.forEach(function(entry) {
+                            entries.forEach(function (entry) {
                                 var ticketValue = '';
                                 if (entry.ticket.includes('vip')) ticketValue = 'vip';
                                 else if (entry.ticket.includes('exhibitor')) ticketValue = 'exhibitor';
@@ -3980,19 +4057,19 @@ $('#saveRecordBtn').click(async function () {
 
 
             // Reset upload button whenever modal opens
-$('#bulkUploadModal').on('shown.bs.modal', function () {
+            $('#bulkUploadModal').on('shown.bs.modal', function () {
 
-    $('#uploadBulkBtn')
-        .prop('disabled', false)
-        .html(`
+                $('#uploadBulkBtn')
+                    .prop('disabled', false)
+                    .html(`
             <i class="fas fa-upload me-2"></i>
             Upload & Process
         `);
 
-});
+            });
 
             // Bulk Upload Submit
-        $('#uploadBulkBtn').click(async function () {
+            $('#uploadBulkBtn').click(async function () {
 
                 const file =
                     $('#bulkFile')[0].files[0];
@@ -4055,7 +4132,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
                                 headers: {
                                     'Content-Type':
                                         'multipart/form-data',
-                                        "X-CSRFToken": csrftoken
+                                    "X-CSRFToken": csrftoken
                                 },
                                 withCredentials: true
                             }
@@ -4129,59 +4206,59 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
                 });
             }
 
-    function pollBatchRecords(batchId) {
+            function pollBatchRecords(batchId) {
 
-    const intervalId = setInterval(async () => {
+                const intervalId = setInterval(async () => {
 
-        try {
+                    try {
 
-            const response = await axios.get(
-                `/upload-batch-status/${batchId}/`
-            );
+                        const response = await axios.get(
+                            `/upload-batch-status/${batchId}/`
+                        );
 
-            const batch = response.data;
+                        const batch = response.data;
 
-            table.ajax.reload(null, false);
+                        table.ajax.reload(null, false);
 
-            if (batch.status === "completed") {
+                        if (batch.status === "completed") {
 
-                clearInterval(intervalId);
+                            clearInterval(intervalId);
 
-                Swal.fire({
-                    icon: "success",
-                    title: "Upload Completed",
-                    html: `
+                            Swal.fire({
+                                icon: "success",
+                                title: "Upload Completed",
+                                html: `
                         Total Records: <b>${batch.total_records}</b><br>
                         Valid Records: <b>${batch.valid_records}</b><br>
                         Invalid Records: <b>${batch.invalid_records}</b>
                     `,
-                    confirmButtonColor: "#e74c3c"
-                });
+                                confirmButtonColor: "#e74c3c"
+                            });
+
+                        }
+
+                        if (batch.status === "failed") {
+
+                            clearInterval(intervalId);
+
+                            Swal.fire({
+                                icon: "error",
+                                title: "Upload Failed",
+                                text: "An error occurred while processing the upload.",
+                                confirmButtonColor: "#e74c3c"
+                            });
+
+                        }
+
+                    } catch (error) {
+
+                        console.error(error);
+
+                    }
+
+                }, 3000);
 
             }
-
-            if (batch.status === "failed") {
-
-                clearInterval(intervalId);
-
-                Swal.fire({
-                    icon: "error",
-                    title: "Upload Failed",
-                    text: "An error occurred while processing the upload.",
-                    confirmButtonColor: "#e74c3c"
-                });
-
-            }
-
-        } catch (error) {
-
-            console.error(error);
-
-        }
-
-    }, 3000);
-
-}
 
             function shouldShowMappingButton(columns = []) {
                 const normalizedColumns = (columns || [])
@@ -4223,7 +4300,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
             }
 
             // Export Button
-            $('#exportBtn').click(function() {
+            $('#exportBtn').click(function () {
                 Swal.fire({
                     icon: 'success',
                     title: 'Export Started!',
@@ -4236,12 +4313,12 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
             });
 
             // Sidebar Toggle
-            $('#sidebarToggle').click(function() {
+            $('#sidebarToggle').click(function () {
                 $('#sidebar').toggleClass('show');
             });
 
             // Nav Item Click
-            $('.nav-item').click(function(e) {
+            $('.nav-item').click(function (e) {
                 if (!$(this).parents('.nav-submenu').length) {
                     e.preventDefault();
                 }
@@ -4250,7 +4327,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
             });
 
             // Badges submenu toggle
-            $('#badgesMenu').click(function() {
+            $('#badgesMenu').click(function () {
                 $(this).toggleClass('open');
                 $('#badgesSubmenu').toggleClass('open');
             });
@@ -4258,8 +4335,8 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
             // Countdown
             function updateCountdown() {
                 let days = 16, hours = 17, minutes = 45, seconds = 19;
-                
-                setInterval(function() {
+
+                setInterval(function () {
                     seconds--;
                     if (seconds < 0) {
                         seconds = 59;
@@ -4273,7 +4350,7 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
                             }
                         }
                     }
-                    
+
                     $('#countdown').html(`
                         <span>${days}<small>Days</small></span>
                         <span>${hours}<small>Hours</small></span>
@@ -4285,208 +4362,209 @@ $('#bulkUploadModal').on('shown.bs.modal', function () {
             updateCountdown();
 
             // Filter functionality
-            $('#searchKeyword').on('keyup', function() {
+            $('#searchKeyword').on('keyup', function () {
                 table.search(this.value).draw();
             });
 
-            $('#filterStatus').on('change', function() {
+            $('#filterStatus').on('change', function () {
                 table.column(9).search(this.value).draw();
             });
 
-            $('#filterTickets').on('change', function() {
+            $('#filterTickets').on('change', function () {
                 table.column(4).search(this.value).draw();
             });
 
-            $('#recordType').on('change', function() {
+            $('#recordType').on('change', function () {
                 loadRecords($(this).val());
             });
 
-          
+
             loadRecords();
-          
+
         });
 
     </script>
 
     <script>
-       $(document).on(
-    'click',
-    '#openMappingBtn',
-    function () {
+        $(document).on(
+            'click',
+            '#openMappingBtn',
+            function () {
 
-        openMappingModal();
+                openMappingModal();
 
-    }
-);
+            }
+        );
     </script>
     <script>
         function openMappingModal() {
 
-    const columns =
-        JSON.parse(
-            localStorage.getItem('columns')
-        ) || [];
+            const columns =
+                JSON.parse(
+                    localStorage.getItem('columns')
+                ) || [];
 
-    const selects = [
+            const selects = [
 
-        '#firstNameMap',
-        '#lastNameMap',
-        '#emailMap',
-        '#jobTitleMap',
-        '#companyMap',
-        '#phoneMap'
+                '#firstNameMap',
+                '#lastNameMap',
+                '#emailMap',
+                '#jobTitleMap',
+                '#companyMap',
+                '#phoneMap'
 
-    ];
+            ];
 
-    selects.forEach(select => {
+            selects.forEach(select => {
 
-        $(select).empty();
+                $(select).empty();
 
-        columns.forEach(column => {
+                columns.forEach(column => {
 
-            $(select).append(
-                `<option value="${column}">
+                    $(select).append(
+                        `<option value="${column}">
                     ${column}
                 </option>`
-            );
+                    );
 
-        });
-
-    });
-
-    $('#mappingModal').modal('show');
-}
-    </script>   
-
-
-    <script>
-
-       
-                 function getCookie(name) {
-                    let cookieValue = null;
-
-                    if (document.cookie && document.cookie !== "") {
-                        const cookies = document.cookie.split(";");
-
-                        for (let cookie of cookies) {
-                            cookie = cookie.trim();
-
-                            if (cookie.startsWith(name + "=")) {
-                                cookieValue = decodeURIComponent(
-                                    cookie.substring(name.length + 1)
-                                );
-                                break;
-                            }
-                        }
-                    }
-
-                    return cookieValue;
-                }
-
-                const csrftoken = getCookie("csrftoken");
-
-                axios.defaults.withCredentials = true;
-                axios.defaults.headers.common["X-CSRFToken"] = csrftoken;
-
-                console.log("CSRF Token:", csrftoken);
-                console.log(typeof csrftoken);
-
-
-
-$('#saveMappingBtn').click(async function () {
-
-    const batchId = localStorage.getItem('batchId');
-
-    const payload = {
-        [$('#firstNameMap').val()]: 'First Name',
-        [$('#lastNameMap').val()]: 'Last Name',
-        [$('#emailMap').val()]: 'Email',
-        [$('#jobTitleMap').val()]: 'Job Title',
-        [$('#companyMap').val()]: 'Company',
-        [$('#phoneMap').val()]: 'Phone'
-    };
-
-    try {
-
-        await axios.post(
-            `/upload-batch/${batchId}/mapping/`,
-            payload,
-            {
-                headers: {
-                    "X-CSRFToken": csrftoken
-                },
-                withCredentials: true
-            }
-        );
-
-        await Swal.fire({
-            icon: 'success',
-            title: 'Mapping Saved',
-            text: 'Columns mapped successfully.',
-            confirmButtonColor: '#e74c3c'
-        });
-
-        $('#openMappingBtn').hide();
-        $('#mappingModal').modal('hide');
-
-        table.ajax.reload(null, false);
-
-    } catch (error) {
-
-        console.error(error);
-
-        Swal.fire({
-            icon: 'error',
-            title: 'Mapping Failed',
-            text: error.response?.data?.detail || 'Could not save mapping.'
-        });
-
-    }
-});
-    
-    </script>
-
-
-    <script>
-     async function loadTicketTypes() {
-
-    try {
-
-        const response = await axios.get(
-            '/ticket-types/'
-        );
-
-        $('.ticket-select').each(function () {
-
-            $(this).find('option:not(:first)').remove();
-
-            response.data.forEach(ticket => {
-
-                $(this).append(
-                    `<option value="${ticket.id}">
-                        ${ticket.name}
-                    </option>`
-                );
+                });
 
             });
 
+            $('#mappingModal').modal('show');
+        }
+    </script>
+
+
+    <script>
+
+
+        function getCookie(name) {
+            let cookieValue = null;
+
+            if (document.cookie && document.cookie !== "") {
+                const cookies = document.cookie.split(";");
+
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+
+                    if (cookie.startsWith(name + "=")) {
+                        cookieValue = decodeURIComponent(
+                            cookie.substring(name.length + 1)
+                        );
+                        break;
+                    }
+                }
+            }
+
+            return cookieValue;
+        }
+
+        const csrftoken = getCookie("csrftoken");
+
+        axios.defaults.withCredentials = true;
+        axios.defaults.headers.common["X-CSRFToken"] = csrftoken;
+
+        console.log("CSRF Token:", csrftoken);
+        console.log(typeof csrftoken);
+
+
+
+        $('#saveMappingBtn').click(async function () {
+
+            const batchId = localStorage.getItem('batchId');
+
+            const payload = {
+                [$('#firstNameMap').val()]: 'First Name',
+                [$('#lastNameMap').val()]: 'Last Name',
+                [$('#emailMap').val()]: 'Email',
+                [$('#jobTitleMap').val()]: 'Job Title',
+                [$('#companyMap').val()]: 'Company',
+                [$('#phoneMap').val()]: 'Phone'
+            };
+
+            try {
+
+                await axios.post(
+                    `/upload-batch/${batchId}/mapping/`,
+                    payload,
+                    {
+                        headers: {
+                            "X-CSRFToken": csrftoken
+                        },
+                        withCredentials: true
+                    }
+                );
+
+                await Swal.fire({
+                    icon: 'success',
+                    title: 'Mapping Saved',
+                    text: 'Columns mapped successfully.',
+                    confirmButtonColor: '#e74c3c'
+                });
+
+                $('#openMappingBtn').hide();
+                $('#mappingModal').modal('hide');
+
+                table.ajax.reload(null, false);
+
+            } catch (error) {
+
+                console.error(error);
+
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Mapping Failed',
+                    text: error.response?.data?.detail || 'Could not save mapping.'
+                });
+
+            }
         });
 
-    } catch (error) {
+    </script>
 
-        console.error(error);
 
-    }
+    <script>
+        async function loadTicketTypes() {
 
-}
+            try {
+
+                const response = await axios.get(
+                    '/ticket-types/'
+                );
+
+                $('.ticket-select').each(function () {
+
+                    $(this).find('option:not(:first)').remove();
+
+                    response.data.forEach(ticket => {
+
+                        $(this).append(
+                            `<option value="${ticket.id}">
+                        ${ticket.name}
+                    </option>`
+                        );
+
+                    });
+
+                });
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
     </script>
 
     <script>
-       $('#sendInvitationModal').on('shown.bs.modal', function () {
+        $('#sendInvitationModal').on('shown.bs.modal', function () {
 
-    loadTicketTypes();
+            loadTicketTypes();
 
-});
+        });
     </script>
 </body>
+
 </html>

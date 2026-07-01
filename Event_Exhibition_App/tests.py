@@ -6,19 +6,28 @@ from .models import TicketType, Badge, UploadBatch, UploadRecord, Invitation, Ex
 
 class CreateBadgeTests(APITestCase):
     def setUp(self):
+        self.user = User.objects.create_user(username='exhibitor', password='secret123')
+        self.exhibitor = Exhibitor.objects.create(user=self.user, company_name='Acme Ltd', allocated_badges=10)
         self.ticket_type = TicketType.objects.create(name="VIP", allocated_count=10)
+        self.client.force_authenticate(user=self.user)
 
     def test_upload_records_list_filters_by_batch_and_paginates(self):
-        batch_one = UploadBatch.objects.create(batch_name="Batch 1", file_name="batch1.xlsx")
-        batch_two = UploadBatch.objects.create(batch_name="Batch 2", file_name="batch2.xlsx")
+        # batch_one belongs to self.exhibitor
+        batch_one = UploadBatch.objects.create(batch_name="Batch 1", file_name="batch1.xlsx", exhibitor=self.exhibitor)
+        
+        # batch_two belongs to a different exhibitor
+        other_user = User.objects.create_user(username='other_exhibitor', password='secret123')
+        other_exhibitor = Exhibitor.objects.create(user=other_user, company_name='Other Ltd', allocated_badges=10)
+        batch_two = UploadBatch.objects.create(batch_name="Batch 2", file_name="batch2.xlsx", exhibitor=other_exhibitor)
 
         UploadRecord.objects.create(batch=batch_one, row_data={"First Name": "Alice"}, is_valid=True)
         UploadRecord.objects.create(batch=batch_one, row_data={"First Name": "Bob"}, is_valid=False)
         UploadRecord.objects.create(batch=batch_two, row_data={"First Name": "Carol"}, is_valid=True)
 
-        response = self.client.get(f"/upload-batch/{batch_one.id}/records/?page=1&page_size=1")
+        response = self.client.get("/upload-records/?page=1&page_size=1")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # It should only return records for self.exhibitor's batches (batch_one has 2 records)
         self.assertEqual(response.data["count"], 2)
         self.assertEqual(len(response.data["results"]), 1)
         self.assertTrue(response.data["has_more"])
@@ -61,11 +70,6 @@ class CreateBadgeTests(APITestCase):
         self.assertIn('terms_accepted', response.data)
 
     def test_send_invitation_attaches_invitation_to_logged_in_exhibitor(self):
-        user = User.objects.create_user(username='exhibitor', password='secret123')
-        exhibitor = Exhibitor.objects.create(user=user, company_name='Acme Ltd')
-
-        self.client.force_authenticate(user=user)
-
         response = self.client.post('/send-invitation/', {
             'invitations': [{
                 'first_name': 'Jane',
@@ -77,5 +81,31 @@ class CreateBadgeTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         invitation = Invitation.objects.get(email='jane@example.com')
-        self.assertEqual(invitation.exhibitor, exhibitor)
+        self.assertEqual(invitation.exhibitor, self.exhibitor)
+
+    def test_process_upload_batch_robustness(self):
+        from .views import process_upload_batch
+        
+        # Test CSV upload processing robustness
+        csv_content = b"First Name,Last Name,Email,Phone,Job Title,Company\nAlice,Smith,alice@example.com,1234567890,Manager,Acme Corp\nBob,Jones,123456,9876543210,Developer,Beta Corp"
+        batch = UploadBatch.objects.create(batch_name="CSV Batch", file_name="test.csv", exhibitor=self.exhibitor)
+        
+        process_upload_batch(batch.id, "test.csv", csv_content)
+        
+        batch.refresh_from_db()
+        self.assertEqual(batch.status, "completed")
+        self.assertEqual(batch.total_records, 2)
+        
+        records = batch.records.all()
+        self.assertEqual(records.count(), 2)
+        
+        # Verify Alice is valid
+        alice_rec = next(r for r in records if r.row_data.get("First Name") == "Alice")
+        self.assertTrue(alice_rec.is_valid)
+        self.assertEqual(alice_rec.row_data.get("Email"), "alice@example.com")
+        
+        # Verify Bob is invalid because of bad email format, but didn't crash
+        bob_rec = next(r for r in records if r.row_data.get("First Name") == "Bob")
+        self.assertFalse(bob_rec.is_valid)
+        self.assertIn("Invalid email format", bob_rec.error_message)
 

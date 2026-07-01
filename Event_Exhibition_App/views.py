@@ -431,22 +431,58 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
     batch = UploadBatch.objects.get(id=batch_id)
 
     try:
-        workbook = load_workbook(
-            BytesIO(file_bytes),
-            read_only=True,
-            data_only=True
-        )
-        sheet = workbook.active
+        is_csv = file_name.lower().endswith('.csv')
+        rows_data = []
 
-        if columns is None:
-            columns = []
+        if is_csv:
+            import csv
+            from io import StringIO
+            try:
+                text = file_bytes.decode('utf-8-sig')
+            except UnicodeDecodeError:
+                text = file_bytes.decode('latin-1')
 
-            for cell in sheet[1]:
-                columns.append(cell.value)
+            reader = csv.reader(StringIO(text))
+            try:
+                file_columns = next(reader)
+            except StopIteration:
+                file_columns = []
+            
+            # Clean columns: strip whitespace and ignore None/empty
+            file_columns = [str(c).strip() if c is not None else "" for c in file_columns]
+
+            if columns is None or not columns:
+                columns = file_columns
+            else:
+                columns = [str(c).strip() if c is not None else "" for c in columns]
+
+            for row in reader:
+                rows_data.append(row)
+        else:
+            workbook = load_workbook(
+                BytesIO(file_bytes),
+                read_only=True,
+                data_only=True
+            )
+            sheet = workbook.active
+
+            if columns is None or not columns:
+                columns = []
+                for cell in sheet[1]:
+                    val = str(cell.value).strip() if cell.value is not None else ""
+                    columns.append(val)
+            else:
+                columns = [str(c).strip() if c is not None else "" for c in columns]
+
+            for row in sheet.iter_rows(
+                min_row=2,
+                values_only=True
+            ):
+                rows_data.append(row)
+
+            workbook.close()
 
         uploaded_emails = set()
-
-     
 
         total_records = 0
         valid_records = 0
@@ -454,21 +490,24 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
         records_to_create = []
         batch_size = 2000
 
-        for row in sheet.iter_rows(
-            min_row=2,
-            values_only=True
-        ):
-
+        for row in rows_data:
             row_data = dict(zip(columns, row))
 
             errors = []
 
-            first_name = row_data.get("First Name")
-            last_name = row_data.get("Last Name")
-            email = row_data.get("Email")
-            phone = row_data.get("Phone")
-            job_title = row_data.get("Job Title")
-            company = row_data.get("Company")
+            # Clean and normalize fields to stripped strings or None
+            def clean_field(val):
+                if val is None:
+                    return None
+                s = str(val).strip()
+                return s if s else None
+
+            first_name = clean_field(row_data.get("First Name"))
+            last_name = clean_field(row_data.get("Last Name"))
+            email = clean_field(row_data.get("Email"))
+            phone = clean_field(row_data.get("Phone"))
+            job_title = clean_field(row_data.get("Job Title"))
+            company = clean_field(row_data.get("Company"))
 
             if not first_name:
                 errors.append("First Name is required")
@@ -477,11 +516,8 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
                 errors.append("Last Name is required")
 
             if not email:
-
                 errors.append("Email is required")
-
             else:
-
                 email_pattern = (
                     r'^[A-Za-z0-9._%+-]+'
                     r'@[A-Za-z0-9.-]+'
@@ -490,18 +526,14 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
 
                 if not re.match(email_pattern, email):
                     errors.append("Invalid email format")
-
                 elif email in uploaded_emails:
                     errors.append("Duplicate email in uploaded file")
 
-
             if not phone:
                 errors.append("Phone is required")
-
-            elif not str(phone).isdigit():
+            elif not phone.isdigit():
                 errors.append("Phone must contain only digits")
-
-            elif len(str(phone)) < 10:
+            elif len(phone) < 10:
                 errors.append("Phone must be at least 10 digits")
 
             if not job_title:
@@ -516,8 +548,6 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
             # Keep track of uploaded emails
             if email:
                 uploaded_emails.add(email)
-
-          
 
             if is_valid:
                 valid_records += 1
@@ -538,27 +568,21 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
             total_records += 1
 
             if len(records_to_create) >= batch_size:
-
                 UploadRecord.objects.bulk_create(
                     records_to_create,
                     batch_size=1000
                 )
-
                 records_to_create.clear()
 
         if records_to_create:
-
             UploadRecord.objects.bulk_create(
                 records_to_create,
                 batch_size=1000
             )
 
-        workbook.close()
-
         batch.total_records = total_records
         batch.valid_records = valid_records
         batch.invalid_records = invalid_records
-        
         batch.status = "completed"
 
         batch.save(
@@ -571,14 +595,13 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
         )
 
     except Exception as exc:
-        
         batch.status = "failed"
         batch.save(update_fields=["status"])
-        
-
         print(
             f"Upload processing failed for batch {batch_id}: {exc}"
         )
+        import traceback
+        traceback.print_exc()
 
 class UploadBatchStatusAPIView(APIView):
 
@@ -644,17 +667,38 @@ class UploadBatchAPIView(APIView):
         file_bytes = file.read()
         columns = []
 
-        try:
-            workbook = load_workbook(
-                BytesIO(file_bytes),
-                read_only=True,
-                data_only=True
-            )
-            sheet = workbook.active
-            columns = [cell.value for cell in sheet[1]]
-            workbook.close()
-        except Exception:
-            columns = []
+        is_csv = file.name.lower().endswith('.csv')
+
+        if is_csv:
+            try:
+                import csv
+                from io import StringIO
+                try:
+                    text = file_bytes.decode('utf-8-sig')
+                except UnicodeDecodeError:
+                    text = file_bytes.decode('latin-1')
+                
+                reader = csv.reader(StringIO(text))
+                try:
+                    columns = next(reader)
+                except StopIteration:
+                    columns = []
+                columns = [str(c).strip() if c is not None else "" for c in columns]
+            except Exception as e:
+                print("Failed to parse CSV columns:", e)
+                columns = []
+        else:
+            try:
+                workbook = load_workbook(
+                    BytesIO(file_bytes),
+                    read_only=True,
+                    data_only=True
+                )
+                sheet = workbook.active
+                columns = [str(cell.value).strip() if cell.value is not None else "" for cell in sheet[1]]
+                workbook.close()
+            except Exception:
+                columns = []
 
         thread = threading.Thread(
             target=process_upload_batch,
