@@ -2919,12 +2919,41 @@
 
                             const merged = [...formattedBadges, ...formattedUploads];
 
-                            // Sort merged list by createdAtRaw descending (newest first)
-                            merged.sort((a, b) => {
-                                const dateA = a.createdAtRaw || '';
-                                const dateB = b.createdAtRaw || '';
-                                return dateB.localeCompare(dateA);
-                            });
+                            // Sort merged list based on user selection or fall back to chronological
+                            if (data.order && data.order.length > 0) {
+                                const colIndex = data.order[0].column;
+                                const dir = data.order[0].dir;
+                                const columnsMapJS = [
+                                    null,           // Checkbox
+                                    'name',         // NAME
+                                    'jobTitle',     // JOB TITLE
+                                    'source',       // SOURCE
+                                    'ticketClass',  // TICKET CLASS
+                                    'ticketId',     // TICKET ID
+                                    'companyName',  // COMPANY NAME
+                                    null,           // INVITATION LINK
+                                    'status'        // STATUS
+                                ];
+                                const field = columnsMapJS[colIndex];
+                                if (field) {
+                                    merged.sort((a, b) => {
+                                        let valA = a[field] || '';
+                                        let valB = b[field] || '';
+                                        if (typeof valA === 'string') valA = valA.toLowerCase();
+                                        if (typeof valB === 'string') valB = valB.toLowerCase();
+                                        
+                                        if (valA < valB) return dir === 'asc' ? -1 : 1;
+                                        if (valA > valB) return dir === 'asc' ? 1 : -1;
+                                        return 0;
+                                    });
+                                }
+                            } else {
+                                merged.sort((a, b) => {
+                                    const dateA = a.createdAtRaw || '';
+                                    const dateB = b.createdAtRaw || '';
+                                    return dateB.localeCompare(dateA);
+                                });
+                            }
 
                             const total = (badgePayload.count || badges.length) + (uploadPayload.count || uploads.length);
 
