@@ -362,7 +362,9 @@ class DeleteOnCloseFileResponse(FileResponse):
 class ExportBadgesAPIView(APIView):
 
     def get(self, request):
-        exhibitor = getattr(request.user, 'exhibitor', None)
+        exhibitor = resolve_exhibitor_from_request(request)
+        if not exhibitor:
+            return HttpResponse("Unauthorized", status=401)
 
         wb = Workbook(write_only=True)
         ws = wb.create_sheet(title="All Records")
@@ -377,20 +379,24 @@ class ExportBadgesAPIView(APIView):
             "Phone number"
         ])
 
-        if exhibitor:
-            badges = Badge.objects.filter(exhibitor=exhibitor).select_related('ticket').iterator(chunk_size=2000)
-            uploads = UploadRecord.objects.filter(batch__exhibitor=exhibitor).order_by("-id").iterator(chunk_size=2000)
-        else:
-            badges = Badge.objects.all().select_related('ticket').iterator(chunk_size=2000)
-            uploads = UploadRecord.objects.all().order_by("-id").iterator(chunk_size=2000)
+        # Pre-fetch invitations in one query to avoid N+1 query performance bottleneck
+        invitations_qs = Invitation.objects.filter(exhibitor=exhibitor)
+        invitation_map = {}
+        for inv in invitations_qs:
+            if inv.email:
+                invitation_map[inv.email.lower().strip()] = inv.invitation_token
+
+        badges = Badge.objects.filter(exhibitor=exhibitor).select_related('ticket').iterator(chunk_size=2000)
+        uploads = UploadRecord.objects.filter(batch__exhibitor=exhibitor).order_by("-id").iterator(chunk_size=2000)
 
         # Write Badge Creations
         for badge in badges:
             inv_link = "-"
-            inv = Invitation.objects.filter(email=badge.email).first()
-            if inv:
+            email_lower = badge.email.lower().strip() if badge.email else ""
+            token = invitation_map.get(email_lower)
+            if token:
                 host = request.get_host()
-                inv_link = f"http://{host}/register/?token={inv.invitation_token}"
+                inv_link = f"http://{host}/register/?token={token}"
 
             ws.append([
                 f"{badge.first_name} {badge.last_name}".strip(),
@@ -412,10 +418,10 @@ class ExportBadgesAPIView(APIView):
             inv_link = "-"
             email = row_data.get("Email")
             if email:
-                inv = Invitation.objects.filter(email=email).first()
-                if inv:
+                token = invitation_map.get(email.lower().strip())
+                if token:
                     host = request.get_host()
-                    inv_link = f"http://{host}/register/?token={inv.invitation_token}"
+                    inv_link = f"http://{host}/register/?token={token}"
 
             ws.append([
                 name or "-",
@@ -584,12 +590,14 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
 
                 if not re.match(email_pattern, email):
                     errors.append("Invalid email format")
-                elif email in uploaded_emails:
+                elif email.lower().strip() in uploaded_emails:
                     errors.append("Duplicate email in uploaded file")
                 else:
-                    from .models import Visitor
+                    from .models import Visitor, UploadRecord
                     if Badge.objects.filter(email__iexact=email).exists() or Visitor.objects.filter(email__iexact=email).exists():
                         errors.append("Email already registered")
+                    elif UploadRecord.objects.filter(is_valid=True, row_data__Email__iexact=email).exclude(batch=batch).exists():
+                        errors.append("Email already registered in another upload")
 
             # Sanitize phone formatting characters for validation
             phone_clean = re.sub(r"[\s\-\+\(\)]", "", phone) if phone else ""
@@ -610,9 +618,9 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
             # Calculate validity first
             is_valid = len(errors) == 0
 
-            # Keep track of uploaded emails
+            # Keep track of uploaded emails (case-insensitively)
             if email:
-                uploaded_emails.add(email)
+                uploaded_emails.add(email.lower().strip())
 
             if is_valid:
                 valid_records += 1

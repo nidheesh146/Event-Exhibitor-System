@@ -1723,6 +1723,31 @@
                             )
                         );
 
+                        // Load batch status to set the tab counts
+                        const lastBatchId = localStorage.getItem('batchId');
+                        let uploadTotal = 0;
+                        let uploadValid = 0;
+                        let uploadInvalid = 0;
+
+                        if (lastBatchId) {
+                            try {
+                                const batchRes = await axios.get(`/upload-batch-status/${lastBatchId}/`);
+                                const batch = batchRes.data;
+                                uploadTotal = batch.total_records || 0;
+                                uploadValid = batch.valid_records || 0;
+                                uploadInvalid = batch.invalid_records || 0;
+                            } catch (e) {
+                                console.error("Error fetching batch status for counts:", e);
+                            }
+                        }
+
+                        const totalInvited = data.total_invited_count || 0;
+                        const confirmedCount = data.confirmed_count || 0;
+
+                        $('#allCountBadge').text(totalInvited + uploadTotal);
+                        $('#validCountBadge').text(confirmedCount);
+                        $('#invalidCountBadge').text(uploadInvalid);
+
                     } catch (error) {
 
                         console.error("Dashboard Error:", error);
@@ -1827,7 +1852,7 @@
                         </select>
                     </div>
 
-                    <div class="col-md-2">
+                    <div class="col-md-2" style="display: none;">
                         <label class="form-label">Record Type</label>
                         <select class="form-select select2-filter" id="recordType">
                             <option value="all">All Records</option>
@@ -1837,6 +1862,46 @@
                     </div>
 
                 </div>
+            </div>
+
+            <!-- Custom styling for Record Type tabs -->
+            <style>
+                #recordTypeTabs .nav-link {
+                    color: #555;
+                    background-color: #f8f9fa;
+                    border: 1px solid #dee2e6;
+                    transition: all 0.2s ease-in-out;
+                }
+                #recordTypeTabs .nav-link:hover {
+                    background-color: #e9ecef;
+                }
+                #recordTypeTabs .nav-link.active {
+                    color: #fff;
+                    background-color: #6f42c1 !important;
+                    border-color: #6f42c1 !important;
+                    box-shadow: 0 4px 6px rgba(111, 66, 193, 0.2);
+                }
+            </style>
+
+            <!-- Record Type Navigation Tabs -->
+            <div class="mt-3 mb-3 animate-fade-in">
+                <ul class="nav nav-pills" id="recordTypeTabs" role="tablist" style="border-bottom: 1px solid #dee2e6; padding-bottom: 15px; gap: 10px;">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" data-value="all" type="button" role="tab" style="border-radius: 20px; font-weight: 500; padding: 6px 18px;">
+                            All Records <span class="badge bg-secondary ms-1" id="allCountBadge">0</span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-value="valid" type="button" role="tab" style="border-radius: 20px; font-weight: 500; padding: 6px 18px;">
+                            Valid Records <span class="badge bg-success ms-1" id="validCountBadge">0</span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" data-value="invalid" type="button" role="tab" style="border-radius: 20px; font-weight: 500; padding: 6px 18px;">
+                            Invalid Records <span class="badge bg-danger ms-1" id="invalidCountBadge">0</span>
+                        </button>
+                    </li>
+                </ul>
             </div>
 
             <!-- Bulk Actions Bar -->
@@ -2668,6 +2733,7 @@
                 $('#editModal').modal('hide');
                 Swal.fire({ icon: 'success', title: 'Record Updated' });
                 table.ajax.reload(null, false);
+                loadDashboardSummary();
 
             } catch (error) {
                 console.error(error);
@@ -4533,6 +4599,14 @@
 
             $('#recordType').on('change', function () {
                 loadRecords($(this).val());
+            });
+
+            // Tabs click event to trigger the hidden select element
+            $('#recordTypeTabs button').click(function () {
+                $('#recordTypeTabs button').removeClass('active');
+                $(this).addClass('active');
+                const val = $(this).attr('data-value');
+                $('#recordType').val(val).trigger('change');
             });
 
 
