@@ -86,8 +86,25 @@ class CreateBadgeTests(APITestCase):
     def test_process_upload_batch_robustness(self):
         from .views import process_upload_batch
         
+        # Pre-register Alice's email in Badge
+        Badge.objects.create(
+            exhibitor=self.exhibitor,
+            first_name="Alice",
+            last_name="Smith",
+            email="alice@example.com",
+            job_title="Manager",
+            company_name="Acme Corp",
+            phone_number="1234567890",
+            country_of_residence="UAE",
+            nationality="Emirati",
+            ticket=self.ticket_type,
+            status="confirmed"
+        )
+        
         # Test CSV upload processing robustness
-        csv_content = b"First Name,Last Name,Email,Phone,Job Title,Company\nAlice,Smith,alice@example.com,1234567890,Manager,Acme Corp\nBob,Jones,123456,9876543210,Developer,Beta Corp"
+        # Added extra formatting to phone numbers (plus, space, hyphens) and an empty trailing row
+        # Email "alice@example.com" should now be marked as duplicate in database
+        csv_content = b"First Name,Last Name,Email,Phone,Job Title,Company\nAlice,Smith,alice@example.com,+971 50-123-4567,Manager,Acme Corp\nBob,Jones,123456,(050) 987 6543,Developer,Beta Corp\n,,,,,  \n"
         batch = UploadBatch.objects.create(batch_name="CSV Batch", file_name="test.csv", exhibitor=self.exhibitor)
         
         process_upload_batch(batch.id, "test.csv", csv_content)
@@ -99,10 +116,10 @@ class CreateBadgeTests(APITestCase):
         records = batch.records.all()
         self.assertEqual(records.count(), 2)
         
-        # Verify Alice is valid
+        # Verify Alice is now INVALID because of duplicate email in database
         alice_rec = next(r for r in records if r.row_data.get("First Name") == "Alice")
-        self.assertTrue(alice_rec.is_valid)
-        self.assertEqual(alice_rec.row_data.get("Email"), "alice@example.com")
+        self.assertFalse(alice_rec.is_valid)
+        self.assertIn("Email already registered", alice_rec.error_message)
         
         # Verify Bob is invalid because of bad email format, but didn't crash
         bob_rec = next(r for r in records if r.row_data.get("First Name") == "Bob")

@@ -536,6 +536,10 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
         batch_size = 2000
 
         for row in rows_data:
+            # Skip completely empty rows
+            if not any(str(val).strip() for val in row if val is not None):
+                continue
+
             row_data = dict(zip(columns, row))
 
             errors = []
@@ -573,12 +577,19 @@ def process_upload_batch(batch_id, file_name, file_bytes, columns=None):
                     errors.append("Invalid email format")
                 elif email in uploaded_emails:
                     errors.append("Duplicate email in uploaded file")
+                else:
+                    from .models import Visitor
+                    if Badge.objects.filter(email__iexact=email).exists() or Visitor.objects.filter(email__iexact=email).exists():
+                        errors.append("Email already registered")
+
+            # Sanitize phone formatting characters for validation
+            phone_clean = re.sub(r"[\s\-\+\(\)]", "", phone) if phone else ""
 
             if not phone:
                 errors.append("Phone is required")
-            elif not phone.isdigit():
+            elif not phone_clean.isdigit():
                 errors.append("Phone must contain only digits")
-            elif len(phone) < 10:
+            elif len(phone_clean) < 10:
                 errors.append("Phone must be at least 10 digits")
 
             if not job_title:
